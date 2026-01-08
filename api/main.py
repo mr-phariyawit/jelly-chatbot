@@ -4,14 +4,14 @@ Tracks chat sessions and messages from all users
 """
 
 from datetime import datetime, timedelta
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import uuid
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-from fastapi import FastAPI, HTTPException, Depends, Query, UploadFile, File as FastAPIFile, Request
+from fastapi import FastAPI, HTTPException, Depends, Query, UploadFile, File as FastAPIFile, Request, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session as DBSession
 from sqlalchemy import desc, text
@@ -256,8 +256,12 @@ from linebot.v3.messaging import (
     Configuration,
     ApiClient,
     MessagingApi,
+    MessagingApiBlob,
     ReplyMessageRequest,
     TextMessage,
+    QuickReply,
+    QuickReplyItem,
+    PostbackAction,
     ApiException
 )
 from linebot.v3.webhooks import (
@@ -269,89 +273,59 @@ from processor import Processor
 # Initialize Processor (Single instance)
 processor = Processor()
 
-@app.post("/webhook/{bot_id_prefix}")
-async def active_webhook(
-    bot_id_prefix: str, 
-    request: Request, # Changed to Request to get headers/body
-    db: DBSession = Depends(get_db)
+import json
+from database import SessionLocal
+
+def process_webhook_event_background(
+    bot_id: str,
+    bot_channel_access_token: str,
+    event: dict
 ):
     """
-    Handle incoming LINE webhook events.
-    Routes events to the correct bot based on ID prefix.
+    Background task to process LINE webhook events.
+    Uses its own DB session since FastAPI's session is closed after response.
     """
-    # 1. Find the bot
-    webhook_path = f"/webhook/{bot_id_prefix}"
-    bot = db.query(Bot).filter(Bot.webhook_path == webhook_path).first()
-    
-    if not bot:
-        # Fallback: try to match by prefix just in case
-        print(f"Warning: No exact match for {webhook_path}, searching by prefix")
-        raise HTTPException(status_code=404, detail="Bot not found")
-
-    if not bot.channel_secret or not bot.channel_access_token:
-        print(f"Error: Bot {bot.name} missing credentials")
-        raise HTTPException(status_code=500, detail="Bot configuration error")
-
-    # 2. Validate Signature & Parse Events
-    signature = request.headers.get('X-Line-Signature', '')
-    body = await request.body()
-    body_str = body.decode('utf-8')
-
-    handler = WebhookHandler(bot.channel_secret)
-    configuration = Configuration(access_token=bot.channel_access_token)
-    
+    db = SessionLocal()
     try:
-        handler.handle(body_str, signature)
-    except InvalidSignatureError:
-        raise HTTPException(status_code=400, detail="Invalid signature")
+        configuration = Configuration(access_token=bot_channel_access_token)
 
-    # 3. Process Events Manually (or use handler decorators if we refactor)
-    # Since we need dynamic handlers per bot, we parse JSON manually after validation
-    # or iterate through handler's result if possible. 
-    # For simplicity/speed in this dynamic setup: Use JSON parsing since we already validated signature.
-    
-    import json
-    events = json.loads(body_str).get("events", [])
-    
-    with ApiClient(configuration) as api_client:
-        line_bot_api = MessagingApi(api_client)
-        
-        for event in events:
-            if event.get("type") == "message" and event.get("message", {}).get("type") == "text":
+        with ApiClient(configuration) as api_client:
+            line_bot_api = MessagingApi(api_client)
+
+            if event.get("type") == "message":
                 user_id = event["source"]["userId"]
                 reply_token = event["replyToken"]
-                text_content = event["message"]["text"]
-                
-                # --- Session Logic ---
-                # Check for active session
+                message_type = event.get("message", {}).get("type")
+
+                # Retrieve Session
                 session = (
                     db.query(Session)
-                    .filter(Session.bot_id == bot.id)
+                    .filter(Session.bot_id == bot_id)
                     .filter(Session.user_id == user_id)
                     .filter(Session.status == "active")
                     .order_by(desc(Session.started_at))
                     .first()
                 )
 
-                # Check timeout
+                # Check timeout logic
                 if session:
                     last_msg = (
-                        db.query(Message)
-                        .filter(Message.session_id == session.id)
-                        .order_by(desc(Message.timestamp))
-                        .first()
+                       db.query(Message)
+                       .filter(Message.session_id == session.id)
+                       .order_by(desc(Message.timestamp))
+                       .first()
                     )
                     if last_msg and last_msg.timestamp < (datetime.utcnow() - timedelta(minutes=SESSION_TIMEOUT_MINUTES)):
                         session.status = "closed"
                         session.ended_at = last_msg.timestamp
                         db.commit()
                         session = None
-                
+
                 # Create session if needed
                 if not session:
                     session = Session(
                         id=str(uuid.uuid4()),
-                        bot_id=bot.id,
+                        bot_id=bot_id,
                         user_id=user_id,
                         started_at=datetime.utcnow(),
                         status="active"
@@ -359,34 +333,71 @@ async def active_webhook(
                     db.add(session)
                     db.commit()
                     db.refresh(session)
-                
-                # Log User Message
-                # Get conversation history for context
-                history_msgs = session.messages[-5:] if session.messages else [] # Last 5 messages
-                history_context = [
-                    {"role": m.role, "content": m.content} for m in history_msgs
-                ]
 
-                user_msg = Message(
-                    id=str(uuid.uuid4()),
-                    session_id=session.id,
-                    role="user",
-                    content=text_content,
-                    timestamp=datetime.utcnow()
-                )
-                db.add(user_msg)
-                db.commit()
+                # --- Handle Content ---
+                reply_text = "ขออภัยครับ รองรับเฉพาะข้อความและรูปภาพ"
+                should_escalate = False
 
-                # --- AI Processing ---
-                ai_result = processor.process_message(
-                    user_id=user_id,
-                    content=text_content,
-                    history=history_context,
-                    db=db,
-                    bot_id=bot.id
-                )
-                reply_text = ai_result["message"]
-                
+                if message_type == "text":
+                    text_content = event["message"]["text"]
+
+                    # Log User Message
+                    user_msg = Message(
+                        id=str(uuid.uuid4()),
+                        session_id=session.id,
+                        role="user",
+                        content=text_content,
+                        timestamp=datetime.utcnow()
+                    )
+                    db.add(user_msg)
+
+                    # AI Processing
+                    history_msgs = session.messages[-5:]
+                    history_context = [{"role": m.role, "content": m.content} for m in history_msgs]
+
+                    ai_result = processor.process_message(
+                        user_id=user_id,
+                        content=text_content,
+                        history=history_context,
+                        db=db,
+                        bot_id=bot_id
+                    )
+                    reply_text = ai_result["message"]
+                    should_escalate = ai_result["should_escalate"]
+
+                elif message_type == "image":
+                    message_id = event["message"]["id"]
+
+                    # Log User Message (Image)
+                    user_msg = Message(
+                        id=str(uuid.uuid4()),
+                        session_id=session.id,
+                        role="user",
+                        content=f"[Image Message: {message_id}]",
+                        timestamp=datetime.utcnow()
+                    )
+                    db.add(user_msg)
+
+                    # Get Image Content
+                    try:
+                        line_bot_blob_api = MessagingApiBlob(api_client)
+                        content = line_bot_blob_api.get_message_content(message_id)
+
+                        # Process Image
+                        ai_result = processor.process_image(
+                            user_id=user_id,
+                            image_content=content,
+                            db=db,
+                            bot_id=bot_id
+                        )
+                        reply_text = ai_result["message"]
+                        should_escalate = ai_result["should_escalate"]
+
+                    except Exception as e:
+                        print(f"Error getting image content: {e}")
+                        reply_text = "ขออภัยครับ ไม่สามารถดาวน์โหลดรูปภาพได้"
+                        should_escalate = True
+
                 # Log AI Message
                 ai_msg = Message(
                     id=str(uuid.uuid4()),
@@ -396,24 +407,132 @@ async def active_webhook(
                     timestamp=datetime.utcnow()
                 )
                 db.add(ai_msg)
-                
-                if ai_result["should_escalate"]:
+
+                if should_escalate:
                     session.is_escalated = True
-                    session.escalation_reason = "AI Detected Escalation Intent"
-                
+                    session.escalation_reason = "AI Detected Escalation (Image/Text)"
+
                 db.commit()
 
-                # --- Reply to User ---
+                # Reply
                 try:
+                    feedback_items = [
+                         QuickReplyItem(
+                             action=PostbackAction(
+                                 label="👍 Helpful",
+                                 data=f"action=feedback&score=1&msgId={ai_msg.id}&botId={bot_id}",
+                                 display_text="Helpful"
+                             )
+                         ),
+                         QuickReplyItem(
+                             action=PostbackAction(
+                                 label="👎 Not Helpful",
+                                 data=f"action=feedback&score=-1&msgId={ai_msg.id}&botId={bot_id}",
+                                 display_text="Not Helpful"
+                             )
+                         )
+                    ]
+
                     line_bot_api.reply_message(
                         ReplyMessageRequest(
                             reply_token=reply_token,
-                            messages=[TextMessage(text=reply_text)]
+                            messages=[
+                                TextMessage(
+                                    text=reply_text,
+                                    quick_reply=QuickReply(items=feedback_items)
+                                )
+                            ]
                         )
                     )
                 except Exception as e:
                     print(f"Error sending reply: {e}")
 
+            # --- Handle Postback (Feedback) ---
+            elif event.get("type") == "postback":
+                data = event["postback"]["data"]
+                params = dict(x.split('=') for x in data.split('&'))
+
+                if params.get("action") == "feedback":
+                    try:
+                        score = int(params.get("score"))
+                        msg_id = params.get("msgId")
+                        bot_id_param = params.get("botId")
+                        user_id = event["source"]["userId"]
+
+                        from models import Feedback
+                        fb = Feedback(
+                            id=str(uuid.uuid4()),
+                            user_id=user_id,
+                            message_id=msg_id,
+                            bot_id=bot_id_param,
+                            score=score
+                        )
+                        db.add(fb)
+                        db.commit()
+
+                        reply_token = event["replyToken"]
+                        line_bot_api.reply_message(
+                             ReplyMessageRequest(
+                                 reply_token=reply_token,
+                                 messages=[TextMessage(text="ขอบคุณสำหรับ feedback ครับ! 🙏")]
+                             )
+                        )
+
+                    except Exception as e:
+                        print(f"Feedback error: {e}")
+    except Exception as e:
+        print(f"Background processing error: {e}")
+    finally:
+        db.close()
+
+
+@app.post("/webhook/{bot_id_prefix}")
+async def active_webhook(
+    bot_id_prefix: str,
+    request: Request,
+    background_tasks: BackgroundTasks,
+    db: DBSession = Depends(get_db)
+):
+    """
+    Handle incoming LINE webhook events.
+    Returns 200 immediately, processes in background.
+    """
+    # 1. Find the bot (fast DB query)
+    webhook_path = f"/webhook/{bot_id_prefix}"
+    bot = db.query(Bot).filter(Bot.webhook_path == webhook_path).first()
+
+    if not bot:
+        print(f"Warning: No exact match for {webhook_path}")
+        raise HTTPException(status_code=404, detail="Bot not found")
+
+    if not bot.channel_secret or not bot.channel_access_token:
+        print(f"Error: Bot {bot.name} missing credentials")
+        raise HTTPException(status_code=500, detail="Bot configuration error")
+
+    # 2. Validate Signature (fast)
+    signature = request.headers.get('X-Line-Signature', '')
+    body = await request.body()
+    body_str = body.decode('utf-8')
+
+    handler = WebhookHandler(bot.channel_secret)
+
+    try:
+        handler.handle(body_str, signature)
+    except InvalidSignatureError:
+        raise HTTPException(status_code=400, detail="Invalid signature")
+
+    # 3. Schedule background processing for each event
+    events = json.loads(body_str).get("events", [])
+
+    for event in events:
+        background_tasks.add_task(
+            process_webhook_event_background,
+            bot.id,
+            bot.channel_access_token,
+            event
+        )
+
+    # 4. Return 200 immediately - LINE is happy!
     return {"status": "ok"}
 
 import os
@@ -589,26 +708,59 @@ async def upload_file(
     if not bot:
         raise HTTPException(status_code=404, detail="Bot not found")
     
-    # Read file content
-    content = await file.read()
+    # helper to read file size without consuming stream permanently (we need to pass stream to extractor)
+    # Actually Extract method reads it.
+    # We can read it once, and pass bytes.
+    content_bytes = await file.read()
+    file_size = len(content_bytes)
     
-    # For text files, store content directly
-    file_content = None
-    if file.content_type and file.content_type.startswith('text/'):
-        file_content = content.decode('utf-8')
-    
+    # Extract Text using Ingestion Service
+    # We instantiate service just for extraction helper
+    file_content = ""
+    try:
+        # Re-wrap bytes for the service if it expects UploadFile or handle bytes directly?
+        # The service method `extract_text_from_upload` takes `file` (UploadFile).
+        # But we already read `content_bytes`.
+        # Let's use the internal methods of IngestionService directory since we have bytes
+        from ingestion_service import IngestionService
+        ingestion = IngestionService()
+        
+        if file.content_type == "application/pdf":
+            file_content = ingestion._parse_pdf(content_bytes)
+        elif file.content_type in ["text/csv", "application/vnd.ms-excel"]:
+            file_content = ingestion._parse_csv(content_bytes)
+        elif file.content_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+            file_content = ingestion._parse_excel(content_bytes)
+        else:
+            # Default Text
+            file_content = content_bytes.decode('utf-8', errors='ignore')
+            
+    except Exception as e:
+        print(f"Extraction failed: {e}")
+        # We continue with empty content or partial content
+        file_content = f"Error extracting content: {str(e)}"
+
     new_file = File(
         id=str(uuid.uuid4()),
         bot_id=bot_id,
         filename=file.filename,
         content_type=file.content_type,
         content=file_content,
-        size_bytes=len(content),
+        size_bytes=file_size,
     )
     
     db.add(new_file)
     db.commit()
     db.refresh(new_file)
+    
+    # Trigger Ingestion (Chunking & Embedding)
+    # Since we already have the text in new_file.content, process_file will use it.
+    try:
+        from ingestion_service import IngestionService
+        ingestion = IngestionService()
+        ingestion.process_file(db, new_file.id)
+    except Exception as e:
+        print(f"Ingestion failed: {e}")
     
     return FileResponse(
         id=new_file.id,
@@ -618,6 +770,28 @@ async def upload_file(
         size_bytes=new_file.size_bytes,
         uploaded_at=new_file.uploaded_at,
     )
+
+@app.get("/feedbacks", response_model=List[Dict[str, Any]])
+def get_feedbacks(bot_id: str = None, limit: int = 50, db: DBSession = Depends(get_db)):
+    """List user feedbacks"""
+    from models import Feedback
+    query = db.query(Feedback)
+    
+    if bot_id:
+        query = query.filter(Feedback.bot_id == bot_id)
+        
+    query = query.order_by(desc(Feedback.created_at)).limit(limit)
+    
+    results = []
+    for fb in query.all():
+        results.append({
+            "id": fb.id,
+            "score": fb.score,
+            "message_id": fb.message_id,
+            "user_id": fb.user_id,
+            "created_at": fb.created_at.isoformat()
+        })
+    return results
 
 
 @app.get("/bots/{bot_id}/files", response_model=List[FileResponse])

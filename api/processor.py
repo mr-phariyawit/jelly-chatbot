@@ -10,8 +10,9 @@ import logging
 from typing import Dict, Any, Optional, List
 
 import google.generativeai as genai
-from jira import JIRA
+# from jira import JIRA -> Moved to jira_service
 from linebot.v3.messaging import MessagingApi, ReplyMessageRequest, TextMessage
+from jira_service import JiraService
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -58,48 +59,87 @@ class Processor:
         gemini_key = os.getenv("GEMINI_API_KEY")
         if gemini_key:
             genai.configure(api_key=gemini_key)
-            self.model = genai.GenerativeModel('gemini-2.0-flash-exp') # Use latest available
+            self.model = genai.GenerativeModel('gemini-1.5-flash') # Fast and stable
         else:
             logger.warning("GEMINI_API_KEY not set")
             self.model = None
-
-    def _get_jira_client(self):
-        """Initialize Jira client on demand to handle dynamic creds if needed"""
-        jira_url = os.getenv("JIRA_URL", "https://jventures.atlassian.net")
-        jira_email = os.getenv("JIRA_EMAIL")
-        jira_token = os.getenv("JIRA_API_TOKEN")
-        
-        if not (jira_email and jira_token):
-            return None
             
-        return JIRA(server=jira_url, basic_auth=(jira_email, jira_token))
+        # Initialize Jira Service
+        self.jira_service = JiraService()
 
     def create_jira_ticket(self, summary: str, description: str, system: str = "General") -> Optional[str]:
-        """Create a Jira ticket for escalation"""
+        """Create a Jira ticket for escalation via JiraService"""
         try:
-            jira = self._get_jira_client()
-            if not jira:
-                logger.error("Jira credentials missing")
-                return None
-
-            issue_dict = {
-                'project': {'key': os.getenv("JIRA_PROJECT_KEY", "CS")},
-                'summary': summary,
-                'description': description,
-                'issuetype': {'name': 'Task'},
-                'labels': ['from-line-bot', system],
-            }
+            result = self.jira_service.create_ticket(summary, description, user_id=description.split("User ID: ")[-1].split("\n")[0]) # Extract user_id hack or just pass generic?
+            # Actually, the original caller passes user_id in description formatting.
+            # Let's clean this up.
+            # The caller passes a description like "User ID: ... \n\n ..."
+            # JiraService expects (summary, description, user_id).
+            # I will pass user_id="Unknown" if parsing fails, but better to fix call site.
+            # For now, let's just pass the whole description as description AND user_id.
+            # Wait, JiraService signature I wrote: create_ticket(summary, description, user_id)
+            # logic: description = f"{description}\n\n[Reported by Line User: {user_id}]"
+            # So I should pass the clean description.
             
-            new_issue = jira.create_issue(fields=issue_dict)
-            logger.info(f"Created Jira ticket: {new_issue.key}")
-            return new_issue.key
+            # Let's adjust this method to just call the service simply.
+            # Caller provides (summary, description).
+            # I will assume the caller puts user_id in description?
+            # LINES 280-285 in original code:
+            # ticket_key = self.create_jira_ticket(summary=..., description=f"User ID: {user_id}...")
+            
+            # So I will just pass user_id extracted or dummy.
+            match = re.search(r"User ID: (\S+)", description)
+            user_id_val = match.group(1) if match else "Unknown"
+            
+            result = self.jira_service.create_ticket(summary, description, user_id_val)
+            return result['key'] if result else None
             
         except Exception as e:
             logger.error(f"Failed to create Jira ticket: {e}")
             return None
 
-    def _fetch_knowledge_base(self, db: Session, bot_id: str) -> str:
-        """Fetch and concatenate text content from bot's knowledge base files"""
+    def _search_knowledge_base(self, db: Session, bot_id: str, query: str) -> str:
+        """Search knowledge base using Vector Similarity (if available) or full-text fallback"""
+        try:
+            from models import FileChunk, File
+            from pgvector.sqlalchemy import Vector
+            
+            # 1. Check if we have chunks for this bot
+            has_chunks = db.query(FileChunk).join(File).filter(File.bot_id == bot_id).first()
+            if not has_chunks:
+                logger.info("No vectors found, falling back to legacy full-text")
+                return self._fetch_knowledge_base_legacy(db, bot_id)
+
+            # 2. Embed Query
+            if not self.model: # Actually we need generic genai, not chat model
+                return ""
+                
+            embedding_result = genai.embed_content(
+                model='models/text-embedding-004',
+                content=query,
+                task_type="retrieval_query"
+            )
+            query_vector = embedding_result['embedding']
+            
+            # 3. Vector Search
+            # PostGres syntax: order_by(FileChunk.embedding.cosine_distance(query_vector))
+            chunks = db.query(FileChunk).join(File).filter(File.bot_id == bot_id)\
+                       .order_by(FileChunk.embedding.cosine_distance(query_vector))\
+                       .limit(5).all()
+            
+            if not chunks:
+                return ""
+                
+            logger.info(f"Vector search found {len(chunks)} relevant chunks")
+            return "\n\n".join([f"--- Context (from {c.file.filename}) ---\n{c.content}" for c in chunks])
+
+        except Exception as e:
+            logger.error(f"Vector search failed: {e}")
+            # Fallback to legacy
+            return self._fetch_knowledge_base_legacy(db, bot_id)
+
+    def _fetch_knowledge_base_legacy(self, db: Session, bot_id: str) -> str:
+        """Original method: Fetch all text content"""
         try:
             files = db.query(File).filter(
                 File.bot_id == bot_id,
@@ -111,8 +151,6 @@ class Processor:
 
             kb_content = []
             for f in files:
-                # Basic check for text content based on content_type or filename
-                # In main.py upload, we already filter/decode text/* types
                 if f.content:
                     kb_content.append(f"--- File: {f.filename} ---\n{f.content}")
             
@@ -120,6 +158,64 @@ class Processor:
         except Exception as e:
             logger.error(f"Failed to fetch knowledge base: {e}")
             return ""
+
+    def process_image(self, user_id: str, image_content: bytes, db: Session, bot_id: str) -> Dict[str, Any]:
+        """Process image message using Gemini Vision + RAG"""
+        logger.info(f"Processing image for Bot {bot_id}")
+        
+        if not self.model:
+             return {"message": "AI not ready", "should_escalate": False}
+
+        try:
+            # 1. Vision Analysis (Extract Error/Text)
+            # We use a specific prompt to get search-friendly text
+            vision_prompt = """
+            Analyze this image. If it shows an error message or technical issue, extract the key error text and describe the problem concisely. 
+            If it's just a general photo, describe what it is.
+            Output format: [Analysis] <description>
+            """
+            
+            # Create a Part object or pass bytes directly depending on SDK version.
+            # google.generativeai supports dict for blobs
+            image_blob = {
+                "mime_type": "image/jpeg", # Assumed, LINE sends JPEG mostly
+                "data": image_content
+            }
+            
+            vision_response = self.model.generate_content([vision_prompt, image_blob])
+            image_analysis = vision_response.text
+            logger.info(f"Image Analysis: {image_analysis}")
+            
+            # 2. RAG Search with Analysis
+            # We search the KB using the description of the error
+            rag_context = self._search_knowledge_base(db, bot_id, image_analysis)
+            
+            # 3. Final Answer Generation
+            final_prompt = f"""
+            User sent an image.
+            Image Analysis: {image_analysis}
+            
+            Relevant Knowledge Base Context:
+            {rag_context}
+            
+            Instruction:
+            Based on the image analysis and the knowledge base, provide a solution or helpful response to the user.
+            If the knowledge base has a specific fix for this error, Provide it clearly.
+            Response in Thai Language.
+            """
+            
+            final_response = self.model.generate_content(final_prompt)
+            return {
+                "message": final_response.text,
+                "should_escalate": "contact admin" in final_response.text.lower()
+            }
+
+        except Exception as e:
+            logger.error(f"Image processing failed: {e}")
+            return {
+                "message": "ขออภัยครับ เกิดข้อผิดพลาดในการประมวลผลรูปภาพ",
+                "should_escalate": True
+            }
 
     def process_message(self, user_id: str, content: str, history: List[Dict[str, str]], db: Session = None, bot_id: str = None) -> Dict[str, Any]:
         """
@@ -132,10 +228,10 @@ class Processor:
                 "should_escalate": False
             }
         
-        # 1. Fetch Knowledge Base (if DB enabled)
+        # 1. Fetch Knowledge Base (Vector or Legacy)
         knowledge_context = ""
         if db and bot_id:
-            knowledge_context = self._fetch_knowledge_base(db, bot_id)
+            knowledge_context = self._search_knowledge_base(db, bot_id, content)
             if knowledge_context:
                 knowledge_context = f"\n\nข้อมูลเพิ่มเติมจากฐานความรู้ (Knowledge Base):\n{knowledge_context}"
 
