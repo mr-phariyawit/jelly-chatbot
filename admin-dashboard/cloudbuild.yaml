@@ -12,4 +12,4 @@ steps:
 images:
   - "gcr.io/$PROJECT_ID/admin-dashboard"
 substitutions:
-  _NEXT_PUBLIC_API_URL: "https://session-api-182206907696.us-central1.run.app"
+  _NEXT_PUBLIC_API_URL: "https://session-api-687023036300.us-central1.run.app"
