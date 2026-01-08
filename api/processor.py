@@ -59,7 +59,7 @@ class Processor:
         gemini_key = os.getenv("GEMINI_API_KEY")
         if gemini_key:
             genai.configure(api_key=gemini_key)
-            self.model = genai.GenerativeModel('gemini-1.5-flash') # Fast and stable
+            self.model = genai.GenerativeModel('gemini-2.0-flash') # Fast and stable
         else:
             logger.warning("GEMINI_API_KEY not set")
             self.model = None
