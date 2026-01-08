@@ -1,0 +1,27 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Support conversations - only accessible by authenticated users
+    match /support_conversations/{conversationId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Support incidents - read by all authenticated, write by functions
+    match /support_incidents/{incidentId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only Cloud Functions can write
+    }
+    
+    // Knowledge base - read only
+    match /knowledge/{articleId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    // Support users - own profile only
+    match /support_users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

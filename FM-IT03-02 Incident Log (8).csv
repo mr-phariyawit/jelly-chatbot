@@ -1,0 +1,954 @@
+﻿"ID","วันที่","Name","จำนวนเคส","Environment","System","Raised by","Problem Category","ที่มาของปัญหา","ประเภท","ปัญหา JMB_CRM","สาเหตุ JMB_CRM","รายละเอียดของปัญหา","แนวทางการแก้ไข","ผลการแก้ไข","สาเหตุ","หมายเหตุ","ผู้แก้ไข","Category","สิ่งที่แนบมา","status","ผู้รับเรื่อง","cs name","Closed date"
+"12824","12/30/2025 6:25 PM","หลายสาขา 16 สาขา","16","PROD","JDID EKYC","Kavalin Sripet","System","Line","High (> 10 customers)",,,"ไม่ได้รับเลข OTP  ","แจ้งทางพี่หนิงตรวจสอบ",,,,,"ปัญหาแอพ","1","Done","Chokanan Pangket",,"12/30/2025 6:50 PM"
+"12823","12/31/2025 6:58 PM","หลายสาขา 2 สาขา","2","PROD","JAS_CRM","Sukritta Khan","System","Jas Family CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ
+","ทาง J point ทำการตรวจสอบแก้ไข",,,,,"Information","0","Done",,,"12/31/2025 9:00 PM"
+"12822","12/31/2025 8:21 PM","หลายสาขา 4  สาขา","4","PROD","JAS_CRM","Sukritta Khan","System","Jas Family CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ
+
+","ทาง J point ทำการตรวจสอบและเปลี่ยนเบอร์",,,,,"Change info","0","Done",,,"12/31/2025 9:00 PM"
+"12821","12/31/2025 7:38 PM","หลายสาขา 6 สาขา","6","PROD","JMB_CRM","Sukritta Khan","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ
+
+","ทาง J point ทำการตรวจสอบแก้ไขและเปลี่ยนเบอร์",,,,,"Change info","0","Done",,,"12/31/2025 8:20 PM"
+"12820","12/31/2025 7:38 PM","หลายสาขา 18 สาขา","18","PROD","JMB_CRM","Sukritta Khan","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ
+","ทีม J point ทำการตรวจสอบแก้ไข",,,"ไม่พบข้อมูลในระบบ",,"Information","0","Done",,,"12/31/2025 8:20 PM"
+"12819","12/31/2025 9:08 PM","Khant Ko Ko","1","PROD","ONE ID","Sukritta Khan","System","Facebook Page Join","Very low (1 customer)",,,"ไม่สามารถทำการ KYC ได้ ติดตรงถ่ายรูป Passport","แจ้งมิ้นตรวจสอบ  มิ้นแจ้งเรื่องนี้เคยแจ้งไปแล้วค่ะ แต่ยังไม่ได้คำตอ",,,,,"ปัญหาแอพ","0","Pending",,,
+"12818","12/31/2025 1:01 PM","Line : Neng","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละส่งฟอร์มทำการยืนยันการเป็นเจ้าของ / ส่งตรวจสอบสินเชื่อ
+ตรวจสอบไม่มีการทำสินเชื่อ  จึงทำการลบข้อมูล",,,"
+ID:	1349901359061
+Name (TH):	น.ส. รัชฌารินี บุญเพ็ง
+Name (EN):	Miss Ratcharinee Boonpeng
+Contact Number:	0982276466
+Birthdate:	2005-06-13
+Gender:	หญิง
+IAL:	2.3
+Verify By:	1ff01c5f36ea7784
+Created At:	2025-12-31T13:20:40
+Updated At:	2025-12-31T13:20:40",,"Information","0","Done",,,"12/31/2025 1:21 PM"
+"12817","12/31/2025 6:50 PM","Line : 🅱🅴🅽🆃🅾","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"แอปเด้งในขั้นตอนอ่านบัตร","แจ้งพนักงานลองทํารายการด้วยบัตรตัวเองให้หน่อยค่ะ // พนักงานอ่านไม่ตอบ",,,,,"Information","0","Done",,,"12/31/2025 4:52 PM"
+"12816","12/31/2025 7:27 PM","หลายสาขา 3 สาขา","3","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละส่งฟอร์มทำการยืนยันการเป็นเจ้าของ / ส่งตรวจสอบสินเชื่อ /ลูกค้าไม่ส่งข้อมูลเข้ามา",,,,,"Information","0","Done",,,"12/31/2025 7:28 PM"
+"12815","12/31/2025 7:21 PM","หลายสาขา 3 สาขา","3","PROD","JDID EKYC","Sukritta Khan","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ 
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/31/2025 7:25 PM"
+"12814","12/31/2025 7:21 PM","หลายสาขา 2 สาขา","2","PROD","JDID EKYC","Sukritta Khan","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ 
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/31/2025 7:25 PM"
+"12813","12/31/2025 7:21 PM","หลายสาขา 3 สาขา","3","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ 
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/31/2025 7:20 PM"
+"12812","12/31/2025 3:09 PM","หลายสาขา 3 สาขา","3","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"Error : Invalid status code format
+","สอบถามเเละเเจ้งให้ลองเทสกับบัตรเจ้าหน้าที่",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/31/2025 3:47 PM"
+"12811","12/31/2025 3:45 PM","Line : Oat (Jaymart 1348)","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22) 
+","สอบถามเเละเเจ้งเนื่องจากบัตรของลูกค้าสิ้นสภาพการใช้งาน
+",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/31/2025 3:47 PM"
+"12810","12/31/2025 6:55 PM","หลายสาขา 7 สาขา","7","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","แนะนำให้ตรวจสอบการปิดกั้น otp เเละทำการเว้นระยะก่อนเข้าทำรายการใหม่",,,,,"ปัญหาแอพ","0","Done",,,"12/31/2025 7:00 PM"
+"12809","12/31/2025 6:54 PM","หลายสาขา 4 สาขา","4","PROD","SGF+","Sukritta Khan","System","Line","Very low (1 customer)",,,"ชำระค่างวดแล้ว เครื่องยังคงล็อก ","แจ้งให้ติดต่อ SGC",,,,,"Information","0","Done",,,"12/31/2025 6:58 PM"
+"12808","12/30/2025 7:17 PM","Line : ร้านบอยโฟนช็อป📱😁","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"อัตลักษณ์ภาพถ่ายไม่ตรงกัน","กรุณาถ่ายรูปใหม่ โดยให้ใบหน้าของลูกค้าอยู่ภายในกรอบที่กำหนดนะคะ
+และหน้าจอต้องแสดงทำรายการ สำเร็จ ""อัตลักษณ์ภาพถ่ายตรงกัน"" เท่านั้นค่ะ",,,,,"Information","0","Done",,,"12/30/2025 7:29 PM"
+"12807","12/30/2025 6:47 PM","หลายสาขา","5","PROD","JAS_CRM","Kavalin Sripet","System","Jas Family CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ","เเจ้ง j point ทำการแก้ไข",,,,,"Information","0","Done",,,"12/30/2025 6:55 PM"
+"12806","12/30/2025 5:26 PM","หลายสาขา","3","PROD","ONE ID","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ไม่ได้รับ otp",,"แนะนำให้ตรวจสอบการปิดกั้น otp / เว้นระยะทำรายการผระมาณ 5 นาที และทำรายการใหม่อีกครั้ง",,,,"ปัญหาแอพ","0","Done",,,"12/30/2025 7:03 PM"
+"12805","12/30/2025 5:41 PM","ลูกค้าหลายท่าน จำนวน  5 ท่าน","5","PROD","SGF+","Sukritta Khan","System","Telephone","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์","แจ้งให้ทำรายการ Dipchip ใหม่  หรือติดต่อไปยัง SG",,,,,"Information","0","Done",,,"12/30/2025 6:00 PM"
+"12804","12/30/2025 12:35 PM","หลายสาขา","7","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ","แจ้ง J point ทำการตรวจสอบแก้ไข",,"เปลี่ยนเบอร์ใหม่",,,"Change info","0","Done",,,"12/30/2025 6:58 PM"
+"12803","12/30/2025 11:40 AM","หลายสาขา","21","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง J point ทำการตรวจสอบแก้ไข",,"ไม่พบข้อมูล",,,"Information","0","Done",,,"12/30/2025 6:57 PM"
+"12802","12/30/2025 9:26 AM","หลายสาขา","3","PROD","JAS_CRM","Kavalin Sripet","System","Jas Family CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ","เเจ้ง j point ทำการแก้ไข",,"เปลี่ยนเบอร์ใหม่",,,"Change info","0","Done",,,"12/30/2025 5:27 PM"
+"12801","12/30/2025 9:00 AM","หลายสาขา","4","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/30/2025 7:07 PM"
+"12800","12/30/2025 9:00 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/30/2025 3:38 PM"
+"12799","12/30/2025 3:16 PM","Line : Nattawut","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/30/2025 6:00 PM"
+"12798","12/30/2025 2:36 PM","line : ◕‿◕｡","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"จำเบอร์ที่ผ่อนไม่ได้ ต้องทำยังไงบ้าง","ตรวจสอบ 1104200090659 สุดารัตน์ ประนิสุวรรณ์ ลงทะเบียนด้วยเบอร์ 0646975352",,,,,"Information","0","Done",,,"12/30/2025 2:38 PM"
+"12797","12/30/2025 1:49 PM","Line : AisTelewizตลาดอู่ทอง","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","ตรวจสอบเบอร์ 0982867758 มีข้อมูลชื่อ น.ส. พัทลียา สายปัญญา / แจ้งหลักฐานเจ้าของ / ลบ KYC และ dipchip ใหม่",,,,,"KYC","0","Done",,,"12/30/2025 2:10 PM"
+"12796","12/30/2025 1:10 PM","Line :นันท์","1","PROD","ONE ID","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ติดขั้นตอนให้ยืนยันเบอร์โทร","แจ้งหากไม่ได้เปลี่ยนเบอร์ใหม่ กดยืนยันได้เลย",,,,,"Information","0","Done",,,"12/30/2025 1:16 PM"
+"12795","12/30/2025 12:11 PM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","แนะนำให้ตรวจสอบการปิดกั้น otp เเละทำการเว้นระยะก่อนเข้าทำรายการใหม่",,,,,"ปัญหาแอพ","0","Done",,,"12/30/2025 6:50 PM"
+"12794","12/30/2025 11:26 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","ตรวจสอบสินเชื่อมีการทำสัญญาและลูกค้าไม่ใช่เจ้าของเบอร์",,,,,"Information","0","Done",,,"12/30/2025 4:03 PM"
+"12793","12/30/2025 10:33 AM","หลายสาขา","3","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ติดปัญหาชำระเงิน / เครื่องล็อก","ให้ติดต่อ SG",,,,,"Information","0","Done",,,"12/30/2025 7:04 PM"
+"12792","12/29/2025 8:29 PM","หลายสาขา","10","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ
+","แจ้ง J point ทำการตรวจสอบ",,"ไม่พบข้อมูล",,,"Information","0","Done",,,"12/29/2025 9:00 PM"
+"12791","12/29/2025 7:58 PM","หลายสาขา","5","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ
+","เเจ้ง j point ทำหารแก้ไข",,"มีการเปลี่ยนเบอร์",,,"Change info","0","Done",,,"12/29/2025 9:00 PM"
+"12790","12/29/2025 6:51 PM","Line : Phongsathon 🖤B0334🖤","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์
+",,,"Register JDIDeKYC","0","Done",,,"12/29/2025 9:00 PM"
+"12789","12/29/2025 7:13 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22)
+","เเจ้งเนื่องจากบัตรของลูกค้าสิ้นสภาพการใช้งาน ",,"บัตรของลูกค้าสิ้นสภาพการใช้งาน ",,,"ปัญหาบัตรประชาชน","0","Done",,,"12/29/2025 7:30 PM"
+"12788","12/29/2025 6:27 PM","Line : Yang 0 27 34","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามต้องการปิดยอดชำระ SG ","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/29/2025 7:00 PM"
+"12787","12/29/2025 2:45 PM","Line : @JRP&EKR1042 ","1","PROD","J Wallet","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","อื่นๆ","อื่นๆ","ลูกค้าใหม่คะเเนนไม่ขึ้น","เเจ้ง j point ทำการแก้ไข",,,,,"J Wallet","0","Done",,,"12/29/2025 3:00 PM"
+"12786","12/29/2025 2:39 PM","Line : @𝕊𝕔𝕣𝕖𝕖𝕟𝕒𝕘𝕖ℝ ","1","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","คูปอง","อื่นๆ","error : คูปองถูกใช้งานเเล้ว","สอบถามเเละตรวจสอบใน BO JMB CRM ทำการเเจ้งเลข code ของลูกค้า",,"เนื่องจากหน้าจอดับ","คูปองหมดอายุครับ ขอเลขที่คูปอง
+ชื่อลูกค้า จักราวุธ บำรุงกิจ
+เบอร์ 0944369240",,"coupon","1","Done",,,"12/29/2025 3:00 PM"
+"12785","12/29/2025 6:18 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์
+",,,"Register JDIDeKYC","0","Done",,,"12/29/2025 8:00 PM"
+"12784","12/29/2025 6:17 PM","หลายสาขา","8","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์
+",,,"Register JDIDeKYC","0","Done",,,"12/29/2025 8:00 PM"
+"12783","12/29/2025 4:53 PM","Line :Juralux.x","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"error JDID หยุดทำงานอยู่เรื่อย
+","สอบถาม เเละเเนะนำทำรายการถอนเเละติดตั้งแอพใหม่อีกครั้ง ",,,"ไม่ได้มีการตอบกลับ",,"ปัญหาแอพ","0","Done",,,"12/29/2025 4:47 PM"
+"12782","12/29/2025 4:35 PM","Line : Sentel Samutprakan","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถาม เเละเเจ้งฟอร์มทำรายการยืนยันตัวตนการเป็นเจ้าของเบอร์ / เเจ้งให้ทำรายการยืนยันตัวตนด้วยเบอร์ของตัวเองเท่านั้น ","0931343500 ถูกยืนยันตัวตนด้วยท่านอื่น / ไม่ได้มีการส่งหลักฐานเข้ามา ","เนื่องจากใช้เบอร์ของทางร้านทำรายการยืนยันตัวตนเข้ามา",,,"Information","0","Done",,,"12/29/2025 4:36 PM"
+"12781","12/29/2025 4:00 PM","Line : แอดไวซ์ศรีสัชนาลัย58","1","PROD","SGF+","Sukritta Khan","System","Line","Very low (1 customer)",,,"สอบถามรายละเอียดแอป SGF+ สามารถ แก้ไขให้รหัสพนักงาน กลับมาใช้งานได้ไหมค่ะ","แจ้งให้สอบถามไปยัง SG",,,,,"Information","0","Done",,,"12/29/2025 4:04 PM"
+"12780","12/29/2025 1:48 PM","Line : BM.Sapheenah Nawae","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ทำรายการ SGF+ เเล้วไม่พบการยืนยันตัวตน
+","สอบถามเเละตรวจสอบข้อมูลใน BO JDID ","เเนะนำทำรายการใหม่อีกครั้ง ","จากการตรวจสอบพบว่ามีการยืนยันตัวตนเข้ามาเเล้ว IAL 2.3 ",,,"Information","0","Done",,,"12/29/2025 3:00 PM"
+"12779","12/29/2025 10:45 AM","Line : แอดไวซ์ศรีสัชนาลัย58","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถาม เเละทำรายการตรวจสอบข้อมูล / ลบเเละเเจ้งทำรายการลงทะเบียนเข้ามาอีกครั้ง ",,"เนื่องจากบริษัทมีการเปลี่ยนชื่อ ",,,"Change info","1","Done",,,"12/29/2025 12:00 AM"
+"12778","12/29/2025 1:47 PM","หลายสาขา","2","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามข้อมูลสินเชื่อ SG ","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/29/2025 3:00 PM"
+"12777","12/29/2025 11:29 AM","Line : B1373","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error ไม่พบข้อมูลของท่านในระบบกรุณาทำ ekyc
+","สอบถาม เเละขอทราบรูปบัตรประชาชนเพื่อตรวจสอบ / ลูกค้ากลับเเล้วจึงไม่ได้ทำรายการใดๆ","ลูกค้ากลับเเล้วจึงไม่ได้ทำรายการใดๆ",,,,"Information","1","Done",,,"12/29/2025 12:00 AM"
+"12776","12/29/2025 11:15 AM","Line : NOK232","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามการลงทะเบียน JDID ","เเจ้ง format ",,,,,"Register JDIDeKYC","0","Done",,,"12/29/2025 12:00 AM"
+"12775","12/29/2025 11:37 AM","Line : singer♥thungsong","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้เสียบเครื่องอ่านบัตร
+","สอบถามเเละ ให้ทำรายการตรวจสอบเครื่องอ่านบัตรว่าไฟกระพริบหรือไม่ หรือทำรายการขยับเครื่องอ่านบัตรให้เเน่น ","ไม่ได้มีการตอบกลับ",,,,"ปัญหาอุปกรณ์","1","Done",,,"12/29/2025 12:00 AM"
+"12774","12/29/2025 12:14 AM","Line : อาท_CT1431","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error ไม่พบข้อมูลของท่านในระบบกรุณาทำ ekyc
+","สอบถามเเละขอทราบรูปบัตรประชาชนเพื่อตรวจสอบ ",,"เนื่องจากลูกค้ามีชื่อกลาง ",,,"ปัญหาบัตรประชาชน","0","Done",,,"12/29/2025 1:00 PM"
+"12773","12/29/2025 1:32 PM","Line : <..nan..>","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error ไม่พบข้อมูลของท่านในระบบกรุณาทำ ekyc
+","สอบถาม เเละขอรูปบัตรประชาชนเพื่อตรวจสอบ ",,"เนื่องจากเป็นบัตรตลอดชืพ ",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/29/2025 1:37 PM"
+"12772","12/29/2025 1:34 PM","หลายสาขา","5","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","สอบถามเเละเเจ้งให้ทำการตรวจสอบการปิดกั้น otp เเละเข้าทำรายการใหม่ ",,,,,"ปัญหาแอพ","0","Done",,,"12/29/2025 2:00 PM"
+"12771","12/29/2025 1:14 PM","Line : T▪︎A▪︎O 🚦🎯","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละทำรายการเเจ้งฟอร์มการยืนยันตัวตนการเป็นเจ้าของเบอร์ / ไม่ได้มีการส่งหลักฐานเข้ามา","ไม่ได้มีการส่งหลักฐานเข้ามา",,"0652590325",,"Information","0","Done",,,"12/29/2025 2:00 PM"
+"12770","12/29/2025 6:52 AM","Line : Karnjana Gift","1","PROD","JOIN","Wannapha Maensurin","System","Facebook Page Join","Very low (1 customer)",,,"เข้าระบบ Join ไม่ได้ เนื่องจากจำ Seed Phrase ไม่ได้
+","ตรวจสอบหลักฐาน เเละทำรายการลบข้อมูล",,"เนื่องจากจำ Secret Recovery Phrase ไม่ได้ เเละไม่ได้สำรองข้อมูลไฟล์ Secret Recovery Phrase ไว้",,,"Seed Phrase","0","Done",,,"12/29/2025 9:00 AM"
+"12769","12/28/2025 4:36 PM","Line : @🌴🌺Nunid🌺1469🌴 ","1","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","คูปอง","พนักงานขอคูปองกรณีพิเศษ","ขอคูปองกรณีพิเศษ ","เเจ้งขอคูปองกับ mkt ","เบื้องต้นพนักงานไม่ได้มีการทำการทักเข้ามา จึงไม่ได้ให้คูปอง ",,,,"coupon","0","Done",,,"12/28/2025 7:00 PM"
+"12768","12/28/2025 8:30 PM","หลายสาขา","11","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง j point ทำการแก้ไข",," เปลี่ยนเบอร์  ",,,"Change info","0","Done",,,"12/28/2025 9:00 PM"
+"12767","12/28/2025 8:28 PM","หลายสาขา","6","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","แจ้ง J point ตรวจสอบ",,"ไม่พบข้อมูล ",,,"Information","0","Done",,,"12/28/2025 9:00 PM"
+"12766","12/28/2025 8:27 PM","หลายสาขา","8","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ   ","เเจ้ง j point ตรวจสอบ",,,,,"Information","0","Done",,,"12/28/2025 9:00 PM"
+"12765","12/28/2025 8:25 PM","หลายสาขา","7","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/28/2025 9:00 PM"
+"12764","12/28/2025 8:24 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/28/2025 9:00 PM"
+"12763","12/28/2025 8:23 PM","หลายสาขา","7","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","เเจ้งทำรายการตรวจสอบการปิดกั้น otp เเละทำรายการเว้นระยะการทำรายการเเละเข้าทำรายการอีกครั้ง ",,,,,"ปัญหาแอพ","0","Done",,,"12/28/2025 9:00 PM"
+"12762","12/28/2025 5:00 PM","Line : @𝗦𝘂𝗽𝗼𝗿𝗻𝗰𝗵𝗮𝗶 🧑🏻‍💼1351 ","1","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","อื่นๆ","อื่นๆ","หน้าจอ ค้างช้า
+","เเจ้งให้ทำรายการผ่าน Qr code ",,,,,"ปัญหาแอพ","1","Done",,,"12/28/2025 6:00 PM"
+"12761","12/28/2025 7:38 PM","Line : Cmteleshop(89Plaza)","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ติดปัญหาในส่วนแอพSG "," เเจ้งติดต่อ SG ",,,,,"Information","0","Done",,,"12/28/2025 8:00 PM"
+"12760","12/28/2025 3:55 PM","Line : 𝑀𝑖𝑛𝑎. 5195⛵🔑⭐","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID เด้ง 
+","สอบถามเเละขอทราบบัตรประชาชน ","ลูกค้ากลับเเล้ว จึงไม่ได้ทำรายการใดๆ",,,,"Information","0","Done",,,"12/28/2025 4:00 PM"
+"12759","12/28/2025 4:23 PM","Line : PHUDCHARIDA 🥀•1625 •","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละทำรายการส่งฟอร์มการทำรายการยืนยันการเป็นเจ้าของเบอร์","เนื่องจากไม่ได้มีการส่งหลักฐานเข้ามา จึงไม่ได้ทำรายการใดๆ","เบอร์เคยมีการยืนยันตัวตนเเล้ว",,,"Information","0","Done",,,"12/28/2025 5:00 PM"
+"12758","12/28/2025 3:05 PM","Line : Panthita-🌷","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ยืนยันตัวตน","เเจ้ง สามารถเสียบบัตรยืนยันตัวตนใน JDID  เพื่อเปลี่ยนเบอร์ใหม่",,,,,"Information","0","Done",,,"12/28/2025 4:00 PM"
+"12757","12/28/2025 3:05 PM","Line : tenten","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์
+",,,"Register JDIDeKYC","0","Done",,,"12/28/2025 3:20 PM"
+"12756","12/28/2025 1:54 PM","Line : Bnn2184เลิงนกทา","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"กรณีลูกค้ายังผ่อนชำระสินเชื่ออยู่แต่เครื่อง มีปัญหาจะเปลี่ยนจอ ","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/28/2025 2:00 PM"
+"12755","12/28/2025 1:00 PM","Line : Si PC Xiaomi-JM1362","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"คำถามที่พบบ่อยแอพ JDID ","สอบถามต้องการทำรายการด้านใด ","ไม่มีการตอบกลับ",,,,"Information","0","Done",,,"12/28/2025 2:00 PM"
+"12754","12/28/2025 12:30 AM","Line : สี่แยกไอทีโลตัสลำทับ","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ทำรายการ SGF+ เเล้วไม่พบการยืนยันตัวตน
+","สอบถามเเละตรวจสอบใน bo Jdid พบว่ามีการยืนยันตัวตน IAL 2.3 สมบูรณ์เเล้ว จึงเเนะนำทำรายการใหม่อีกครั้ง ","ไม่สามารถทำรายการได้ จึงเเนะนำติดต่อเจ้าหน้าที่ SG เพื่อตรวจสอบอีกครั้ง",,"ID:	1810700037561
+Name (TH):	นาย ณัฐพล อินทนู
+Name (EN):	Mr. Natthapon Inthanu
+Contact Number:	0829290779
+Birthdate:	1996-11-18
+Gender:	ชาย
+IAL:	2.3
+Verify By:	45bd08398b178ed2
+Created At:	2025-11-13T18:50:44
+Updated At:	2025-12-28T12:39:16",,"KYC","1","Done",,,"12/28/2025 1:00 PM"
+"12753","12/28/2025 12:08 AM","Line : Perfect สาขา หลังญ.ว","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ ","สอบถาม เเละขอทราบหน้าจอที่ติดปัญหา","เจ้าหน้าที่ไม่ได้มีการตอบกลับ",,,,"Information","0","Done",,,"12/28/2025 12:10 AM"
+"12752","12/28/2025 9:57 AM","Line : Nestle ♡","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","สอบถามเเละลองให้เทสกับบัตรเจ้าหน้าที่ ","ไม่ได้มีการตอบกลับ",,,,"ปัญหาแอพ","0","Done",,,"12/28/2025 12:00 AM"
+"12751","12/27/2025 8:24 PM","Line : 🍒🍒ช่อฟ้า(495332💰💰)","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละเเจ้งฟอร์มทำรายการยืนยันตัวตน / ตรวจสอบหลักฐาน เเละส่งเชคสินเชื่อ ","ตรวจสอบเเละทำรายการลบ","เบอร์เคยมีการยืนยันตัวตนเเล้ว",,,"KYC","1","Done",,,"12/27/2025 9:00 PM"
+"12750","12/27/2025 8:45 PM","หลายสาขา","6","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  เปลี่ยนเบอร์  JMB CRM","เเจ้ง j point ทำการแก้ไข",," เปลี่ยนเบอร์  ",,,"Change info","0","Done",,,"12/27/2025 9:00 PM"
+"12749","12/27/2025 8:44 PM","หลายสาขา","23","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","เเจ้ง j point ตรวจสอบ ",,"ไม่พบข้อมูล",,,"Information","0","Done",,,"12/27/2025 9:00 PM"
+"12748","12/27/2025 8:40 PM","หลายสาขา","12","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ   ","เเจ้ง j point ทำการตรวจสอบ ",,,,,"Information","0","Done",,,"12/27/2025 9:00 PM"
+"12747","12/27/2025 8:32 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","สอบถามเเละลองให้เทสกับบัตรเจ้าหน้าที่ เเละทำความสะอาดชิปบัตรลูกค้า ","เป็นเฉพาะบัตรลูกค้า",,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/27/2025 9:00 PM"
+"12746","12/27/2025 8:31 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์",,,"Register JDIDeKYC","0","Done",,,"12/27/2025 9:00 PM"
+"12745","12/27/2025 8:30 PM","หลายสาขา","2","PROD","SGF+","Wannapha Maensurin","System","Telephone","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ที่ผูกกับ SGF+
+","เเจ้งติดต่อ SG ",,,,,"Information","0","Done",,,"12/27/2025 9:00 PM"
+"12744","12/27/2025 8:29 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/27/2025 9:00 PM"
+"12743","12/27/2025 8:24 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/27/2025 9:00 PM"
+"12742","12/27/2025 8:22 PM","หลายสาขา","4","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น / ไม่ได้ส่งหลักฐานเข้ามา  ","สอบถามเเละตรวจสอบข้อมูล / เเจ้งฟอร์ม ","ไม่ได้มีการส่งหลักฐานเข้ามา ","เนื่องจากเคยมีการยืนยันตัวตนเเล้ว",,,"Information","0","Done",,,"12/27/2025 9:00 PM"
+"12741","12/27/2025 8:21 PM","หลายสาขา","8","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","แนะนำให้ตรวจสอบการปิดกั้น otp เเละทำการเว้นระยะก่อนเข้าทำรายการใหม่",,,,,"ปัญหาแอพ","0","Done",,,"12/27/2025 9:00 PM"
+"12740","12/27/2025 4:34 PM","Line : @Nah JMB😊✩°｡⋆⸜ 🎧✮ ","1","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","อื่นๆ","อื่นๆ","หน้าจอค้างช้า เข้าสมัครสมาชิกไม่ได้ ","แนะนำทำรายการผ่าน QR code ",,,,,"ปัญหาแอพ","0","Done",,,"12/27/2025 5:00 PM"
+"12739","12/27/2025 3:32 PM","Line : @Nah JMB😊✩°｡⋆⸜ 🎧✮ ","1","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","คูปอง","คูปองไม่เข้า","คูปอง Casa  lapin งาน Jaymart Grand sale ไม่เข้า","ส่งเรื่องตรวจสอบ ","พี่นิวเเจ้งคูปองหลังบ้านเรียบร้อย ",,,,"coupon","1","Done",,,"12/27/2025 4:00 PM"
+"12738","12/27/2025 7:27 PM","Line : ขายดีอันดับ1รวยกว่า","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","แนะนำทำรายการตรวจสอบการปิดกั้น เเละเว้นระยะเวลาทำรายการ",,,,,"ปัญหาแอพ","1","Done",,,"12/27/2025 8:00 PM"
+"12737","12/27/2025 7:21 PM","Line : N.t🐽","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ประเภทบัตรไม่ถูกต้อง ","สอบถามข้อมูล","เจ้าหน้าที่เเจ้งทำรายการได้เรียบร้อย ",,,,"ปัญหาบัตรประชาชน","1","Done",,,"12/27/2025 7:23 PM"
+"12736","12/27/2025 6:27 PM","Line : Rusnee vivo💙","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error ไม่พบข้อมูลของท่านในระบบกรุณาทำ ekyc
+","สอบถามเเละตรวจสอบบัตรประชาชน พบว่าบัตรใกล้หมดอายุ จึงเเนะนำทำรายการติดต่อทำบัตรใหม่ ",," พบว่าบัตรใกล้หมดอายุ ",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/27/2025 1:00 PM"
+"12735","12/27/2025 12:33 AM","Line : 4289🍉Moomota🍉1348","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์","เเนะนำทำรากยารยืนยันตัวตนใน JDID เพื่อทำรายการเปลี่ยนเบอร์",,,,,"Information","0","Done",,,"12/27/2025 3:00 PM"
+"12734","12/27/2025 6:19 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/27/2025 6:00 PM"
+"12733","12/27/2025 3:46 PM","Line : 🧚🏻Ꮺ̼⋆Ꭿ𝑀Ꭾ࿐𝄟⃝ 🧚🏻","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"การเชื่อมต่อล้มเหลว กรุณาลองอีกครั้ง","แนะนำลองเข้าทำรายการใหม่อีกครั้ง เเละตรวจสอบการเชื่อมต่อินเตอร์เน็ต",,,,,"ปัญหาแอพ","1","Done",,,"12/27/2025 4:00 PM"
+"12732","12/27/2025 3:47 PM","Line : SA-KI-LA🌺1325","1","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","คูปอง","คูปองไม่เข้า","คูปอง  J Wallet ON-TOP 3%ไม่เข้า
+","สอบถามเเละให้คูปองเป็นกรณีพิเศษ ","เเจ้งคูปอง JMWAIK50U0",,"วนิดา เบ็ญสลามัน
+190070008261
+0874771558
+20 พ.ค. 2529",,"coupon","0","Done",,,"12/27/2025 4:00 PM"
+"12731","12/27/2025 5:09 PM","Line : Noyna(Jm Network)","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้เสียบเครื่องอ่านบัตร
+","สอบถามเเละทำรายการตรวจสอบการตั้งค่า otg เเละตรวจสอบเครื่องอ่านบัตรว่าไฟขึ้นหรือไม่ ",,,,,"OTG","0","Done",,,"12/27/2025 6:00 PM"
+"12730","12/27/2025 5:18 PM","Line : กนกพร/Singer","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ยืนยันตัวตนไม่สำเร็จ DOPA - เลขหลังบัตรไม่ถูกต้อง
+","สอบถามเเละทำรายการ ให้ตรวจสอบการดึงข้อมูล OCR ว่าดึงมาถูกต้องหรือไม่ ","เข้าทำรายการใหม่ เเละทำการตรวจสอบอักษร สระ สามารถทำรายการได้เรียบร้อย ","ลูกค้านามสกุลไม่ถูกต้อง ","เลขบัตร 1361200093262
+ดาวิณี วรเธียรไพศาล
+0614967940
+",,"KYC","1","Done",,,"12/27/2025 5:34 PM"
+"12729","12/26/2025 3:12 PM","'0802352360","1","PROD","SGF+","Wannapha Maensurin","System","Telephone","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ ","เเนะนำติดต่อ sg ",,,,,"Information","0","Done",,,"12/26/2025 6:00 PM"
+"12728","12/26/2025 8:47 PM","หลายสาขา","5","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง j point ตรวจสอบแก้ไข",," เปลี่ยนเบอร์  ",,,"Change info","0","Done",,,"12/26/2025 9:00 PM"
+"12727","12/26/2025 8:45 PM","หลายสาขา","11","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","แจ้ง j point ตรวจสอบ ",,"ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/26/2025 9:00 PM"
+"12726","12/26/2025 8:44 PM","หลายสาขา","2","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ  ","แจ้ง j point ทำการตรวจสอบ",,,,,"Information","0","Done",,,"12/26/2025 9:00 PM"
+"12725","12/26/2025 8:43 PM","หลายสาขา","4","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/26/2025 9:00 PM"
+"12724","12/26/2025 8:41 PM","หลายสาขา","4","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/26/2025 9:00 PM"
+"12723","12/26/2025 8:38 PM","หลายสาขา","8","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","แนะนำทำการตรวจสอบการปิดกั้น sms เเละทำการเว้นระยะเข้าทำรายการอีกครั้ง ",,,,,"ปัญหาแอพ","0","Done",,,"12/26/2025 9:00 PM"
+"12722","12/26/2025 8:26 PM","หลายสาขา","4","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ติดปัญหาในส่วนสินเชื่อ SG","แนะนำติดต่อ sg ",,,,,"Information","0","Done",,,"12/26/2025 9:00 PM"
+"12721","12/26/2025 8:23 PM","หลายสาขา","2","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","อื่นๆ","ระบบ JMB CRM ขัดข้อง","ไม่สามารถทำรายการ JMB CRM ได้เนื่องจาก ระบบ Cloudflare มีปัญหา ","สอบถามเเละส่งเรื่องตรวจสอบ ","สามารถทำรายการได้เรียบร้อย 13.20 น."," ระบบ Cloudflare มีปัญหา ",,,"ปัญหาแอพ","1","Done",,,"12/26/2025 1:20 PM"
+"12720","12/26/2025 12:40 AM","Line :🩷BAM วาสนา กระบี่🌷🩵","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละส่งฟอร์มทำการยืนยันการเป็นเจ้าของ / ส่งตรวจสอบสินเชื่อ","ตรวจสอบมีการทำสินเชื่อเเล้วจึงไม่ทำการลบข้อมูล","เบอร์เคยมีการยืนยันตัวตนโดยลูกสาว","สัญญา : LockPhone หมายเลข : 5025021800041
+
+ข้อมูลเพิ่มเติม
+
+เลขที่สัญญา : 5025021800041
+เลขบัตรประชาชน : 1819900410417
+ชื่อลูกค้า : พัชรา ช่างเรือ
+เบอร์โทรศัพท์ลูกค้า : 0980733823",,"Information","1","Done",,,"12/26/2025 1:00 PM"
+"12719","12/26/2025 1:14 PM","Line : BAM ทราย ทุ่งสง","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์
+",,,"Register JDIDeKYC","0","Done",,,"12/26/2025 3:00 PM"
+"12718","12/26/2025 10:59 AM","Line : 1730🎉🐣Kai 💵🪙💰969","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","เเจ้งให้เว้นระยะ ตรวจสอบการปิดกั้น otp เเละลองทำรายการอีกครั้ง ",,,,,"ปัญหาแอพ","1","Done",,,"12/26/2025 12:00 AM"
+"12717","12/26/2025 8:46 AM","Line : Namnoy☀️Full Sun☀️7824","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"กดคำถามที่พบบ่อยแอพ JDID เเต่ไม่ได้สอบถามเข้ามา","ไม่ได้สอบถามเข้ามา",,"ไม่ได้สอบถามเข้ามา",,,"Information","0","Done",,,"12/26/2025 12:00 AM"
+"12716","12/26/2025 8:05 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22) ","สอบถามเเละเเจ้งเนื่องจากบัตรของลูกค้าสิ้นสภาพการใช้งาน",,"บัตรของลูกค้าสิ้นสภาพการใช้งาน",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/26/2025 9:00 PM"
+"12715","12/26/2025 2:13 PM","Line : Bank Piyawat","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามเเละทำการลบข้อมูล ",,"ต้องการลบข้อมูลเจ้าหน้าที่",,,"Change info","1","Done",,,"12/26/2025 3:00 PM"
+"12714","12/26/2025 8:00 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","สอบถามเเละเเจ้งให้ลองเทสกับบัตรเจ้าหน้าที่","ไม่ได้มีการตอบกลับ",,,,"ปัญหาแอพ","1","Done",,,"12/26/2025 9:00 PM"
+"12713","12/26/2025 3:09 PM","Line : 🐶U071_S/P_CHRIST🐕","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ส่งอนุมัติอุปกรณ์ แต่formatไม่ถูกต้อง
+"," แจ้ง format ที่ถูกต้อง และให้ส่งอนุมัติเข้ามาใหม่
+",,,,,"Register JDIDeKYC","0","Done",,,"12/26/2025 4:00 PM"
+"12712","12/25/2025 8:12 PM","หลายสาขา","6","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง j point ทำการแก้ไข ",,"  เปลี่ยนเบอร์  JMB CRM",,,"Change info","0","Done",,,"12/25/2025 9:00 PM"
+"12711","12/25/2025 8:11 PM","หลายสาขา","14","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง j point ตรวจสอบ",," ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/25/2025 9:00 PM"
+"12710","12/25/2025 8:10 PM","หลายสาขา","6","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/25/2025 9:00 PM"
+"12709","12/25/2025 8:09 PM","หลายสาขา","7","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","สอบถามเเละเเจ้งให้ตรวจสอบการปิดกั้น sms เเละเว้นระยะการทำรายการ",,,,,"ปัญหาแอพ","0","Done",,,"12/25/2025 9:00 PM"
+"12708","12/25/2025 7:12 PM","Line : nattaya {{🌸NUT🪷})","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/25/2025 8:00 PM"
+"12707","12/25/2025 3:43 PM","Line : ฝ่ายบริการร้านค้า","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"เเจ้งเบอร์ ยืนยันด้วยบัตรอื่น ","สอบถามเเละขอทราบหน้าจอที่ติดปัญหา","เจ้าหน้าที่เเจ้งลูกค้าไม่ทำรายการเเล้ว",,,,"Information","0","Done",,,"12/25/2025 6:00 PM"
+"12706","12/25/2025 4:22 PM","Line : Boonsubmobile1📱","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถาม เเละตรวจสอบข้อมูล เเจ้งฟอร์มการยืนยันตัวตนเจ้าของเบอร์ / ส่งเรื่องตรวจสอบกับสินเชื่อ ","ไม่พบสินเชื่อ เเละตรวจสอบหลักฐานถูกต้องจึงทำรายการลบเเละเเจ้งให้ยืนยันตัวตนอีกครั้ง ","เบอร์เคยมีการยืนยันตัวตนเเล้ว",,,"KYC","1","Done",,,"12/25/2025 5:00 PM"
+"12705","12/25/2025 6:26 PM","Line : Natha🍄","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามข้อมูลการลงทะเบียน JDID ","เเจ้งคู่มือการทำรายการ JDID ",,,,,"Register JDIDeKYC","0","Done",,,"12/25/2025 7:00 PM"
+"12704","12/25/2025 6:34 PM","Line : Thanadol/Xiaomi🧡","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D99)
+","ขอรูปบัตรประชาชนที่ทำรายการเพื่อตรวจสอบ ","เเต่เนื่องจากลูกค้ากลับเเล้ว จึงไม่ได้ทำรายการใดๆต่อ",,,,"ปัญหาบัตรประชาชน","1","Done",,,"12/25/2025 7:00 PM"
+"12703","12/25/2025 2:03 PM","Line : ❤️Net_napat❤️","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error : Mobile number exists in ekyc But do not match the current ID card  or passport 
+","เบื้องต้นขอทราบเลขบัตรประชาชนเพื่อตรวจสอบ / เเจ้งเบอร์ที่มีการทำรายการ เเต่เนื่องจากลูกค้ามีข้อมูลซ้ำกับอีกท่านในระบบ จึงเเจ้งพี่หนิงตรวจสอบ เเละเเจ้งให้เจ้าหน้าที่ตรวจสอบเเละอัพเดทแอพให้เป็นปัจจุบัน","เบอร์ตรงกับปัจจุบันเเล้ว",,,,"KYC","0","Done",,,"12/25/2025 4:00 PM"
+"12702","12/25/2025 2:13 PM","Line : เต๋า🥰 / LCAN2","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"ส่งอนุมัติอุปกรณ์ แต่formatไม่ถูกต้อง
+"," แจ้ง format ที่ถูกต้อง และให้ส่งอนุมัติเข้ามาใหม่
+",,,,,"Register JDIDeKYC","0","Done",,,"12/25/2025 3:00 PM"
+"12701","12/25/2025 2:36 PM","'0811368088","1","PROD","JAII DEE","Wannapha Maensurin","System","Telephone","Very low (1 customer)",,,"สอบถามในส่วนประกันบ้าน ","แนะนำติดต่อสอบถามเจ้าหน้าที่ 1527",,,,,"Information","0","Done",,,"12/25/2025 3:00 PM"
+"12700","12/25/2025 1:15 PM","Line : ก.9 สาขากู่แก้ว","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ส่งอนุมัติอุปกรณ์ แต่formatไม่ถูกต้อง
+"," แจ้ง format ที่ถูกต้อง และให้ส่งอนุมัติเข้ามาใหม่
+",,,,,"Register JDIDeKYC","0","Done",,,"12/25/2025 2:00 PM"
+"12699","12/25/2025 1:04 PM","Line : Ais1211-Goi-Goi❤️🙏","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละทำการเเจ้งฟอร์ม / เจ้าหน้าที่ไม่ได้มีการส่งเข้ามา ","เจ้าหน้าที่ไม่ได้มีการส่งเข้ามา ","เบอร์เคยมีการยืนยันตัวตนด้วยท่านอื่น ",,,"Information","0","Done",,,"12/25/2025 1:30 PM"
+"12698","12/25/2025 11:11 AM","Line : Rainy🌷🐋✨","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","เเจ้งติดต่อ SG ",,,,,"OTP","1","Done",,,"12/25/2025 12:00 AM"
+"12697","12/25/2025 12:57 PM","หลายสาขา","2","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","แนะนำไม่ทำการกดขอซ้ำ เเละตรวจสอบการปิดกั้น otp เเละเข้าทำรายการใหม่ ",,,,,"OTP","1","Done",,,"12/25/2025 12:00 AM"
+"12696","12/25/2025 10:21 AM","Line : Bow","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","สอบถามเเละทำรายการเเจ้งให้ตรวจสอบการปิดกั้น otp เเละเว้นระยะการทำรายการ เเละเข้าทำรายการใหม่",,,,,"ปัญหาแอพ","0","Done",,,"12/25/2025 12:00 AM"
+"12695","12/25/2025 11:45 AM","Line : Beam 🙏📝💰🧡","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถาม เเละทำการลบข้อมูล",,,,,"Change info","1","Done",,,"12/25/2025 12:00 AM"
+"12694","12/25/2025 11:47 AM","Line : Joyzabbbbbbbb","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์
+",,,"Register JDIDeKYC","0","Done",,,"12/25/2025 12:00 AM"
+"12693","12/25/2025 11:58 AM","Line : MayTrueShopRbschon","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error : Mobile number exists in ekyc But do not match the current ID card  or passport 
+","สอบถามเเละทำการตรวจสอบ พบว่าเบอร์ไม่ตรงกับการยืนยันตัวตน จึงเเจ้งให้ทำรายการยืนยันตัวตนเพื่อเปลี่ยนเบอร์",,"พบว่าเบอร์ไม่ตรงกับการยืนยันตัวตน ",,,"KYC","1","Done",,,"12/25/2025 12:00 AM"
+"12692","12/24/2025 7:08 PM","Line : Perfect สาขา หลังญ.ว","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error ไม่ได้เสียบบัตรในเครื่องอ่านบัตร","สอบถามเครื่องอ่านบัตรมีไฟกระพริบไหม","พนักงานไม่ตอบ",,,,"Information","0","Done",,,"12/24/2025 7:08 PM"
+"12691","12/24/2025 7:03 PM","Line: 🪷📖👑Moosai🪷📖👑","1","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เข้าสู่ระบบไม่ได้","ตรวจสอบในส่วนแอป JDID มีข้อมูล นาย วราวุธ ราชเภา เบอร์  0821461474  ในระบบเรียบร้อยแล้ว",,,,,"Information","0","Done",,,"12/24/2025 7:06 PM"
+"12690","12/24/2025 9:00 AM","หลายสาขา","5","PROD","JDID EKYC","Kavalin Sripet","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","อนุมัติอุปกรณ์ Dipchip ตามรอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/24/2025 8:00 PM"
+"12689","12/24/2025 1:37 PM","หลายสาขา","2","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ","แจ้ง  j point ทำการแก้ไขและตรวจสอบ",,,,,"Information","0","Done",,,"12/24/2025 4:03 PM"
+"12688","12/24/2025 9:00 AM","หลายสาขา","7","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง  j point ทำการเปลี่ยนเบอร์",,,,,"Change info","0","Done",,,"12/24/2025 6:57 PM"
+"12687","12/24/2025 3:42 PM","Line : Kanyakorn1296","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format","ลองให้เทสทำรายการกับบัตรเจ้าหน้าที่ ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/24/2025 3:43 PM"
+"12686","12/24/2025 3:15 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error ไม่พบข้อมูลของท่านในระบบกรุณาทำ KYC","ตรวจสอบแล้วบัตรลูกค้าเป็นบัตรตลอดชีพ  จึงไม่สามารถทำรายการได้",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/24/2025 6:27 PM"
+"12685","12/24/2025 3:06 PM","Line : ! PUI ᘉᗩᖇᑌEᗪEE 1393","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"แอปค้างที่หน้าสีส้ม เข้าแอปไม่ได้","แจ้งเปลี่ยนสัญญานเน็ตหรือเปิดปิดโหมดเครื่องบิน",,,,,"ปัญหาอุปกรณ์","0","Done",,,"12/24/2025 3:06 PM"
+"12684","12/24/2025 12:52 PM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"ปัญหาแอพ","0","Done",,,"12/24/2025 7:03 PM"
+"12683","12/24/2025 11:18 AM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ ","ทำรายการลบข้อมูลในระบบ BO / ให้ลงทะเบียนใหม่",,,,,"Register JDIDeKYC","0","Done",,,"12/24/2025 4:03 PM"
+"12682","12/24/2025 11:13 AM","Line :Lhiw","1","PROD","SGF+","Sukritta Khan","System","Line","Very low (1 customer)",,,"สอบถามค่างวด","ให้ติดต่อ SG",,,,,"Information","0","Done",,,"12/24/2025 11:14 AM"
+"12681","12/24/2025 3:00 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","แจ้ง1 เบอร์จะสามารถใช้ได้เพียง 1 เลขบัตรประชาชนเท่านั้น / ใช้ได้เฉพาะเจ้าของเบอร์",,,,,"Information","0","Done",,,"12/24/2025 12:22 PM"
+"12680","12/24/2025 10:23 AM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ลงทะเบียนผิด format ให้แก้ไขข้อมูล / อนุมัติอุปกรณ์ Dipchip ตามรอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/24/2025 6:19 PM"
+"12679","12/23/2025 3:37 PM","Line :JAYMART 1627","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น "," ให้แจ้งหลักฐานยืนยันการเป็นเจ้าของเบอร์ / ลบ KYC / dipchip ใหม่",,"ลุกค้าเพิ่งซื้อเบอร์วันนี้ / ตรวจสอบข้อมูลเดิม
+ID:	1729900474599
+Name (TH):	น.ส. ขวัญกมล ศรีสว่าง
+Contact Number:	0982847756
+Birthdate:	1998-11-16
+Gender:	หญิง
+IAL:	2.1
+Verify By:	acb3b4e7cfb23fe7
+Created At:	2021-05-20T13:28:48
+Updated At:	2021-05-20T13:43:51",,,"KYC","0","Done",,,"12/23/2025 4:00 PM"
+"12678","12/23/2025 2:24 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/23/2025 6:50 PM"
+"12677","12/23/2025 9:00 AM","หลายสาขา","5","PROD","JDID EKYC","Kavalin Sripet","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/23/2025 4:49 PM"
+"12676","12/23/2025 3:27 PM","หลายสาขา","7","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ","แจ้ง  j point ทำการแก้ไขและตรวจสอบ",,"ไม่พบข้อมูล",,,"Information","0","Done",,,"12/23/2025 7:31 PM"
+"12675","12/23/2025 11:52 AM","หลายสาขา","6","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง  j point ทำการเปลี่ยนเบอร์",,"เปลี่ยนเบอร์ใหม่",,,"Change info","0","Done",,,"12/23/2025 7:32 PM"
+"12674","12/23/2025 3:21 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error ไม่พบข้อมูลของท่านในระบบกรุณาทำ KYC","ตรวจสอบแล้วบัตรลูกค้าเป็นบัตรตลอดชีพ  จึงไม่สามารถทำรายการได้",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/23/2025 6:17 PM"
+"12673","12/23/2025 3:20 PM","Line : ☘️~กร๊าฟ Ais ASP~☘️","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"ต้องการซื้อเครื่องอ่านบัตร","ในส่วนนี้ต้องติดต่อไปยัง เซลล์ที่ดูแลร้าน",,,,,"Information","0","Done",,,"12/23/2025 3:21 PM"
+"12672","12/23/2025 3:52 PM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/23/2025 5:29 PM"
+"12671","12/23/2025 12:08 PM","หลายสาขา","5","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"ปัญหาแอพ","0","Done",,,"12/23/2025 5:04 PM"
+"12670","12/23/2025 3:23 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format","ลองให้เทสทำรายการกับบัตรเจ้าหน้าที่ ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/23/2025 6:17 PM"
+"12669","12/23/2025 10:50 AM","หลายสาขา","3","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"ลงทะเบียนไม่ถูกต้อง","ส่งตัวอย่างฟอร์มที่ถูกต้อง / ลงทะเบียนใหม่",,,,,"Register JDIDeKYC","0","Done",,,"12/23/2025 5:02 PM"
+"12668","12/23/2025 10:31 AM","Line : @❤️Jenny🖤 ","1","PROD","CASA_CRM","Sukritta Khan","System","CASA CRM Working","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","ต้องการแก้ไขข้อมูลลูกกค้า เนื่องจาก วดป.เกิด ผิด","แจ้ง JPont ทำการแก้ไขให้ถูกต้อง",,,"0801036787
+1985 12 02",,"Information","0","Done",,,"12/23/2025 10:38 AM"
+"12667","12/22/2025 9:00 AM","หลายสาขา","11","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/22/2025 6:00 PM"
+"12666","12/22/2025 2:23 PM","หลายสาขา","3","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง  j point ทำการเปลี่ยนเบอร์",,,,,"Change info","0","Done",,,"12/22/2025 5:18 PM"
+"12665","12/22/2025 10:53 AM","หลายสาขา","6","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง j point ตรวจสอบ",,,,,"Information","0","Done",,,"12/22/2025 7:00 PM"
+"12664","12/22/2025 11:41 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่
+ลอง เปิด–ปิดโหมดเครื่องบิน (Airplane Mode) จากนั้นเปิดใช้งานใหม่อีกครั้ง",,,,,"ปัญหาแอพ","0","Done",,,"12/22/2025 7:11 PM"
+"12663","12/22/2025 9:52 AM","หลายสาขา","4","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","ตรวจสอบข้อมูลลูกค้าไม่ใช่เจ้าของเบอร์โทร",,,,,"Information","0","Done",,,"12/22/2025 5:12 PM"
+"12662","12/22/2025 9:06 AM","หลายสาขา","7","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/22/2025 7:08 PM"
+"12661","12/22/2025 8:53 AM","หลายสาขา","3","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ติดปัญหาในส่วนสินเชื่อ SG","ให้ติดต่อ SG",,,,,"Information","0","Done",,,"12/22/2025 4:47 PM"
+"12660","12/22/2025 7:02 PM","Line :Note","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error ไม่พบข้อมูลของท่านในระบบกรุณาทำ KYC","ตรวจสอบแล้วบัตรลูกค้าเป็นบัตรมีชื่อกลาง  จึงไม่สามารถทำรายการได้",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/22/2025 7:08 PM"
+"12659","12/22/2025 6:14 PM","Line : กิ๊กก์ โมบายหนองปลิง","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","0834630622 มีข้อมูล คุณสุขโกศา บัวศักดิ์ / ตรวจสอบไม่มีสินเชื่อ / แจ้งหลักฐาน",,,"ลูกค้าค่อยกลับมาส่งหลักฐาน",,"Information","0","Pending",,,
+"12658","12/22/2025 5:43 PM","Line : narumon khanmongkol","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22) ","ตรวจสอบเเละเเจ้งเนื่องจากบัตรของลูกค้าสิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/22/2025 5:49 PM"
+"12657","12/22/2025 4:58 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ ","ทำรายการลบข้อมูลในระบบ BO / ให้ลงทะเบียนใหม่",,,,,"Register JDIDeKYC","0","Done",,,"12/22/2025 6:35 PM"
+"12656","12/22/2025 1:34 PM","Chuda Kongdam","1","PROD","JOIN","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"เข้าระบบ Join ไม่ได้ เนื่องจากจำ Seed Phrase ไม่ได้","แจ้งหลักฐาน / ลบกระเป๋า เบอร์ 0646104890 0xF30AAC5a386A0c4285eBD4a03ba400917432a4B1",,,,,"Seed Phrase","0","Done",,,"12/22/2025 3:31 PM"
+"12655","12/22/2025 3:17 PM","Line :26239/BM/Hom","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format","ลองให้เทสทำรายการกับบัตรเจ้าหน้าที่ ","ติดปัญหาที่บัตรลูกค้าบัตรเดียว",,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/22/2025 3:20 PM"
+"12654","12/22/2025 9:00 AM","ทรงพล อาจเอี่ยม","1","PROD","JOIN","Kavalin Sripet","System","Other","Very low (1 customer)",,,"เข้าระบบ Join ไม่ได้ เนื่องจากจำ Seed Phrase ไม่ได้","แจ้งหลักฐาน / ลบกระเป๋า เบอร์ 0638031643 / 0xa754f1223B0571e7da5c16364737319339530eBD",,,,,"Seed Phrase","0","Done",,,"12/22/2025 9:10 AM"
+"12653","12/22/2025 6:54 PM","Leartphan Pa","1","PROD","JOIN","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"เข้าระบบ Join ไม่ได้ เนื่องจากจำ Seed Phrase ไม่ได้","แจ้งหลักฐาน / ลบกระเป๋า เบอร์ 0815910720 / 0.004 JFIN / 0x813A7DBAd505218149aFDdA6A48A73fC05AD8A11",,,,,"Seed Phrase","0","Done",,,"12/22/2025 10:47 AM"
+"12652","12/22/2025 10:57 AM","หลายสาขา","24","PROD","SGF+","Kavalin Sripet","System","Line","High (> 10 customers)",,,"ยืนยันตัวตนในแอป JDID สำเร็จแล้ว แต่ในแอป SG ไม่สามารถดึงข้อมูล kyc ได้
+
+ขึ้น error : ไม่สามารถทำการ e-kyc ได้ กรุณาลองใหม่อีกครั้ง ไม่สามารถดึงข้อมูลจาก ONE ID ได้ เนื่องจาก server selection r: server selection timeout, current topology: ( Type: ReplicaSetNoPrimary, Serv 10.24111.220:27017, Type: Unknown, Last error dial tcp 10.24111,220:27017: connect connection refused ], (Addr.10.24111155:27017 Type: Unknown, Last error: dial tcp 10.241..155:27017: connect: connection refused ), ( Addr:10.241111.126:27017, Type: RSSecondary, Average RTT: 840427 ( Addr. 10.241.11.68:27017, TypRSSecondary, Average RTT: 665382 ], ): Unauthorized","แจ้งทางทีม Infra ตรวจสอบ","1.Clear database log(oplog) and restart mongo database ที่ node-2  หลังจาก database cluster กลับมาทำงานตามปกติ และมีการ failover primary ไปยัง secondary database ตัวอื่นในคลัสเตอร์ ระบบจึงกลับมาทำงานตามปกติ 
+2.แจ้งทีม App support ทำการทดสอบแอพ
+3.แก้ไข database ที่ mongo node-1 
+Longterm-solution:
+1. เพิ่มพื้นที่ docker logs ให้มากขึ้น
+2.วางสคริปท์จัดการ clear log แบบอัตโนมัติ","database corrupt และ hang ที่ primary node (mongo node-1) ทำให้ secondary node(DLP-PROD02) ไม่สามารถสื่อสาร และมีการเขียน cluster log จำนวนมาก จนส่งผลต่อเนื่องให้ mongo node-2 ล่มตาม และไม่สามารถ failover ไปที่ secondary node อื่น ได้ เพราะ node ตายพร้อมกัน 2 node ",,,"ปัญหาแอพ","0","Done","Sipparush Lakarn",,"12/22/2025 11:21 AM"
+"12651","12/22/2025 9:59 AM","'0998213697","1","PROD","PAH Advance","Sukritta Khan","System","Telephone","Very low (1 customer)",,,"ต้องการทำรายการ กดเงิน ","สอบถามแล้วเพิ่งเป็นพนักงาน 1 เดือนยังไม่ผ่านโปร",,,,,"Information","0","Done",,,"12/22/2025 10:00 AM"
+"12650","12/21/2025 8:25 PM","หลายสาขา","6","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","เเจ้ง jpoint ทำการแก้ไข",,"  เปลี่ยนเบอร์  ",,,"Change info","0","Done",,,"12/21/2025 9:00 PM"
+"12649","12/21/2025 8:24 PM","หลายสาขา","21","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","เเจ้ง J point ตรวจสอบ ",,"ไม่พบข้อมูล ",,,"Information","0","Done",,,"12/21/2025 9:00 PM"
+"12648","12/21/2025 8:23 PM","หลายสาขา","5","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ ","แจ้ง J point ทำการแก้ไข ",,,,,"Information","0","Done",,,"12/21/2025 9:00 PM"
+"12647","12/21/2025 8:22 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น / ไม่ได้ส่งหลักฐานเข้ามา  ","สอบถามเเละตรวจสอบข้อมูล",,"ไม่ได้ส่งหลักฐานเข้ามา  ",,,"Information","0","Done",,,"12/21/2025 9:00 PM"
+"12646","12/21/2025 8:20 PM","หลายสาขา","6","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ติดปัญหาในส่วนสินเชื่อ SG","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/21/2025 9:00 PM"
+"12645","12/21/2025 8:19 PM","หลายสาขา","7","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/21/2025 9:00 PM"
+"12644","12/21/2025 7:04 PM","หลายสาขา","5","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับ OTP  One id ","เเจ้งเว้นระยะเเละเข้าทำรายการใหม่อีกครั้ง โดยตรวจสอบการปิดกั้น otp",,,,,"OTP","0","Done",,,"12/21/2025 9:00 PM"
+"12643","12/21/2025 7:02 PM","หลายสาขา","17","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","เเจ้งเว้นระยะเเละเข้าทำรายการใหม่ เเละตรวจสอบการปิดกั้น otp ",,,,,"ปัญหาแอพ","0","Done",,,"12/21/2025 8:00 PM"
+"12642","12/21/2025 6:05 PM","Line : 30040 BM Lookpla","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ ","แจ้งติดต่อทำรายการยืนยันตัวตนใหม่ใน JDID ",,,,,"Information","0","Done",,,"12/21/2025 7:00 PM"
+"12641","12/21/2025 5:54 PM","Line : กวาง.ธิชา💝👦🏻ฌาณกวีMEP","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละเเจ้งฟอร์มทำรายการยืนยันเจ้าของเบอร์ / ส่งตรวจสอบสินเชื่อ เเละทำการตรวจสอบหลักฐาน ","ทำรายการตรวจสอบเเละลบข้อมูล เเจ้งให้ยืนยันตัวตนใหม่ ","เนื่องจากลูกค้ามีการเปลี่ยนชื่อผู้จดทะเบียนเบอร์",,,"KYC","1","Done",,,"12/21/2025 6:50 PM"
+"12640","12/21/2025 6:13 PM","Line : ❥ 𝔽𝕠𝕟𝕘𝔹𝕖𝕖𝕣 ✿","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID เด้ง ","สอบถามเเละเเจ้งลองทำรายการถอนการติดตั้งเเอพ ","เนื่องจากเป็นทุกบัตรจึงเเจ้งให้ถอนการติดตั้ง เเละทำรายการใหม่ เจ้าหน้าที่สามารถทำรายการได้เเล้ว",,,,"ปัญหาแอพ","0","Done",,,"12/21/2025 6:39 PM"
+"12639","12/21/2025 5:03 PM","Line : ณัฐวุฒิ พลัส","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ประเภทบัตรไม่ถูกต้อง","สอบถามเเละเเจ้งให้ทำรายการทำความสะอาดชิปบัตร / เเละลองเทสกับบัตรอื่นอีกครั้งว่าทำรายการได้หรือไม่ ",,,,,"ปัญหาบัตรประชาชน","1","Done",,,"12/21/2025 6:00 PM"
+"12638","12/21/2025 4:41 PM","Line : ☘️~กร๊าฟ Ais ASP~☘️","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้เสียบเครื่องอ่านบัตร
+","สอบถาม เเละเเจ้งให้ทำรายการโดยเครื่องอ่านบัตรที่ถูกต้องเท่านั้น เเละลองให้เทสตรวจสอบไฟที่เครื่องอ่านบัตร ",,"ไฟเครื่องอ่านบัตรไม่กระพริบ ",,,"ปัญหาอุปกรณ์","1","Done",,,"12/21/2025 5:00 PM"
+"12637","12/21/2025 1:46 PM","หลายสาขา","3","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่สามารถกดยืนยันได้ หน้าจอหมุนค้าง ","สอบถาม เเละลองให้ทำรายการใหม่","ระบบสามารถทำรายการได้ปกติ จึงเเจ้งให้ทำรายการใหม่ เจ้าหน้าที่สามารถทำรายการได้เรียบร้อย ",,,,"ปัญหาแอพ","1","Done",,,"12/21/2025 4:29 PM"
+"12636","12/21/2025 11:37 AM","Line : ม่ะเดี่ยว","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID ค้างช้า
+","รบกวนตรวจสอบการเชื่อมต่อ เเละปัดแอพออก เข้าทำรายการใหม่อีกครั้ง",,,,,"ปัญหาแอพ","1","Done",,,"12/21/2025 12:00 AM"
+"12635","12/21/2025 12:38 AM","Line :ᴘツ B0336","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","ลองให้เทสทำรายการกับบัตรเจ้าหน้าที่ ","สามารถทำรายการได้เรียบร้อย ",,,,"ปัญหาบัตรประชาชน","1","Done",,,"12/21/2025 1:00 PM"
+"12634","12/21/2025 12:50 AM","Line : L😊k_1466","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID ค้างช้า กดทำรายการต่อในหน้าขอรับ otp ไม่ได้ 
+","สอบถามเเละลองให้เข้าทำรายการใหม่อีกครั้ง ","สามารถทำรายการใหม่ได้เรียบร้อย",,,,"ปัญหาแอพ","1","Done",,,"12/21/2025 1:00 PM"
+"12633","12/21/2025 2:31 PM","Line : Naseefah rm’","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22) 
+","ตรวจสอบเเละเเจ้งเนื่องจากบัตรของลูกค้าสิ้นสภาพการใช้งาน ",,"บัตรของลูกค้าสิ้นสภาพการใช้งาน ",,,"ปัญหาบัตรประชาชน","0","Done",,,"12/21/2025 3:00 PM"
+"12632","12/21/2025 3:19 PM","Line : TL-GoT Ji","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID ค้างช้า
+","ทำรายการปัดแอพออกตรวจสอบการเชื่อมต่ออินเตอร์เน็ต เเละเข้าทำรายการอีกครั้ง",,,,,"ปัญหาแอพ","1","Done",,,"12/21/2025 3:30 PM"
+"12631","12/20/2025 8:44 PM","หลายสาขา","7","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","แจ้ง j point ทำการแก้ไข ",," เปลี่ยนเบอร์ ",,,"Change info","0","Done",,,"12/20/2025 9:00 PM"
+"12630","12/20/2025 8:43 PM","หลายสาขา","9","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","เเจ้ง j point ทำการตรวจสอบ ",,"ไม่พบข้อมูล ",,,"Information","0","Done",,,"12/20/2025 9:00 PM"
+"12629","12/20/2025 8:42 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/20/2025 9:00 PM"
+"12628","12/20/2025 8:41 PM","หลายสาขา","7","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/20/2025 9:00 PM"
+"12627","12/20/2025 7:33 PM","Line : NooPo:P","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID ค้างช้า
+","สอบถามเเละ เเจ้งรบกวนปัดแอพออก เเละตรวจสอบการเชื่อมต่ออินเตอร์เน็ต",,,,,"ปัญหาแอพ","1","Done",,,"12/20/2025 7:50 PM"
+"12626","12/20/2025 7:09 PM","Line : Natcha","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","สอบถามเเละให้ตรวจสอบเทสกับบัตรเจ้าหน้าที่","เป็นเฉพาะบัตรของลูกค้า",,,,"ปัญหาบัตรประชาชน","1","Done",,,"12/20/2025 7:30 PM"
+"12625","12/20/2025 6:41 PM","Line : ``•บอ[เบลล์]•`🍀BBDG1","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่ค่ะ
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่
+ลอง เปิด–ปิดโหมดเครื่องบิน (Airplane Mode) จากนั้นเปิดใช้งานใหม่อีกครั้งค่ะ",,,,,"ปัญหาแอพ","0","Done",,,"12/20/2025 7:00 PM"
+"12624","12/20/2025 5:15 PM","Line : Nattawut","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามเเละทำรายการลบข้อมูล",,"ต้องการลบข้อมูลเก่าเพื่อลงทะเบียนใหม่",,,"Change info","1","Done",,,"12/20/2025 5:30 PM"
+"12623","12/20/2025 2:41 PM","Line : Perfect สาขา หลังญ.ว","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","สอบถามเเละลองเทสกับบัตรเจ้าหน้าที่ ",,"บัตรของลูกค้าไม่สามารถทำรายการได้ ",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/20/2025 3:00 PM"
+"12622","12/20/2025 1:08 PM","Line : กอชอมอนอ⭕","1","PROD","CASA_CRM","Wannapha Maensurin","System","CASA CRM Working","Very low (1 customer)",,,"ลูกค้าไม่ทราบเวลาหมดอายุ ต้องการใช้งานคูปอง","ทำการเเจ้งcode คูปองให้ทางเจ้าหน้าที่","เเจ้งคูปอง 
+- C11118D8048949629648
+- 4EBC0B71111449629630","ขอคูปองในกรณีพิเศษ","0925299356",,"coupon","1","Done",,,"12/20/2025 2:00 PM"
+"12621","12/20/2025 12:28 AM","Line : I.U. PHONE บ้านโซ่","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error ไม่พบข้อมูลของท่านในระบบกรุณาทำ ekyc
+","สอบถามข้อมูลบัตรประชาชน ",,"ตรวจสอบเนื่องจากเป็นบัตรตลอดชีพ ระบบไม่รองรับการทำรายการในกรณีนี้",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/20/2025 1:00 PM"
+"12620","12/20/2025 11:35 AM","Line : 777โมบาย","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้เสียบเครื่องอ่านบัตร
+","ตรวจสอบ otg เเละ ตรวจสอบว่าไฟเครื่องอ่านบัตรมีไฟกระพริบไหม",,,,,"ปัญหาแอพ","1","Done",,,"12/20/2025 12:00 AM"
+"12619","12/20/2025 9:55 AM","Line : TaWee1120","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","สอบถามเเละลองให้เทสกับบัตรเจ้าหน้าที่ ","ไม่ได้มีการตอบกลับ",,,,"ปัญหาแอพ","1","Done",,,"12/20/2025 10:30 AM"
+"12618","12/19/2025 10:14 PM","Line : HY-ID27893PCmook","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์
+",,,"Register JDIDeKYC","0","Done",,,"12/20/2025 9:16 AM"
+"12617","12/19/2025 5:55 PM","หลายสาขา","2","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ","เเจ้ง j point แก้ไข ",,"  เปลี่ยนเบอร์  JMB CRM",,,"Change info","0","Done",,,"12/19/2025 7:00 PM"
+"12616","12/19/2025 5:51 PM","หลายสาขา","7","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ  ","แจ้ง j point ตรวจสอบ",,"ไม่พบข้อมูล",,,"Information","0","Done",,,"12/19/2025 7:00 PM"
+"12615","12/19/2025 5:49 PM","หลายสาขา","8","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/19/2025 6:00 PM"
+"12614","12/19/2025 5:32 PM","หลายสาขา","8","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/19/2025 6:00 PM"
+"12613","12/19/2025 5:14 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","สอบถามเเละเเจ้งให้ตรวจสอบการปิดกั้น otp เเละเว้นระยะเข้าทำรายการใหม่อีกครั้ง ",,,,,"ปัญหาแอพ","0","Done",,,"12/19/2025 6:00 PM"
+"12612","12/19/2025 5:02 PM","Line : Naf1541🦁","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"หน้าจอ JDID ค้างช้าทำรายการยืนยันตัวตนไม่ได้ 
+","สอบถามเเละเเจ้งเปลี่ยนสัญญาณอินเทอร์เน็ตแล้วทํารายการใหม่อีกครั้ง",,,,,"ปัญหาแอพ","1","Done",,,"12/19/2025 5:10 PM"
+"12611","12/19/2025 4:04 PM","Line : KamolwaN🎀♾💰","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ส่งอนุมัติอุปกรณ์ แต่formatไม่ถูกต้อง
+"," แจ้ง format ที่ถูกต้อง และให้ส่งอนุมัติเข้ามาใหม่
+",,,,,"Register JDIDeKYC","0","Done",,,"12/19/2025 5:00 PM"
+"12610","12/19/2025 4:00 PM","Line : Joeaeng.","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"แจ้งระบบเด้งออก","แจ้งลองเทสกับบัตรเจ้าหน้าที่",,,,,"ปัญหาแอพ","0","Done",,,"12/19/2025 5:00 PM"
+"12609","12/19/2025 2:51 PM","Line : 2606เอส","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละตรวจสอบ","ไม่ได้ทำรายการใดๆ เนื่องจากยืนยันตัวตนถูกต้องเเล้ว","เบอร์เคยมีการยืนยันตัวตนเเล้วโดยเจ้าของเบอร์ ",,,"Information","1","Done",,,"12/19/2025 3:00 PM"
+"12608","12/19/2025 2:30 PM","Line : M🍀 @ᴛᴡᴢ ʟᴛ ᴘᴋᴄ","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่ และตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"OTP","1","Done",,,"12/19/2025 3:00 PM"
+"12607","12/19/2025 2:17 PM","Line : Jeab🎏🐙🐲🥇","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละทำรายการตรวจสอบ / เเจ้งฟอร์มทำการยืนยันการเป็นเจ้าของเบอร์ เเต่เจ้าหน้าที่ไม่ได้ส่งหลักฐานเข้ามา ","เจ้าหน้าที่ไม่ได้ส่งหลักฐานเข้ามา ",,,,"Information","1","Done",,,"12/19/2025 3:00 PM"
+"12606","12/19/2025 2:12 PM","Line : เสด็จ","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามเเละทำรายการลบข้อมูล",,,,,"Change info","1","Done",,,"12/19/2025 3:00 PM"
+"12605","12/19/2025 1:55 PM","Line : U018muk/Sp🐳","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สามารถเปลี่ยนสัญญาได้ไหม เนื่องจากหน้าร้านเลือกหน้าสัญญาให้ลูกค้าผิด","เเจ้งติดต่อ SG ",,,,,"Information","0","Done",,,"12/19/2025 2:00 PM"
+"12604","12/19/2025 1:46 PM","Line : BOSS📱บอส 156","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามเเละตรวจสอบข้อมูล / ลบข้อมูล",,"ต้องการลบข้อมูลเจ้าหน้าที่ท่านเก่า ",,,"Change info","1","Done",,,"12/19/2025 2:00 PM"
+"12603","12/19/2025 1:39 PM","Line : สุโมบายนครไทย","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/19/2025 2:00 PM"
+"12602","12/19/2025 12:39 AM","Line : kearoh ^_^1145","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถาม เเละตรวจสอบข้อมูลสินเชื่อ เเละตรวจสอบหลักฐาน / ทำการลบเเละเเจ้งให้ยืนยันตัวตนใหม่"," ตรวจสอบไม่มีสินเชื่อ เเละหลักฐานถูกต้อง จึงทำการลบเเละเเจ้งให้ยืนยันตัวตนใหม่","เบอร์มีการยืนยันตัวตนด้วยเจ้าของเก่า ",,,"KYC","1","Done",,,"12/19/2025 1:00 PM"
+"12601","12/19/2025 1:11 PM","Line : คิง เทเลคอม","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามข้อมูล SG ","แจ้งติดต่อ SG ",,,,,"Information","1","Done",,,"12/19/2025 1:00 PM"
+"12600","12/19/2025 12:19 AM","Line : jam💖🐶","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละตรวจสอบ ","ไม่ได้ทำรายการใดๆ ","0616081351 เบอร์นี้ได้มีข้อมูลด้วยชื่อคุณสุดาจันทร์ โพธิจักร์",,,"Information","1","Done",,,"12/19/2025 12:23 AM"
+"12599","12/19/2025 10:35 AM","Line : ✨𝒑𝒆𝒂𝒓✨💐💖","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถาม เเละตรวจสอบเบอร์ พบว่าเบอร์มีการยืนยันตัวตนเเล้ว","ไม่ได้ทำรายการใดๆ เนื่องจากเจ้าของเบอร์ยืนยันตัวตนถูกต้องเเล้ว ","เบอร์เคยมีการยืนยันตัวตนเเล้ว ",,,"Information","1","Done",,,"12/19/2025 12:00 AM"
+"12598","12/19/2025 11:49 AM","Line : Nuch6545","1","PROD","JDID EKYC","Sukritta Khan","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","สอบถาม เเละเเจ้งให้ทดสอบกับบัตรอื่น",,"เป็นเเค่บัตรของลูกค้า อาจจะเกิดจากชิปบัตรชำรุด",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/19/2025 11:51 AM"
+"12597","12/18/2025 8:06 PM","หลายสาขา","3","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง  j point ทำการเปลี่ยนเบอร์",," เปลี่ยนเบอร์",,,"Change info","0","Done",,,"12/18/2025 9:00 PM"
+"12596","12/18/2025 8:05 PM","หลายสาขา","6","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง j point ตรวจสอบ",,"ไม่พบข้อมูล",,,"Information","0","Done",,,"12/18/2025 9:00 PM"
+"12595","12/18/2025 8:03 PM","หลายสาขา","10","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/18/2025 9:00 PM"
+"12594","12/18/2025 8:02 PM","หลายสาขา","9","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/18/2025 9:00 PM"
+"12593","12/18/2025 8:01 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์ ",,,"Register JDIDeKYC","0","Done",,,"12/18/2025 8:09 PM"
+"12592","12/18/2025 5:55 PM","Line : @Nai ","1","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"หน้าจอค้างช้า
+","เเจ้ง j point ตรวจสอบ","ตรวจสอบระบบใช้งานได้ปกติ ",,,,"ปัญหาแอพ","1","Done",,,"12/18/2025 7:00 PM"
+"12591","12/18/2025 7:09 PM","Line : March 🤍60006411","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","สอบถามเเละเเจ้งให้ลองเทสกับบัตรอื่น ","เจ้าหน้าที่ไม่ได้ตอบกลับ",,,,"ปัญหาแอพ","1","Done",,,"12/18/2025 7:30 PM"
+"12590","12/18/2025 6:34 PM","Line : Nueng🧧🧜🏻‍♀️💍🎓","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","สอบถามเเละให้เว้นระยะการทำรายการ 10 นาที เข้าทำรายการอีกครั้ง ",,,,,"ปัญหาแอพ","0","Done",,,"12/18/2025 7:00 PM"
+"12589","12/18/2025 6:34 PM","Line : ✨18127 BM noopla","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"กดคำถามที่พบบ่อยแอพ JDID เเต่ไม่ได้สอบถามเข้ามา ","ไม่ได้มีการสอบถามเข้ามา",,,,,"Information","0","Done",,,"12/18/2025 7:00 PM"
+"12588","12/18/2025 5:51 PM","Line : TungMay","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามข้อมูลการลงทะเบียนอุปกรณ์ ","ตรวจสอบ 0956491661 มีการลงทะเบียนเข้ามาโดย กุลธิดา เกตุสุวรรณ 1 อุปกรณ์ ",,,,,"Information","0","Done",,,"12/18/2025 6:00 PM"
+"12587","12/18/2025 5:38 PM","Line : 🌻อลิสา🌻","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"สอบถาม เบอร์ที่ลงทะเบียน กับชื่อคนทำสินเชื่อไม่ตรงกันได้ไหม","ตรวจสอบข้อมูล เเละเเจ้ง หากมีสินเชื่อแล้วไม่สามารถทำใช้เบอร์นี้ได้ ","เบื้องต้นเจ้าหน้าที่เเจ้งว่าได้ทำรายการสินเชื่อเรียบร้อย จึงไม่ได้ทำรายการใดๆ",,"0946908880 มีข้อมูล นาง จิตรา แก้วประสิทธิ์ ",,"Information","0","Done",,,"12/18/2025 6:00 PM"
+"12586","12/18/2025 5:38 PM","Line : PCเบลAnnmobileSR7895","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","แนะนำเว้นระยะ เเละตรวจสอบการปิดกั้น SMS ",,,,,"OTP","1","Done",,,"12/18/2025 6:00 PM"
+"12585","12/18/2025 5:19 PM","Line : ยายจอย","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการลบข้อมูลการลงทะเบียน ","ตรวจสอบรายการยังไม่ได้อนุมัติ จึงเเจ้งให้กดยกเลิกการทำรายการ",,,,,"Information","0","Done",,,"12/18/2025 5:30 PM"
+"12584","12/18/2025 4:15 PM","Line : KHAN","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละส่งตรวจสอบสินเชื่อ / เเจ้งฟอร์มการยืนยันตัวตนการเป็นเจ้าชองเบอร์ ","ตรวจสอบมีสินเชื่อ/ ไม่ได้มีการส่งหลักฐานเข้ามา ","เบอร์เคยมีการยืนยันตัวตนเเล้ว",,,"Information","1","Done",,,"12/18/2025 4:39 PM"
+"12583","12/18/2025 3:36 PM","Line : สมบูรณ์","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามการจ่ายค่างวด ","แนะนำติดต่อเจ้าหน้าที่ SG ",,,,,"Information","0","Done",,,"12/18/2025 4:00 PM"
+"12582","12/18/2025 10:24 AM","Line : Phueng","1","PROD","ONE ID","Kavalin Sripet","System","Line","Very low (1 customer)",,,"หน้าจออยู่ในขั้นตอนตรวจสอบภาพถ่ายบุคคล และหน้าจอข้อมูลที่อยู่รหัสไปรษณีย์ไม่ถูกต้อง
+ ","ส่งตรวจสอบ เเละเเจ้งให้ทำรายการยืนยันตัวตนใหม่อีกครั้ง ","ทางทีมที่ดูเเล ได้มีการทำรายการแก้ไขเรียบร้อย เเจ้งให้ลูกค้ายืนยันตัวตนใหม่อีกครั้ง เเต่เนื่องจากลูกค้าเเจ้งว่าไม่แก้ไข","หน้าจออยู่ในขั้นตอนตรวจสอบภาพถ่ายบุคคล เนื่องจาก รูปภาพถ่ายบัตรประชาชนไม่ชัด เเละ 
+รหัสไปรษณีย์ไม่ถูกต้องได้มีการแก้ไขเพิ่มรหัสไปรษณีย์ให้เรียบร้อย 
+",,,"ปัญหาแอพ","1","Done",,,"12/18/2025 12:38 AM"
+"12581","12/18/2025 12:32 AM","Line : 𝐓 𝑜 𝖕° ❦ ♠","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละเเจ้งฟอร์มยืนยันการเป็นเจ้าของเบอร์ ","ส่งตรวจสอบไม่มีสินเชื่อ / เจ้าหน้าที่ไม่ได้ส่งหลักฐานเข้ามา ","เบอร์เคยมีการยืนยันตัวตนเเล้วโดยแม่ของลูกค้า",,,"Information","1","Done",,,"12/18/2025 12:37 AM"
+"12580","12/18/2025 12:03 AM","Line : BOSS📱บอส 156","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามเเละทำรายการลบข้อมูล",,,,,"Change info","1","Done",,,"12/18/2025 12:30 AM"
+"12579","12/18/2025 11:01 AM","Line : 28697 BM AOOMKONDEE","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"หน้าจอ JDID ค้างช้า
+","รบกวนเปลี่ยนเสัญญานเน็ตหรือเปิดปิดโหมดเครื่องบิน",,,,,"ปัญหาแอพ","1","Done",,,"12/18/2025 12:00 AM"
+"12578","12/18/2025 10:32 AM","Line : 22397 เทศบาล11","1","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"สอบถามการทำรายการในส่วนแอพ SG ","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/18/2025 12:00 AM"
+"12577","12/18/2025 10:24 AM","Line : _.Noree","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","เเจ้ง ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่ เเละตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"ปัญหาแอพ","1","Done",,,"12/18/2025 10:25 AM"
+"12576","12/17/2025 6:48 PM","Line : กุ๊กไก่","1","PROD","ONE ID","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ไม่ได้รับ otp","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"OTP","0","Done",,,"12/17/2025 6:48 PM"
+"12575","12/17/2025 9:00 AM","หลายสาขา","3","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง j point ตรวจสอบ",,,,,"Information","0","Done",,,"12/17/2025 4:01 PM"
+"12574","12/17/2025 9:00 AM","หลายสาขา","3","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","แจ้ง j point ทำการแก้ไข ",,"เปลี่ยนเบอร์ใหม่",,,"Change info","0","Done",,,"12/17/2025 3:35 PM"
+"12573","12/17/2025 5:01 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"แอปค้างหน้าสีส้ม","เปลี่ยนสัญญานอินเตอร์เน็ตหรือเปิดปิดโหมดเครื่องบิน",,,,,"Information","0","Done",,,"12/17/2025 7:07 PM"
+"12572","12/17/2025 9:00 AM","หลายสาขา","7","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/17/2025 4:24 PM"
+"12571","12/17/2025 9:00 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/17/2025 4:52 PM"
+"12570","12/17/2025 4:00 PM","Line : Nattawut","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ใหม่","ยืนยันตัวตนด้วยเบอร์ใหม่เพื่อเปลี่ยนเบอร์",,,,,"Information","0","Done",,,"12/17/2025 4:17 PM"
+"12569","12/17/2025 3:17 PM","Line : 𝐌 ☘️","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","แจ้งลองใช้บัตรอื่น ว่าติดปัญหาเดียวกันไหม",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/17/2025 3:20 PM"
+"12568","12/17/2025 2:13 PM","Line ;TUA","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","0653655949 มีข้อมูล นาย มานพ อำพันธ์  / ไม่มีสินเชื่อ  / ให้แจ้งหลักฐานเจ้าของ","ยังไม่ส่งหลักฐาน",,,,"Information","0","Done",,,"12/17/2025 2:18 PM"
+"12567","12/17/2025 1:52 PM","หลายสาขา","4","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"ปัญหาแอพ","0","Done",,,"12/17/2025 6:07 PM"
+"12566","12/17/2025 1:22 PM","หลายสาขา","5","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/17/2025 3:41 PM"
+"12565","12/17/2025 8:50 AM","@✏️𝓟𝓮𝓷𝓬𝓲𝓵✏️ ","1","PROD","JAII DEE","Kavalin Sripet","System","Support Jaiidee JVC","Very low (1 customer)",,,"ขึ้น error : Mobile number exists in ekyc But do not match the current ID card  or passport ","ตรวจสอบเบอร์ 0851106616 มีข้อมูล น.ส. รสสุคนธ์ จั่นแย้ม / แจ้งหลักฐานยืนยันการเป็นเจ้าของเบอร์
+ไม่มีสินเชื่อ / ลบ kyc และ dipchip ใหม่",,,,,"KYC","0","Done",,,"12/17/2025 1:10 PM"
+"12564","12/17/2025 9:00 AM","พนักงานหลายเคส","2","PROD","PAH Advance","Kavalin Sripet","System","Line PAH Advance","Very low (1 customer)",,,"พนักงาน JMT ต้องการเบิกป๋าแต่ถึงวันตัดรอบแล้ว จะสามารถเบิกได้อีกทีในเดือนถัดไ","พนักงาน JMT/JAM สามารถ ได้ตั้งเเต่วันที่ 1-16 ของทุกเดือน",,,,,"Information","0","Done",,,"12/17/2025 11:53 AM"
+"12563","12/17/2025 9:00 AM","พนักงานหลายเคส","3","PROD","PAH Advance","Kavalin Sripet","System","Line PAH Advance","Very low (1 customer)",,,"พนักงาน SGC กดเบิกป๋าไม่ได้","แจ้งทางพี่จอยตรวจสอบ","เบิดได้ปกติแล้ว",,,,"ปัญหาแอพ","0","Done",,,"12/17/2025 10:30 AM"
+"12562","12/17/2025 11:16 AM","Line :1420 Arthemis","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","เบอร์ 0614795195 มีข้อมูล นาง เมตตา อยู่ยอด / สัญญา : LockPhone หมายเลข : 5025893607958",,,,,"Information","0","Done",,,"12/17/2025 11:57 AM"
+"12561","12/17/2025 10:35 AM","Line :BOSS📱บอส 156","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ ","ทำรายการลบข้อมูล เเจ้งให้ส่งลงทะเบียนเข้ามาอีกครั้ง ",,,,,"Register JDIDeKYC","0","Done",,,"12/17/2025 11:16 AM"
+"12560","12/17/2025 11:02 AM","Line :HY-ID27893PCmook","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","เบอร์ 0960078081 มีข้อมูล น.ส. สมจิตต์ เกื้อไขย เป็นเจ้าของเบอร์","ลูกค้าซื้อเบอร์ใหม่",,,,"Information","0","Done",,,"12/17/2025 11:08 AM"
+"12559","12/16/2025 9:00 AM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/16/2025 6:27 PM"
+"12558","12/16/2025 4:34 PM","หลายสาขา","4","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ ","แจ้ง j point ตรวจสอบ",,,,,"Information","0","Done",,,"12/16/2025 5:54 PM"
+"12557","12/16/2025 10:34 AM","หลายสาขา","3","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง j point ทำการแก้ไข ",,,,,"Change info","0","Done",,,"12/16/2025 11:25 AM"
+"12556","12/16/2025 4:51 PM","Line : Ais by เบสท์โมบาย","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"ปัญหาแอพ","0","Done",,,"12/16/2025 4:53 PM"
+"12555","12/16/2025 4:38 PM","Line :BOSS📱บอส 156","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ ","ทำรายการลบข้อมูล เเจ้งให้ส่งลงทะเบียนเข้ามาอีกครั้ง ",,,,,"Register JDIDeKYC","0","Done",,,"12/16/2025 4:55 PM"
+"12554","12/16/2025 4:28 PM","Line ;Banana วังสะพุง","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","เเจ้งฟอร์มทำการยืนยันตัวตนเจ้าของเบอร์ / ทำรายการลบข้อมูลเบอร์ 0831162823",,,,,"KYC","0","Done",,,"12/16/2025 4:49 PM"
+"12553","12/16/2025 11:32 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/16/2025 1:30 PM"
+"12552","12/16/2025 10:32 AM","หลายสาขา","4","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/16/2025 3:26 PM"
+"12551","12/16/2025 10:52 AM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","แจ้งลองใช้บัตรอื่น ว่าติดปัญหาเดียวกันไหม",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/16/2025 12:57 PM"
+"12550","12/15/2025 8:45 PM","หลายสาขา","5","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/15/2025 9:00 PM"
+"12549","12/15/2025 8:43 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/15/2025 9:00 PM"
+"12548","12/15/2025 8:41 PM","หลายสาขา","8","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง j point ทำการตรวจสอบ",," ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/15/2025 9:00 PM"
+"12547","12/15/2025 8:39 PM","หลายสาขา","6","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","เเจ้ง j point ทำรายการแก้ไข",,"เปลี่ยนเบอร์  JMB CRM",,,"Change info","0","Done",,,"12/15/2025 9:00 PM"
+"12546","12/15/2025 8:37 PM","หลายสาขา","2","PROD","PAH Advance","Wannapha Maensurin","System","Line PAH Advance","Very low (1 customer)",,,"กดเบิกป๋าไม่ได้ บริษัท SG ","สอบถาม เเละเเจ้งติดต่อ HR ที่ดูเเลเพื่อทำรายการตรวจสอบ ",,"เนื่องจากทาง SG ยังไม่ได้มีการส่งรายชื่อเข้ามา",,,"Information","0","Done",,,"12/15/2025 9:00 PM"
+"12545","12/15/2025 8:35 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","สอบถาม และลองให้เทสทำรายการกับบัตรเจ้าหน้าที่หน้าสาขา / เช็ดทำความสะอาดชิปบัตร",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/15/2025 9:00 PM"
+"12544","12/15/2025 8:34 PM","หลายสาขา","8","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/15/2025 9:00 PM"
+"12543","12/15/2025 6:53 PM","Line : ANNA 1347","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถาม เเละตรวจสอบข้อมูล","เเจ้งข้อมูล เเต่เจ้าหน้าที่ไม่ได้มีการตอบกลับ","เคยมีการยืนยันตัวตนเเล้วโดยบุคคลนามสกุลเดียวกันกับลูกค้า","1269900100618
+0988379183
+สมโภช มั่นอยู่",,"J Wallet","1","Done",,,"12/15/2025 6:58 PM"
+"12542","12/15/2025 5:42 PM","Line : Dungruthai","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละเเจ้งฟอร์มทำการยืนยันตัวตนเจ้าของเบอร์ / ตรวจสอบข้อมูลตรวจสอบสินเชื่อ เเละทำรายการลบข้อมูล","ทำการลบเเละให้ยืนยันตัวตนใหม่เรียบร้อย เเละเเจ้งให้เจ้าหน้าที่ตรวจสอบการอัพเดทอุปกรณ์ก่อนทำรายการ ","เนื่องจากมีข้อมูลค้างในหน้าทำรายการทำให้ เมื่อยืนยันตัวตนทับจึงเป็นข้อมูลของลูกค้าท่านก่อนหน้า",,,"KYC","1","Done",,,"12/15/2025 6:00 PM"
+"12541","12/15/2025 8:13 PM","Line : @🐱💞Aummy1594💞🐱 ","1","PROD","Baanbaan","Wannapha Maensurin","System","JMB X​ App​ Baan X ไว้ใจ","Very low (1 customer)",,,"ยืนยันตัวตนไม่สำเร็จ DOPA - เลขหลังบัตรไม่ถูกต้อง
+","เเจ้ง กรณีนี้รบกวนตรวจสอบการ OCR ดึงข้อมูลจากหน้าบัตร เเละหลังบัตรนะคะ ว่ามีการดึงข้อมูลตัวอักษร หรือสระถูกต้องหรือไม่  หรือมีตัวอักษรพิเศษอยู่ในข้อมูลหรือไม่ค่ะ ",,,,,"KYC","1","Done",,,"12/15/2025 8:15 PM"
+"12540","12/15/2025 1:57 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ ","ทำรายการลบข้อมูล เเจ้งให้ส่งลงทะเบียนเข้ามาอีกครั้ง 
+",,,,,"Register JDIDeKYC","0","Done",,,"12/15/2025 3:45 PM"
+"12539","12/15/2025 9:11 AM","พนักงานตี๋น้อยหลายเคส","2","PROD","Teenoi","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"พนักงานสุกี้ตี๋น้อยคูปองวันเกิดไม่ขึ้น","พนักงานที่เกิดในเดือนธันวาคม ยังไม่ได้รับคูปอง หากต้องการทราบวันที่ได้รับคูปอง รบกวนสอบถามทางฝ่ายบุคคลโดยตรง",,,,,"Information","0","Done",,,"12/15/2025 11:45 AM"
+"12538","12/15/2025 1:28 PM","Line :คิง เทเลคอม","1","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"สอบถามการชำระเงิน","แจ้งให้สอบถามทางแอป SGF+ ",,,,,"Information","0","Done",,,"12/15/2025 1:29 PM"
+"12537","12/15/2025 1:18 PM","Line : Beer💳🧠🚀","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22)","เเจ้งข้อมูลเนื่องจากบัตรของลูกค้าสิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/15/2025 1:23 PM"
+"12536","12/15/2025 10:43 AM","Line : chayapha","1","PROD","ONE ID","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ไม่ได้รับ OTP","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"OTP","0","Done",,,"12/15/2025 11:12 AM"
+"12535","12/15/2025 10:17 AM","Line ;ปอ อู ปู","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"แอปค้างหน้าสีส้ม เข้าทำรายการไม่ได้","กรณีนี้จะเกิดจากอินเตอร์เน็ตไม่สเถียรค่ะ อาจจะค้องรบกวนทำรายการรีเซ็ตการเชื่อมต่ออินเตอร์เน็ต",,,,,"ปัญหาแอพ","0","Done",,,"12/15/2025 11:07 AM"
+"12534","12/15/2025 10:53 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ ","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"ปัญหาแอพ","0","Done",,,"12/15/2025 1:55 PM"
+"12533","12/15/2025 8:51 AM","Line : AS OPPO Mim PCB3","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D99)","แจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/15/2025 9:01 AM"
+"12532","12/14/2025 8:32 PM","Line : @🐱💞Aummy1594💞🐱","1","PROD","Baanbaan","Kavalin Sripet","System","JMB X​ App​ Baan X ไว้ใจ","Very low (1 customer)",,,"ถ่ายรูปไม่ผ่าน one ID ไม่สำเร็จเกิน 3 ครั้ง ติดอยู่ในขั้นตอนตรวจสอบภาพถ่ายบุคคล","- ตรวจสอบใน BO One id ไม่พบข้อมูล ส่งเรื่องตรวจสอบกับทาง iapp
+
+- แจ้งให้ถ่ายรูปใหม่ให้ภาพชัดเจน 
+
+ข้อมูลลูกค้า
+สมัครBaanBaanไม่ได้
+นาย คมสัน ปินะทาใน
+3440700445871
+0624353823",,"ทาง iapp ตรวจจับหน้าไม่เจอ รูปบัตรประชาชนถ่ายเบลอเกินไป","แจ้งให้ทำรายการใหม่แล้วแต่ยังไม่ตอบ",,"ปัญหาแอพ","1","Done",,,"12/15/2025 11:17 AM"
+"12531","12/15/2025 6:30 AM","Craba Tvi","1","PROD","JOIN","Wannapha Maensurin","System","Facebook Page Join","Very low (1 customer)",,,"โอนเหรียญ JFIN จาก Bitkub มายัง Join App แต่เลือก Network ผิด เลือกเป็น Bitkub Chain 
+- กระเป๋าต้นทาง (Bitkub) : 0xaE2c036D891156C9423eBF40F696cA5F11f4A7CB
+- กระเป๋าปลายทาง (Join Non Custodial Wallet) : 0x852381Ecfa9F196732d7073F4607D313890774d4
+- เบอร์กระเป๋า Join : 0869078558
+- จำนวน: 499 JFIN
+อ้างอิง
+https://www.kubscan.com/tx/0xabaff1e4b342ec421824d28e473bc8f9742f99b9efae63e2591a3261eeae97d1","สอบถาม privet key ในการเข้ากระเป๋า Join เพื่อทำการ add metamask ในการทำรายการกู้เหรียญ
+- ตรวจสอบลูกค้ามี privet key เเจ้งวิธีการกู้เหรียญ โดยทำรายการ add metamask ",,,,,"การโอนระหว่าง Join","0","Pending",,,
+"12530","12/14/2025 8:03 PM","หลายสาขา","4","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","แนะนำทำการตรวจสอบการปิดกั้น sms เเละทำการเว้นระยะเพื่อเข้าทำรายการใหม่ ",,,,,"ปัญหาแอพ","0","Done",,,"12/14/2025 9:00 PM"
+"12529","12/14/2025 8:01 PM","หลายสาขา","6","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง j point ตรวจสอบ",,"  ไม่พบข้อมูล",,,"Information","0","Done",,,"12/14/2025 9:00 PM"
+"12528","12/14/2025 8:00 PM","หลายสาขา","9","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","แจ้ง j point ทำการแก้ไข ",," เปลี่ยนเบอร์ ",,,"Change info","0","Done",,,"12/14/2025 9:00 PM"
+"12527","12/14/2025 8:58 PM","หลายสาขา","6","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ","เเจ้ง j point ทำการแก้ไข ",,,,,"Information","0","Done",,,"12/14/2025 9:00 PM"
+"12526","12/14/2025 8:57 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/14/2025 9:00 PM"
+"12525","12/14/2025 8:55 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/14/2025 9:00 PM"
+"12524","12/14/2025 5:56 PM","Line : MOST","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"กดคำถามที่พบบ่อยแอพ JDID เเต่ไม่ได้สอบถามเข้ามา ","ไม่ได้สอบถามเข้ามา ",,,,,"Information","0","Done",,,"12/14/2025 8:00 PM"
+"12523","12/14/2025 7:16 PM","Line :Fa-ezah","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ส่งอนุมัติอุปกรณ์ แต่formatไม่ถูกต้อง
+"," แจ้ง format ที่ถูกต้อง และให้ส่งอนุมัติเข้ามาใหม่
+",,,,,"Register JDIDeKYC","0","Done",,,"12/14/2025 7:19 PM"
+"12522","12/14/2025 6:56 PM","Line : tacha🎀 (1275)","1","PROD","JMB_CRM","Wannapha Maensurin","System","Line","Very low (1 customer)","คูปอง","คูปองไม่เข้า","คูปอง IPhone Mobile care ไม่เข้า
+","สอบถามเเละตรวจสอบเเจ้งให้ทำรายการกดเเลกจากหน้าแอพ ",,"เนื่องจากต้องทำการกดเเลกจากหน้าแอพ","สุกัญญา ร่วมรักษ์ 
+1429900086397
+0626396163",,"coupon","1","Done",,,"12/14/2025 7:40 PM"
+"12521","12/14/2025 5:50 PM","หลายสาขา","4","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","สอบถามเบอร์เเละตรวจสอบ / เเจ้งฟอร์มทำการยืนยันตัวตนการเป็นเจ้าของเบอร์ ","เจ้าหน้าที่ไม่ได้ส่งข้อมูลเข้ามา จึงไม่ได้ทำรายการใดๆ","เคยมีการยืนยันตัวตนเเล้วโดยท่านอื่น",,,"Information","0","Done",,,"12/14/2025 9:00 PM"
+"12520","12/14/2025 1:37 PM","Line : Sri Wa Ra  ⁸ ⁸","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"กดคำถามที่พบบ่อยแอพ JDID เเต่ไม่ได้สอบถามเข้ามา","ไม่ได้สอบถามเข้ามา",,,,,"Information","0","Done",,,"12/14/2025 2:00 PM"
+"12519","12/14/2025 2:15 PM","Line : ♡ 𝐩𝐩𝐬𝐫 ♡","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","แนะนำทำรายการตรวจสอบการปิดกั้น sms เเละทำรายการเว้นระยะเพื่อทำรายการอีกครั้ง ",,,,,"OTP","1","Done",,,"12/14/2025 3:00 PM"
+"12518","12/14/2025 2:35 PM","Line : 🍀𝔸•𝟙𝟝𝟟𝟜🧿","1","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","คูปอง","พนักงานขอคูปองกรณีพิเศษ","ขอคูปองกรณีพิเศษ ","เเจ้งcode คูปอง",,"เนื่องจากต้องการคูปองในกรณีพิเศษ ",,,"coupon","0","Done",,,"12/14/2025 3:00 PM"
+"12517","12/14/2025 4:14 PM","Line : จิณณ์ช้อป","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามขั้นตอนการลงทะเบียนอุปกรณ์","เเจ้งข้อมูลเเละ format การลงทะเบียน",,,,,"Register JDIDeKYC","0","Done",,,"12/14/2025 5:00 PM"
+"12516","12/14/2025 5:36 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22)
+","เเจ้งข้อมูลเนื่องจากบัตรของลูกค้าสิ้นสภาพการใช้งาน ",,"บัตรของลูกค้าสิ้นสภาพการใช้งาน ",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/14/2025 9:00 PM"
+"12515","12/14/2025 5:07 PM","Line : NaN456♾️⛵🆙","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ ","แจ้งทำรายการยืนยันตัวตนใน JDID เพื่อทำการเปลี่ยนเบอร์ ",,,,,"Information","0","Done",,,"12/14/2025 5:30 PM"
+"12514","12/14/2025 2:49 PM","Line : @CasalapinxKubon ","1","PROD","CASA_CRM","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ ","แจ้งติดต่อ j point เพื่อทำการตรวจสอบ ",,"มีการเปลี่ยนเบอร์ ",,,"Change info","0","Done",,,"12/14/2025 3:01 PM"
+"12513","12/13/2025 8:48 PM","หลายสาขา","9","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","แจ้ง j point แก้ไข ",,"เปลี่ยนเบอร์  JMB CRM",,,"Change info","0","Done",,,"12/13/2025 9:00 PM"
+"12512","12/13/2025 8:46 PM","หลายสาขา","14","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","แจ้ง j point ทำการตรวจสอบ ",,"ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/13/2025 9:00 PM"
+"12511","12/13/2025 7:51 PM","หลายสาขา","14","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ","เเจ้ง j point ทำการแก้ไข ",,,,,"Information","0","Done",,,"12/13/2025 9:00 PM"
+"12510","12/13/2025 5:50 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/13/2025 6:00 PM"
+"12509","12/13/2025 7:49 PM","หลายสาขา","2","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ติดปัญหาในส่วนสินเชื่อ SG","แนะนำติดต่อเจ้าหน้าที่ SG ",,,,,"Information","0","Done",,,"12/13/2025 9:00 PM"
+"12508","12/13/2025 7:46 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","สอบถามเเละทำรายการให้เทสกับบัตรอื่น /เช็ดทำความสะอาดชิปบัตรเเละทำรายการอีกครั้ง ",,,,,"ปัญหาบัตรประชาชน","1","Done",,,"12/13/2025 8:00 PM"
+"12507","12/13/2025 7:43 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22) ","เเจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,"บัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/13/2025 8:00 PM"
+"12506","12/13/2025 7:41 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","สอบถามเเละตรวจสอบเบอร์ / เเจ้งฟอร์มการยืนยันเป็นเจ้าของเบอร์ ","เจ้าหน้าที่ไม่ได้ส่งหลักฐานเข้ามา / ใช้อีกหมายเลขยืนยันตัวตนเเทน","เบอร์เคยมีการยืนยันตัวตนเเล้ว",,,"Information","0","Done",,,"12/13/2025 8:00 PM"
+"12505","12/13/2025 7:15 PM","Line : ✨Nu.Jeab B0255✨","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error JDID หยุดทำงานอยู่เรื่อย
+","สอบถามเเละตรวจสอบบัตรประชาชน ",,"เนื่องจากลูกค้ามีชื่อกลาง ระบบยังไม่รองรับในกรณีนี้ ",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/13/2025 7:23 PM"
+"12504","12/13/2025 3:11 PM","หลายสาขา","3","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","อื่นๆ","ระบบ JMB CRM ขัดข้อง"," หน้าจอหมุนค้าง ไม่สามารถทำรายการดึงข้อมูลของ j point เพื่อสะสมคะเเนน เเละเพื่อสมัครสมาชิกได้ ","แจ้งทางทีม j pointตรวจสอบแก้ไข ",,,,,"ปัญหาแอพ","1","Done",,,"12/13/2025 3:18 PM"
+"12503","12/13/2025 2:41 PM","Line : @เปรม  1668/1824 ","1","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","อื่นๆ","อื่นๆ","หน้าข้อมูลสมาชิกไม่มีข้อมูล","พี่โจ้ทำรายการแก้ไขเปลี่ยน uuid เรียบร้อยเเล้ว ",,"เนื่องจากอาจจะมีการเปลี่ยนไลน์ที่ log in ","นาย ธนโชติ ศรีเรื่อง
+วัน/เดือน/ปีเกิด 20/11/2524
+เบอร์โทรศัพท์ 0617277008
+เลขบัตร 3341501562144",,"Change info","1","Done",,,"12/13/2025 3:24 PM"
+"12502","12/13/2025 3:39 PM","Line : @อวยชัย ","1","PROD","ONE ID","Wannapha Maensurin","System","IT CCO_SGC","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","เบื้องต้นเเจ้งให้ตรวจสอบการปิดกั้น sms เเละทำรายการเปิดปิดโหมดเครื่องบิน ",,,"
+ID:	1102700785948
+Name (TH):	น.ส. สิริลักษณ์ สมานมิตร
+Name (EN):	Miss Siriluk Samanmit
+Contact Number:	0924945196",,"OTP","0","Done",,,"12/13/2025 3:42 PM"
+"12501","12/13/2025 11:15 AM","Line : Nong","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID เด้ง เนื่องจากมีชื่อกลาง 
+","สอบถามเเละทำรายการตรวจสอบบัตรประชาชน ",,"มีชื่อกลางระบบยังไม่รองรับในกรณีนี้ ",,,"ปัญหาบัตรประชาชน","0","Done",,,"12/13/2025 11:29 AM"
+"12500","12/13/2025 11:25 AM","Line : Perfect สาขา หลังญ.ว","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error JDID หยุดทำงานอยู่เรื่อย
+","สอบถามเเละให้ลองเทสทำรายการกับบัตรอื่น ","เจ้าหน้าที่เเจ้งทำรายการได้เเล้ว ",,,,"ปัญหาแอพ","1","Done",,,"12/13/2025 12:00 AM"
+"12499","12/13/2025 1:09 PM","Line : laksika168💰(1197)","1","PROD","JMB_CRM","Wannapha Maensurin","System","Line","Very low (1 customer)","คูปอง","พนักงานกรอกข้อมูลไม่ถูกต้อง","ไม่มีรหัสส่วนลดที่ระบุ 
+","แนะนำติดต่อ it pos เพื่อทำรายการตรวจสอบเพิ่มเติม ",,,,,"coupon","1","Done",,,"12/13/2025 1:20 PM"
+"12498","12/13/2025 1:38 PM","Line : Cmteleshop(89Plaza)","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","แจ้ง ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่",,,,,"ปัญหาแอพ","0","Done",,,"12/13/2025 1:39 PM"
+"12497","12/13/2025 9:00 AM","หลายสาขา","3","PROD","JOIN","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่สามารถทำการกดเชคอิน Join reward ได้ error : Request failed status code 504","แจ้งทีมที่เกี่ยวข้องตรวจสอบแก้ไข ",,"สามารถทำรายการได้เรียบร้อย เมื่อเวลา 9.20 น.",,,"อื่นๆ","0","Done",,,"12/13/2025 9:20 AM"
+"12496","12/12/2025 6:13 PM","Line : 1097🇹🇭NäTNäPä.L🇹🇭","1","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","คูปอง","คูปองไม่เข้า","มัคร jpoint ลูกค้าใหม่ ไม่มี คูปอง3%  ลูกค้าจะใช้ลด 3% ซื้อ iPhone 17","ให้โค้ด JWALOFWA5 ใช้ไม่ได้
+เปลี่ยนเป็น JMB5GE76
+
+1149900578535
+นางสาว จิณณ์ณัฐชญา ศิริมงคล
+23/07/2542 
+0610200544
+",,,,,"coupon","0","Done",,,"12/12/2025 6:16 PM"
+"12495","12/12/2025 11:29 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format","ให้ลองเทสกับบัตรอื่น / ลองติดตั้งแอพอีกครั้ง ","พนักงานอ่านไม่ตอบ",,,,"Information","0","Done",,,"12/12/2025 7:32 PM"
+"12494","12/12/2025 1:01 PM","หลายสาขา","5","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","แจ้ง j point ทำการแก้ไข ",,"เปลี่ยนเบอร์ใหม่",,,"Change info","0","Done",,,"12/12/2025 5:48 PM"
+"12493","12/12/2025 11:39 AM","หลายสาขา","5","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง j point ทำการตรวจสอบ ",,"ไม่พบข้อมูล",,,"Information","0","Done",,,"12/12/2025 4:37 PM"
+"12492","12/12/2025 9:00 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/12/2025 3:15 PM"
+"12491","12/12/2025 9:00 AM","หลายสาขา","4","PROD","JDID EKYC","Kavalin Sripet","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/12/2025 5:17 PM"
+"12490","12/12/2025 4:05 PM","Line : วิทยา","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามข้อมูล SG ","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/12/2025 5:00 PM"
+"12489","12/12/2025 2:53 PM","Waraporn Pannak","1","PROD","JOIN","Wannapha Maensurin","System","Facebook Page Jfin","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ในแอพ join
+","สอบถาม เเละเเจ้งให้เเก้ไขหลักฐานเข้ามา / ตรวจสอบเเละทำรายการลบข้อมูล "," ตรวจสอบเเละทำรายการลบข้อมูล ","มีการเปลี่ยนเบอร์ใหม่ ",,,"KYC","0","Done",,,"12/12/2025 4:00 PM"
+"12488","12/12/2025 8:31 AM","พนักงานหลายเคส","2","PROD","PAH Advance","Kavalin Sripet","System","Line PAH Advance","Very low (1 customer)",,,"กดเบิกป๋าถึงขั้นตอนยืนยัน OTP แต่ไม่ได้รับ OTP","ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"OTP","0","Pending",,,
+"12487","12/12/2025 2:34 PM","Line : °เกื้อ°|1671|BC-Loei","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D99)
+","สอบถามเเละเเจ้งข้อมูล",,"เนื่องจากลูกค้ามีชื่อกลาง",,,"ปัญหาบัตรประชาชน","0","Done",,,"12/12/2025 2:36 PM"
+"12486","12/12/2025 2:12 PM","Line : kamonned / OCUD5","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถาม เเละทำรายการส่งฟอร์ม เเละส่งตรวจสอบสินเชื่อ / ทำการลบเเละเเจ้งให้ยืนยันตัวตนใหม่","ตรวจสอบสินเชื่อ เเละตรวจสอบหลักฐานเรียบร้อย เเละทำรายการลบ","สามีเขาเบอร์ไปทำรายการยืนยันตัวตน",,,"KYC","1","Done",,,"12/12/2025 2:33 PM"
+"12485","12/12/2025 2:11 PM","Line : Kulanan.💫","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเบอร์ / เจ้าหน้าที่ไม่ได้ตอบกลับ","เจ้าหน้าที่ไม่ได้ตอบกลับ จึงยังไม่ได้ทำรายการใดๆ",,,,"Information","1","Done",,,"12/12/2025 4:20 AM"
+"12484","12/12/2025 1:10 PM","Line : 27784 NOODEE🍀","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้เสียบเครื่องอ่านบัตร 
+","เเจ้งให้ตรวจสอบการเปิด otg ",,"ไม่ได้เปิด otg ",,,"OTG","0","Done",,,"12/12/2025 1:13 PM"
+"12483","12/12/2025 12:55 AM","Line : Sai Wunlaya🌟🌞🌻","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","แนะนำตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่",,,,,"ปัญหาแอพ","0","Done",,,"12/12/2025 1:00 PM"
+"12482","12/12/2025 11:33 AM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/12/2025 7:02 PM"
+"12481","12/12/2025 11:47 AM","Line : siriporn","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"สอบถามเบอร์ที่ยืนยันตัวตน เเละต้องการเปลี่ยนเบอร์ ","แจ้งเบอร์ เเละเเจ้งเเนะนำติกต่อยืนยันตัวตนเพื่อเปลี่ยนเบอร์ที่ร้านjaymart ",,,,,"Information","0","Done",,,"12/12/2025 1:00 PM"
+"12480","12/12/2025 11:31 AM","Line : Lukky(นิรชา)","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการเพิ่มอุปกรณ์ยืนยันตัวตน","เเจ้งโหลดเเละติดตั้งแอพในอุปกรณ์ใหม่ เเละส่งอนุมัติเข้ามาอีกครั้ง ",,,,,"Information","0","Done",,,"12/12/2025 12:00 AM"
+"12479","12/12/2025 10:39 AM","Line : 🎈ไอซ์ 🧸","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามข้อมูลSG ","แนะนำติดต่อ SG ",,,,,"Information","1","Done",,,"12/12/2025 12:00 AM"
+"12478","12/11/2025 8:00 PM","หลายสาขา","4","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง j point ทำการตรวจสอบ ",," ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/11/2025 8:01 PM"
+"12477","12/11/2025 7:55 PM","หลายสาขา","7","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","แจ้ง j point ทำการแก้ไข ",,"  เปลี่ยนเบอร์  JMB CRM",,,"Change info","0","Done",,,"12/11/2025 8:00 PM"
+"12476","12/11/2025 7:52 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/11/2025 8:00 PM"
+"12475","12/11/2025 7:51 PM","หลายสาขา","11","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/11/2025 8:00 PM"
+"12474","12/11/2025 7:04 PM","Line : BM-Thanda","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,"ขออนุมัติอุปกรณ์   ",,"Register JDIDeKYC","0","Done",,,"12/11/2025 7:40 PM"
+"12473","12/11/2025 5:03 PM","Line : tukta ^^","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","สอบถามเเละเเจ้งให้ตรวจสอบการปิดกั้น otp ",,,,,"ปัญหาแอพ","0","Done",,,"12/11/2025 6:00 PM"
+"12472","12/11/2025 11:47 AM","Line : FOR TEW","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error JDID หยุดทำงานอยู่เรื่อย
+","สอบถามเเละขอทราบคลิปการทำรายการ / ขอทราบบัตรประชาชน ","เจ้าหน้าที่ไม่ได้ตอบกลับ",,,,"ปัญหาแอพ","0","Done",,,"12/11/2025 5:00 PM"
+"12471","12/11/2025 3:05 PM","Line : Korrawan_JK","1","PROD","Baanbaan","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจออยู่ในขั้นตอนตรวจสอบภาพถ่ายบุคคล 
+","เเจ้งติดต่อเจ้าหน้าที่ jmt เพื่อให้ทำรายการตรวจสอบเเละอนุมัติ ",,,,,"Information","0","Done",,,"12/11/2025 4:00 PM"
+"12470","12/11/2025 3:33 PM","Line: 🐱💞Aummy1594💞🐱","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","สอบถาม เเละเเจ้งให้ตรวจสอบการปิดกั้น otp ",,,,,"ปัญหาแอพ","1","Done",,,"12/11/2025 3:35 PM"
+"12469","12/11/2025 3:11 PM","Line : 1730🎉🐣Kai 💵🪙💰969","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละทำรายการส่งฟอร์ม / เจ้าหน้าที่ไม่ได้ส่งเข้ามาทำรายการ ",,"เบอร์เคยทำรายการยืนยันตัวตนเเล้วโดยภรรยาเจ้าของเบอร์",,,"Information","1","Done",,,"12/11/2025 3:15 PM"
+"12468","12/11/2025 3:33 PM","Line : 🐱💞Aummy1594💞🐱","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","สอบถามเเละเเจ้งให้ตรวจสอบการปิดกั้น otp ",,,,,"ปัญหาแอพ","1","Done",,,"12/11/2025 4:00 PM"
+"12467","12/11/2025 2:42 PM","Line : TaWee1120","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่รองรับการติดตั้ง JDID ","สอบถามข้อมูล / สอบถามเวอร์ชั่นของแอนดรอย",,,"Oppo A16",,"ปัญหาแอพ","1","Done",,,"12/11/2025 3:00 PM"
+"12466","12/11/2025 1:14 PM","Line : F ฟาร์ม ฟาร์ม","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบSMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่ 
+","สอบถามเเละเเจ้งให้ตรวจสอบการปิดกั้น otp ",,,,,"ปัญหาแอพ","1","Done",,,"12/11/2025 2:27 PM"
+"12465","12/11/2025 12:48 AM","Line : Pharadon__","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","สอบถามเเละให้ลองเทสกับบัตรอื่น / ลองติดตั้งแอพอีกครั้ง ","ติดปัญหาทุกบัตร",,,,"ปัญหาแอพ","1","Done",,,"12/11/2025 1:00 PM"
+"12464","12/11/2025 4:19 PM","หลายสาขา","6","PROD","PAH Advance","Kavalin Sripet","System","Line PAH Advance","Very low (1 customer)",,,"พยักงานบริษัท เดอะไวท์ สเปซ กดเบิกป๋าไม่ได้ ขึ้น error เกิดข้อผิดพลาดไม่สามารถส่ง OTP ได้ กรุณาลองใหม่อีกครั้ง","ส่งเรื่องแจ้งทางพี่คิ พี่รูท / พี่หนิงทำการ Rollback ",,,,,"ปัญหาแอพ","1","Done",,,"12/11/2025 5:52 PM"
+"12462","12/11/2025 11:47 AM","Line : Niwat 1150","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error ไม่พบข้อมูลของท่านในระบบกรุณาทำ KYC","ตรวจสอบแล้วบัตรลูกค้าเป็นบัตรมีชื่อกลาง  จึงไม่สามารถทำรายการได้",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/11/2025 11:50 AM"
+"12461","12/11/2025 11:46 AM","Line : K.ทู📲apple wireless🤗","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามเเละทำรายการลบข้อมูล เเจ้งให้ส่งลงทะเบียนเข้ามาอีกครั้ง ",,,,,"Change info","1","Done",,,"12/11/2025 11:54 AM"
+"12460","12/11/2025 1:33 PM","Line : N'Nethi🍀","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","สอบถาม เเละเเจ้งให้ตรวจสอบการปิดกั้น sms ","เจ้าหน้าที่ทำรายการได้เรียบร้อย",,,,"OTP","0","Done",,,"12/11/2025 3:00 PM"
+"12459","12/11/2025 11:47 AM","Line : FOR TEW","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"แอปเด้งทำรายการไม่ได้","แจ้งให้ถ่ายคลิปตอนทำรายการส่งมาเพื่อตรวจสอบ","อ่านไม่ตอบ",,,,"Information","0","Done",,,"12/11/2025 11:50 AM"
+"12458","12/11/2025 2:12 PM","Line : แอดไวซ์อ่างทองNSC011","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามการทำรายการสมัครใช้งาน  JDID ","เเจ้งขั้นตอนการทำรายการ ",,,,,"Register JDIDeKYC","0","Done",,,"12/11/2025 4:00 PM"
+"12457","12/11/2025 1:14 PM","Line : F ฟาร์ม ฟาร์ม","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+"," แจ้งตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่ค่ะ",,,,,"ปัญหาแอพ","0","Done",,,"12/11/2025 2:00 PM"
+"12456","12/11/2025 10:29 AM","Line : Teerapol OBS SK","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22)","แจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/11/2025 10:29 AM"
+"12455","12/11/2025 10:11 AM","Line :ม๊ะ'มายด์","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"กดติดต่อแอดมิน","ทักแต่ไม่ได้สอบถามข้อมูล",,,,,"Information","0","Done",,,"12/11/2025 10:12 AM"
+"12454","12/11/2025 9:26 AM","Line :  BIG1-LLK1","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error :  server not response","ทำรายการตรวจสอบการเชื่อมต่ออินเตอร์เน็ต ",,,,,"Information","0","Done",,,"12/11/2025 9:27 AM"
+"12453","12/10/2025 9:06 PM","NJ Neung","1","PROD","JOIN","Kavalin Sripet","System","Facebook Page Jfin","Very low (1 customer)",,,"เคสโอนเหรียญจาก Join ไปยัง Bitkub เลือก Network ETH แต่เหรียญไม่เข้ากระเป๋า  Bitkub","จากการตรวจสอบ สถานะทำรายการในแอป Join ไม่สำเร็จ แต่ตรวจสอบสถานะใน JFIN CHAIN สำเร็จแล้ว
+
+เบอร์ Join :  0929144653
+จำนวน : 100 JFIN
+หักค่า gas : 90 JFIN
+เลขกระเป๋า Join : 0x8C41EcdB95e8e7486Be3a3C577874385Ffd2400A
+
+พี่แนนส่งเรื่องประสานงานกับทาง iam ",,"Hot Wallet ใหม่ ค่าแก๊ส ETH ไม่พอ 
+0x53F1C3547Bd2a8c64316742003bB9672EB8BE7Cc 
+",,,"การโอนออก Join","1","Pending",,,
+"12452","12/10/2025 9:00 AM","หลายสาขา","4","PROD","SGF+","Kavalin Sripet","System","Telephone","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ทำสินเชื่อ","แจ้งให้ dipchip เพื่อเปลี่ยนเบอร์ใหม่ที่สาขา",,,,,"Information","0","Done",,,"12/10/2025 6:00 PM"
+"12451","12/10/2025 9:00 AM","หลายสาขา","14","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ ","แจ้ง j point ตรวจสอบแก้ไข",,,,,"Information","0","Done",,,"12/10/2025 7:46 PM"
+"12450","12/10/2025 9:17 AM","Usaporn Choonit","1","PROD","JOIN","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"ต้องการเปลี่ยนเเบอร์ใหม่","กรณีสามารถเข้าระบบ Join ด้วยเบอร์เดิมได้
+1.ตรวจสอบจำนวนเหรียญ หากยังมีเหรียญอยู่ให้ทำการโอนออกไปก่อน
+2.ทำการกดลบข้อมูลส่วนตัวในแอพ Join
+3.เมื่อทำการกดลบข้อมูลส่วนตัวแล้ว กดออกจากระบบ และเข้าใช้งาน Join ด้วยเบอร์ใหม่ได้เลย","ลบข้อมูลส่วนเรียบร้อยเบอร์เดิมแล้ว ",,,,"Change info","0","Done",,,"12/10/2025 5:10 PM"
+"12449","12/10/2025 3:05 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/10/2025 5:26 PM"
+"12448","12/10/2025 9:00 AM","หลายสาขา","6","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/10/2025 4:06 PM"
+"12447","12/10/2025 4:22 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ยืนยันตัวตนไม่ได้แอปเด้งออก","แจ้งให้ถ่ายวิดีโอตอนทำรายการเพื่อตรวจสอบ / ไม่ส่งมา",,,,,"Information","0","Done",,,"12/10/2025 6:24 PM"
+"12446","12/10/2025 3:46 PM","Line : Tle 1629","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","0902431202 มีข้อมูล น.ส. เกวี มิสา  / ตรวจสอบไม่มีสินเชื่อ / แจ้งหลักฐานเจ้าของเบอร์","ลูกค้าไม่ส่งหลักฐาน",,,,"Information","0","Done",,,"12/10/2025 3:53 PM"
+"12445","12/10/2025 1:36 PM","Line : mi Central westville","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/10/2025 1:41 PM"
+"12444","12/10/2025 1:42 PM","Line : 28220 PC TUI LCB","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22)","แจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/10/2025 1:43 PM"
+"12443","12/10/2025 12:44 PM","หลายสาขา","5","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"ปัญหาแอพ","0","Done",,,"12/10/2025 4:31 PM"
+"12442","12/10/2025 10:54 AM","Line :BM_U033_View","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ลงทะเบียนไม่มีให้กดไปต่อ","ตรวจสอบติดขั้นตอนกรอก pin แจ้งให้กรอก pin เพื่อเข้าระบบ / ตรวจสอบเครื่องนี้เคยลบข้อมูลให้ลงทะเบียนใหม่แล้ว / ให้ลบแอปและโหลดใหม่",,,,,"Information","0","Done",,,"12/10/2025 11:03 AM"
+"12441","12/10/2025 10:42 AM","หลายสาขา","7","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"สอบถามข้อมูลเกี่ยวกับการทำสินเชื่อ SG","ให้ติดต่อ Sg",,,,,"Information","0","Done",,,"12/10/2025 5:25 PM"
+"12440","12/10/2025 9:57 AM","หลายสาขา","4","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ที่เคยลงทะเบียนไว้","ลบข้อมูลอุปกรณ์ในระบบ / ลงทะเบียนใหม่",,,,,"Register JDIDeKYC","0","Done",,,"12/10/2025 5:13 PM"
+"12439","12/10/2025 9:09 AM","Line : แอน","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เปลี่ยนเครื่องแท็ปเล็ตเข้าSG ยืนยันเข้าJDIDใหม่ จำเมลไม่ได้ ลงทะเบียนด้วยเบอร์ 0839902256","ตรวจสอบมีข้อมูลเดียวกัน 10 กว่าเครื่องเป็นอีเมล yxxmkhway@gmail.com ",,,,,"Information","0","Done",,,"12/10/2025 9:13 AM"
+"12438","12/10/2025 11:10 AM","Onanong Kensanthia","1","PROD","JOIN","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"พนักงานตี๋น้อยต้องการเปลี่ยนเบอร์ใหม่","ลบข้อมูล kyc / ยืนยันตัวตนใหม่
+","ยืนยันตัวตนอัพเกรดเป็น silver แล้ว","ตรวจสอบข้อมูลเป็น IAL 2.1
+ID:	1431000085753
+Name (TH):	น.ส. อรอนงค์ อุระพา
+Name (EN):	Miss Onanong Urapa
+Contact Number:	0656932450
+Birthdate:	1996-12-10
+Gender:	หญิง
+IAL:	2.1
+Verify By:	839e9e33a22e7f0a
+Created At:	2021-08-14T19:21:25
+Updated At:	2023-10-31T19:01:24",,,"Change info","0","Done",,,"12/10/2025 11:30 AM"
+"12437","12/9/2025 1:30 PM","หลายสาขา","4","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ ","แจ้ง j point ตรวจสอบแก้ไข",,,,,"Information","0","Done",,,"12/9/2025 7:13 PM"
+"12436","12/9/2025 6:39 PM","Line :🇳 🇪 🇼 🇽 🇩❄️","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","0649842530 เบอร์มีข้อมูล นาย วันชัย มะลิงาม  /  มีสัญญา : LockPhone หมายเลข : 5025811407970 ","ทำรายการไม่ได้",,,,"Information","0","Done",,,"12/9/2025 6:50 PM"
+"12435","12/9/2025 6:24 PM","Line : A pinya","1","PROD","Teenoi","Kavalin Sripet","System","Line","Very low (1 customer)",,,"พนักงานตี๋น้อยเกิดเดือนธันวายังไม่ได้คูปองกินฟรี","แจ้งสำหรับพนักงานที่เกิดในเดือนธันวาคม ขณะนี้ทางฝ่ายบุคคลยังไม่ได้ส่งรายชื่อผู้มีสิทธิ์มาที่บริษัท",,,,,"Information","0","Done",,,"12/9/2025 6:32 PM"
+"12434","12/9/2025 6:06 PM","Line :A💗F ²¹¹⁵","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","0892520917 เบอร์มีข้อมูล น.ส. พลอยไพลิน เอี้ยนไธสง / ไม่มีสินเชื่อ / ส่งหลักฐานมาแล้วแต่ให้แก้ไขส่งบัตรประชาชน","ลูกค้าไม่ส่งข้อมูลแก้ไข",,,,"Information","0","Done",,,"12/9/2025 6:21 PM"
+"12433","12/9/2025 3:06 PM","หลายสาขา","5","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","แจ้ง j point แก้ไขเบอร์",,"เปลี่ยนเบอร์",,,"Change info","0","Done",,,"12/9/2025 8:11 PM"
+"12432","12/9/2025 9:00 AM","หลายสาขา","6","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/9/2025 8:00 PM"
+"12431","12/9/2025 9:00 AM","หลายสาขา","4","PROD","JDID EKYC","Kavalin Sripet","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/9/2025 8:00 PM"
+"12430","12/9/2025 1:44 PM","Supreeya Jandee","1","PROD","JOIN","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ใหม่ของพนักงานตี๋น้อย","แจ้งให้เปลี่ยนเบอร์ในข้อมูลพนักงานก่อน และเข้าแอป Join ด้วยเบอร์ใหม่",,,,,"Information","0","Done",,,"12/9/2025 5:47 PM"
+"12429","12/9/2025 4:19 PM","ใข่' ทอดดดด","1","PROD","JDID EKYC","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"เข้าระบบ Join ไม่ได้ เนื่องจากจำ Seed Phrase ไม่ได้","แจ้งหลักฐาน / ลบกระเป๋า เบอร์  0640797391 
+0x8643Ac03e40Ce9E41f2AC5A6bf76b0abD8998596",,,,,"Seed Phrase","0","Done",,,"12/9/2025 5:19 PM"
+"12428","12/9/2025 4:23 PM","Line : 💸 1592 STANG 💸","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22)","แจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/9/2025 4:23 PM"
+"12427","12/9/2025 1:56 PM","Line : TelewizBigC.UBON","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","0955095798 เบอร์มีข้อมูล นาย เชวงไชย เครือสิงห์ / ไม่มีสินเชื่อ / ส่งข้อมูลเจ้าของเบอร์","ลูกค้าไม่ส่งหลักฐานเจ้าของเบอร์",,,,"Information","0","Done",,,"12/9/2025 1:59 PM"
+"12426","12/9/2025 1:44 PM","Line : นาวิน โมบาย บ้านตาก","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","ทำรายการให้เทสกับบัตรอื่น เเละลองทำความสะอาดชิปบัตร",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/9/2025 1:54 PM"
+"12425","12/9/2025 1:34 PM","Line : 🍎Apple 🍎T3","1","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ติดปัญหาทำรายการแอป SG","ให้ติดต่อ SG",,,,,"Information","0","Done",,,"12/9/2025 1:35 PM"
+"12424","12/9/2025 1:22 PM","Line : °เกื้อ°|1671|BC-Loei","1","PROD","ONE ID","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ไม่ได้รับ OTP","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"OTP","0","Done",,,"12/9/2025 1:23 PM"
+"12423","12/9/2025 12:54 PM","Line : 🌙 PLA ⭐️Warinthorn ☀️","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","0948726646 เบอร์มีข้อมูล น.ส. รินดา สุวรรณคำ / ลูกค้าซื้อเบอร์ใหม่ทำรายการ",,,,,"Information","0","Done",,,"12/9/2025 1:05 PM"
+"12422","12/9/2025 10:32 AM","Line : Breamtha 🐰","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error ไม่พบข้อมูลของท่านในระบบกรุณาทำ ekyc","ตรวจสอบบัตรไม่มีชื่อกลางและไม่ใช่บัตรตลอดชีพ / ขอเลขบัตรหน้าหลังบัตรเพื่อตรวจสอบแต่ลูกค้าไม่สะดวกให้ข้อมูล",,,,,"ปัญหาบัตรประชาชน","1","Done",,,"12/9/2025 10:40 AM"
+"12421","12/9/2025 10:02 AM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ที่เคยลงทะเบียนไว้","ลบข้อมูลอุปกรณ์ในระบบ / ลงทะเบียนใหม่",,,,,"Register JDIDeKYC","0","Done",,,"12/9/2025 1:23 PM"
+"12420","12/9/2025 10:03 AM","หลายสาขา","9","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/9/2025 6:34 PM"
+"12419","12/9/2025 10:02 AM","Line : สี่แยกไอทีโลตัสลำทับ","1","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ลูกค้าต้องการตรวจสอบเบอร์ที่ผูกกับเลขบัตรประชาชน","ตรวจสอบข้อมูล
+ID:	3600900278055
+Name (TH):	น.ส. กาหลง สัมฤทธิ์
+Contact Number:	0654183858",,,,,"Information","1","Done",,,"12/9/2025 10:12 AM"
+"12418","12/9/2025 9:13 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่
+ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่",,,,,"ปัญหาแอพ","0","Done",,,"12/9/2025 6:13 PM"
+"12417","12/9/2025 9:00 AM","ลูกค้าหลายเคส","11","PROD","SGF+","Kavalin Sripet","System","Telephone","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ใหม่ทำสินเชื่อ","แจ้งให้นำบัตรประชาชนไปที่ร้านเพื่อยืนยันตัวตนด้วยเบอร์ใหม่",,,,,"Information","0","Done",,,"12/9/2025 6:00 PM"
+"12416","12/8/2025 7:45 PM","Line : “8”Pormobile","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"หน้าจอ JDID เสียบบัตรแล้วระบบบอกให้ตั้งค่า","สอบถาม เเต่เจ้าหน้าที่ได้ตอบกลับ",,,,,"Information","0","Done",,,"12/8/2025 9:00 PM"
+"12415","12/8/2025 6:50 PM","Line : 🎈ไอซ์ 🧸","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามต้องการย้ายอุปกรณ์ JDID ","แนะนำทำรายการโหลดเเละติดตั้งในเครื่องใหม่",,,,,"Information","0","Done",,,"12/8/2025 9:00 PM"
+"12414","12/8/2025 8:58 PM","หลายสาขา","9","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง  jpoint ทำการตรวจสอบ",,"ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/8/2025 9:00 PM"
+"12413","12/8/2025 8:57 PM","หลายสาขา","4","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","แจ้ง j point แก้ไขเบอร์",,"เปลี่ยนเบอร์  ",,,"Change info","0","Done",,,"12/8/2025 9:00 PM"
+"12412","12/8/2025 8:55 PM","หลายสาขา","5","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์ ",,,"Register JDIDeKYC","0","Done",,,"12/8/2025 9:00 PM"
+"12411","12/8/2025 8:53 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์ ",,,"Register JDIDeKYC","0","Done",,,"12/8/2025 9:00 PM"
+"12410","12/8/2025 8:52 PM","หลายสาขา","6","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ติดปัญหาในส่วนสินเชื่อ SG","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/8/2025 9:00 PM"
+"12409","12/8/2025 8:49 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","สอบถามเเละเเจ้งตรวจสอบการปิดกั้นotp ",,,,,"ปัญหาแอพ","0","Done",,,"12/8/2025 9:00 PM"
+"12408","12/8/2025 8:48 PM","หลายสาขา","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","สอบถามเเละตรวจสอบข้อมูล เเจ้งฟอร์ม / ไม่ได้มีการส่งข้อมูลเข้ามา ","ไม่ได้มีการส่งข้อมูลเข้ามา ",,,,"Information","0","Done",,,"12/8/2025 9:00 PM"
+"12407","12/8/2025 8:46 PM","หลายสาขา","4","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","สอบถามเเละทำรายการให้เทสกับบัตรอื่น เเละลองทำความสะอาดชิปบัตร",,,,,"ปัญหาแอพ","0","Done",,,"12/8/2025 9:00 PM"
+"12406","12/8/2025 6:33 PM","หลายสาขา","6","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์ ",,,"Register JDIDeKYC","0","Done",,,"12/8/2025 7:00 PM"
+"12405","12/8/2025 3:10 PM","Line : 🥷🌟ᴀσғᴛɪᴍᴜs⋆🎆","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามเเละทำรายการลบข้อมูล เเจ้งให้ส่งลงทะเบียนเข้ามาอีกครั้ง",,"ต้องการลบเจ้าหน้าที่เก่า",,,"Change info","1","Done",,,"12/8/2025 3:16 PM"
+"12404","12/8/2025 5:26 PM","Line : ✨𝒑𝒆𝒂𝒓✨💐💖","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"แจ้งขอเปลี่ยนเบอร์
+","แจ้งทำการยืนยันตัวตนผ่านแอป JDID เพื่อเปลี่ยนเบอร์",,,,,"Information","0","Done",,,"12/8/2025 6:00 PM"
+"12403","12/8/2025 3:06 PM","Waraporn Pannak","1","PROD","JOIN","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"ทำ NDID จากแอป UOB ติดปัญหาไม่สามารถทำรายการได้","แจ้งให้นำบัตรประชาชนไปยืนยันตัวตนได้ที่ shop jaymart ได้ทุกสาขา",,"ตรวจสอบเลขบัตร 1119902118965 เป็น IAL:1.2 จะต้องเป็น IAL: 2.3 เท่านั้น",,,"NDID Service","0","Done",,,"12/8/2025 5:38 PM"
+"12402","12/8/2025 3:13 PM","Navarat Sara","1","PROD","JOIN","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"เข้าระบบ Join ไม่ได้ เนื่องจากจำ Seed Phrase ไม่ได้","แจ้งหลักฐาน / ลบกระเป๋า เบอร์ 0826153372 
+0xE1C75a56FeF031Aa84721dF694a0bc8e1684AA19 ",,,,,"Seed Phrase","0","Done",,,"12/8/2025 4:09 PM"
+"12401","12/8/2025 10:34 AM","Line :เนส ASp 97666 Ssk","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","แนะนำตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่",,,,,"OTP","1","Done",,,"12/8/2025 10:37 AM"
+"12400","12/8/2025 10:39 AM","Line : Beer4195","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Failed to fetch config Using default  values 
+
+","สอบถามเเละทำรายการให้รีเซ็ตการเชื่อมต่ออินเตอร์เน็ต เเละเข้าทำรายการอีกครั้ง ",,,,,"ปัญหาแอพ","1","Done",,,"12/8/2025 11:05 AM"
+"12399","12/8/2025 11:08 AM","Line : bella vivo 1671","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละเเจ้งฟอร์มยืนยันตัวตน ","เบื้องต้นสอบถามเเละเเจ้งว่ามีการยืนยันตัวตนถูกต้องเเล้วโดยเจ้าของเบอร์ ไม่ทราบว่าติดปัญหาด้านใด // เจ้าหน้าที่ไม่ได้ตอบกลับ จึงไม่ได้ทำการลบ","เจ้าของหมายเลขติดต่อเข้ามาขอลบข้อมูล ","0988244553",,"Information","1","Done",,,"12/8/2025 3:00 PM"
+"12398","12/8/2025 1:08 PM","Line : PHUDCHARIDA 🥀•1625 •","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID ค้างช้า เข้าทำรายการไม่ได้ 
+","ทำรายการรีเซ็ตการเชื่อมต่อเเละเข้าทำรายการอีกครั้ง หรือลองเทสใช้อินเตอร์เน็ตจากการกระจาย hospot มือถือเพื่อทำรายการ",,,,,"ปัญหาอุปกรณ์","1","Done",,,"12/8/2025 1:18 PM"
+"12397","12/8/2025 11:16 AM","Line : OLEconnect","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามและทำรายการลบข้อมูล เเจ้งลงทะเบียนเข้ามาอีกครั้ง",,"ต้องการลบข้อมูลท่านเก่า ",,,"Change info","1","Done",,,"12/8/2025 2:31 PM"
+"12396","12/8/2025 10:59 AM","'0936922759","1","PROD","SGF+","Wannapha Maensurin","System","Telephone","Very low (1 customer)",,,"สอบถามเบอร์เเละตรวจสอบใน BO JDID ","แนะนำติดต่อเจ้าหน้าที่ sg ตรวจสอบอีกครั้ง เนื่องจากตรวจสอบมีการยืนยันตัวตนสำเร็จเเล้วในส่วน JDID ","ตรวจสอบมีการยืนยันตัวตนสำเร็จเป็นเบอร์ใหม่เรียบร้อยเเล้ว
+",,"ID:	3800101544984
+Name (TH):	น.ส. เครือวัลย์ คงประสม
+Name (EN):	Miss Khrueawan Khongprasom
+Contact Number:	0936922759
+Birthdate:	1968-05-14
+Gender:	หญิง
+IAL:	2.3
+Verify By:	c0635dd88b49913c
+Created At:	2024-12-14T13:03:33
+Updated At:	2025-12-04T13:47:43
+",,"Information","0","Done",,,"12/8/2025 12:00 AM"
+"12395","12/7/2025 8:14 PM","หลายสาขา ","15","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","เเจ้ง point ตรวจสอบ",," ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/7/2025 9:00 PM"
+"12394","12/7/2025 8:13 PM","หลายสาขา","4","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ  ","แจ้ง  jpoint ทำการตรวจสอบแก้ไข",,"เปลี่ยนเบอร์  JMB CRM",,,"Change info","0","Done",,,"12/7/2025 9:00 PM"
+"12393","12/7/2025 8:12 PM","หลายสาขา ","9","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์",,,"Register JDIDeKYC","0","Done",,,"12/7/2025 9:00 PM"
+"12392","12/7/2025 8:10 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","สอบถามเเละเเจ้งให้ลองเทสกับบัตรอื่น ","เจ้าหน้าที่ไม่ได้มีการตอบกลับ",,,,"ปัญหาแอพ","0","Done",,,"12/7/2025 9:00 PM"
+"12391","12/7/2025 8:08 PM","หลายสาขา ","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามข้อมูลสินเชื่อ SG","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/7/2025 9:00 PM"
+"12390","12/7/2025 8:08 PM","หลายสาขา","4","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์ ",,,"Register JDIDeKYC","0","Done",,,"12/7/2025 9:00 PM"
+"12389","12/7/2025 8:06 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID ค้างช้า","สอบถามเเละเเจ้งให้ทำรายการรีเซ็ตการชื่อมต่อ อินเตอร์เน็ตเเละเข้าทำรายการใหม่อีกครั้ง ",,,,,"ปัญหาอุปกรณ์","0","Done",,,"12/7/2025 9:00 PM"
+"12388","12/7/2025 8:04 PM","หลายสาขา ","4","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","เเจ้งทำรายการตรวจสอบการปิดกั้น otp ",,,,,"ปัญหาแอพ","0","Done",,,"12/7/2025 9:00 PM"
+"12387","12/7/2025 4:02 PM","หลายสาขา ","3","PROD","PAH Advance","Wannapha Maensurin","System","Line PAH Advance","Very low (1 customer)",,,"เบิกป่าไม่ได้ เนื่องจากวงเงินไม่ถึงขั้นต่ำที่กำหนด ","สอบถามหน้าจอ เเละทำรายการเเจ้งเนื่องจากยอดไม่ถึงขั้นต่ำที่กำหนด ",,"เนื่องจากวงเงินไม่ถึงขั้นต่ำที่กำหนด 1,000 ",,,"Information","0","Done",,,"12/7/2025 7:00 PM"
+"12386","12/7/2025 2:06 PM","Line : BAT Weeraphong","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","ทำรายการลบ เเละเเจ้งให้ลงทะเบียนเข้ามาอีกครั้ง ",,"ต้องการลบข้อมูล","รหัสอุปกรณ์ : bc00-797c-a149-9387
+รหัสอุปกรณ์ : f67d-aa44-db0c-9bfb",,"Change info","0","Done",,,"12/7/2025 6:00 PM"
+"12385","12/7/2025 6:07 PM","Line : 🧿1180.KIM 🪬","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถาม เเละเเจ้งฟอร์มทำรายการยืนยันตัวตนเจ้าของเบอร์ / ส่งตรวจสอบสินเชื่อ ","เนื่องจากเจ้าหน้าที่ส่งหลักฐานเข้ามาไม่ถูกต้อง จึงเเจ้งให้แก้ส่งเข้ามาอีกครั้ง เเต่ยังไม่ได้ส่งเข้ามา ","มีการยืนยันตัวตนจากเจ้าของเก่า",,,"Information","0","Done",,,"12/7/2025 7:00 PM"
+"12384","12/7/2025 6:17 PM","Line : NEWBORN PHONE","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"กดคำถามที่พบบ่อยแอพ JDID  เเต่ไม่ได้สอบถามเข้ามา","ไม่ได้สอบถามเข้ามา",,,,,"Information","0","Done",,,"12/7/2025 7:00 PM"
+"12383","12/6/2025 1:44 PM","Line : BAM Wilailuck วารินฯ","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละเเจ้งฟอร์มตรวจสอบ / ส่งตรวจสอบสินเชื่อ เเละทำรายการลบข้อมูล","ตรวจสอบเเละลบข้อมูลเรียบร้อย เเจ้งให้ยืนยันตัวตนใหม่","สามีเอาเบอร์ไปยืนยันตัวตน",,,"KYC","1","Done",,,"12/7/2025 4:32 PM"
+"12382","12/7/2025 4:23 PM","Line : 🐣กิ๊ฟ B0500 RBS-CS🐥","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ทำรายการ SGF+ เเล้วไม่พบการยืนยันตัวตน
+","สอบถามเลขบัตรประชาชน เเละตรวจสอบ","เเจ้ง  กรุณาถ่ายรูปใหม่ โดยให้ใบหน้าของลูกค้าอยู่ภายในกรอบที่กำหนด และหน้าจอต้องแสดงทำรายการ สำเร็จ ""อัตลักษณ์ภาพถ่ายตรงกัน"" เท่านั้น","มีการยืนยันตัวตน IAL : 2.2 ",,,"KYC","0","Done",,,"12/7/2025 5:00 PM"
+"12381","12/7/2025 1:18 PM","Line : Janeny🍀1463🍀","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error ไม่พบข้อมูลของท่านในระบบกรุณาทำ ekyc
+","สอบถามเเละขอทราบรูปบัตรประชาชน ","เนื่องจากลูกค้าต้องการยืนยันตัวตนเพื่อทำรายการใช้งานกับ Jaii dee เพื่อปิดเครดิตบูโร เเละไม่สามารถยืนยันตัวตนได้จากกรณีบัตรตลอดชีพ จึงเเนะนำให้ติดต่อเจ้าหน้าที่ jaii dee เพื่อตรวจสอบอีกครั้ง ","เนื่องจากเป็นบัตรตลอดชีพระบบไม่รองรับการทำรายการ ",,,"Information","1","Done",,,"12/7/2025 3:00 PM"
+"12380","12/7/2025 1:25 PM","Line : 🤍Nim🤍","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22)","สอบถามเเละตรวจสอบคลิป / ขอทราบรูปบัตรประชาชน","เจ้าหน้าที่ไม่ได้มีการตอบกลับ",,,,"Information","0","Done",,,"12/7/2025 2:00 PM"
+"12379","12/7/2025 1:16 PM","Line : เผด็จมือถือ","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์","แนะนำทำรายการยืนยันตัวตนใหม่ใน JDID อีกครั้ง ",,,,,"Information","0","Done",,,"12/7/2025 1:30 PM"
+"12378","12/7/2025 12:33 AM","Line : 1291 • TON","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error ไม่พบข้อมูลของท่านในระบบกรุณาทำ ekyc
+","สอบถามเเละตรวจสอบรูปหน้าบัตรประชาชน ","เเจ้งไม่สามารถทำรายการได้ เนื่องจากระบบยังไม่รองรับการทำรายการ ","เนื่องจากเป็นบัตรตลอดชีพ ",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/7/2025 1:00 PM"
+"12377","12/7/2025 12:10 AM","Line :19660 ผู้ใหญ่ปลื้ม","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ทำรายการ SGF+ เเล้วไม่พบการยืนยันตัวตน
+","สอบถามเเละตรวจสอบเลขบัตรประชาชน ","ไม่พบการยืนยันตัวตน เเจ้งให้ทำรายการยืนยันตัวตนใน JDID ","ไม่พบการยืนยันตัวตนในระบบ",,,"Information","1","Done",,,"12/7/2025 12:17 AM"
+"12376","12/6/2025 8:35 PM","หลายสาขา","7","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์",,,"Register JDIDeKYC","0","Done",,,"12/6/2025 9:09 PM"
+"12375","12/6/2025 8:34 PM","หลายสาขา ","15","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง jpoint ทำการตรวจสอบ",,"  ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/6/2025 9:00 PM"
+"12374","12/6/2025 8:33 PM","หลายสาขา","2","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","แจ้ง jpoint ทำการแก้ไข",,"เปลี่ยนเบอร์  JMB CRM",,,"Change info","0","Done",,,"12/6/2025 9:00 PM"
+"12373","12/6/2025 8:31 PM","หลายสาขา ","2","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"ไม่ได้รับ OTP  JAS CRM","แจ้ง j point ตรวจสอบ","otp เข้าปกติ จึงเเนะนำให้ตรวจสอบการปิดกั้น otp ",,,,"OTP","0","Done",,,"12/6/2025 9:00 PM"
+"12372","12/6/2025 8:29 PM","หลายสาขา","2","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น ","สอบถาม เเละเเจ้งฟอร์มทำการยืนยันการเป็นเจ้าของเบอร์","ทำการเปิดเบอร์ใหม่เเทน เเละส่งข้อมูลเข้ามาไม่ถูกต้อง จึงไม่ได้ทำรายการลบ","เคยมีการยืนยันตัวตนเเล้ว",,,"Information","0","Done",,,"12/6/2025 9:00 PM"
+"12371","12/6/2025 8:28 PM","หลายสาขา ","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่","สอบถามเเละทำการลบข้อมูล ",,"ต้องการแก้ไขข้อมูล",,,"Change info","0","Done",,,"12/6/2025 9:00 PM"
+"12370","12/6/2025 8:27 PM","หลายสาขา","6","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์ ",,,"Register JDIDeKYC","0","Done",,,"12/6/2025 9:00 PM"
+"12369","12/6/2025 8:25 PM","หลายสาขา ","3","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","แจ้งเว้นระยะ เเละเข้าทำรายการอีกครั้ง โดยตรวจสอบการปิดกั้น otp ",,,,,"ปัญหาแอพ","0","Done",,,"12/6/2025 9:00 PM"
+"12368","12/6/2025 8:22 PM","หลายสาขา","7","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามข้อมูลสินเชื่อ SG เเละเรื่องการปลดล็อกเครื่อง","แนะนำติดต่อ sg",,,,,"Information","0","Done",,,"12/6/2025 9:00 PM"
+"12367","12/6/2025 6:04 PM","Line : @🌬️Ya💨 ","1","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ
+"," แจ้ง j point ทำการแก้ไข ",,"มีการเปลี่ยนเบอร์","สุภัสสร บุตร
+0885798682
+1310700174015
+28/07/2533
+ประเวศ",,"Change info","0","Done",,,"12/6/2025 6:06 PM"
+"12366","12/6/2025 9:35 AM","Line : Ais by เบสท์โมบาย","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22)","สอบถามเเละเเจ้งเนื่องจากบัตรของลูกค้าสิ้นสภาพการใช้งาน  ",,"บัตรของลูกค้าสิ้นสภาพการใช้งาน  ",,,"ปัญหาบัตรประชาชน","1","Done",,,"12/6/2025 10:00 AM"
+"12365","12/6/2025 2:19 PM","Line : nöön","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","ลองเทสกับบัตรอื่น เเละลองทำความสะอาดชิปบัตร",,,,,"ปัญหาบัตรประชาชน","1","Done",,,"12/6/2025 3:00 PM"
+"12364","12/6/2025 3:12 PM","Line : ☘️~กร๊าฟ Ais ASP~☘️","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"หน้าจอ JDID เด้ง เนื่องจากลูกค้ามีชื่อกลาง","สอบถามเเละเเจ้งเนื่องจากระบบยังไม่รองรับการทำรายการ ",,"เนื่องจากลูกค้ามีชื่อกลาง",,,"ปัญหาแอพ","0","Done",,,"12/6/2025 4:00 PM"
+"12363","12/6/2025 3:41 PM","Line : รุ่งเรือง 🍀1578⛩️","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error :  server not response","เเจ้งรบกวนตรวจสอบการเชื่อมต่ออินเตอร์เน็ต ",,,,,"ปัญหาอุปกรณ์","1","Done",,,"12/6/2025 4:00 PM"
+"12362","12/6/2025 5:56 PM","Line : Fai📱VIVO..🏅🏆💵JM1598🃏","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ยืนยันตัวตน ในขั้นตอนการถ่ายภาพไม่สำเร็จ  อัตลักษณ์ภาพไม่ตรงกัน
+","เเจ้งรบกวนยืนยันตัวตนถ่ายรูปจนกว่าจะผ่านเท่านั้น 
+",,,,,"KYC","1","Done",,,"12/6/2025 6:00 PM"
+"12361","12/5/2025 7:20 PM","Line :@1️⃣3️⃣0️⃣4️⃣ AE ","1","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22) ","แจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/5/2025 7:22 PM"
+"12360","12/5/2025 9:00 AM","หลายสาขา","9","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/5/2025 8:00 PM"
+"12359","12/5/2025 12:00 PM","หลายสาขา","8","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","เเจ้ง J point ทำการแก้ไข",,"เปลี่ยนเบอร์",,,"Change info","0","Done",,,"12/5/2025 8:00 PM"
+"12358","12/5/2025 10:43 AM","หลายสาขา","17","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง J point ทำการแก้ไข",,"ไม่พบข้อมูล",,,"Information","0","Done",,,"12/5/2025 8:00 PM"
+"12357","12/5/2025 5:25 PM","Line : Bestty","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ที่เคยลงทะเบียนไว้","ลบข้อมูลอุปกรณ์ในระบบ / ลงทะเบียนใหม่",,,"ยังไม่ส่งข้อมูลมา",,"Register JDIDeKYC","0","Done",,,"12/5/2025 6:32 PM"
+"12356","12/5/2025 5:48 PM","Line : sqfur_🌻🕊️","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","0625812596 มีข้อมูล นาง เจะเสาะ มามะ  / ลบข้อมูล kyc / dipchip ใหม่",,,,,"KYC","0","Done",,,"12/5/2025 6:11 PM"
+"12355","12/5/2025 4:39 PM","Line : 💰🅑🅐🅝🅣🅘🅣🅐💰","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"สอบถามสามารถเพิ่มพนักงานในการทำรายการขายได้ไม่ค่ะ โดยที่ไม่ได้เพิ่มอุปรณ์","ในส่วนแอป JDID สามารถใช้เครื่องเดียวกันได้",,,,,"Information","0","Done",,,"12/5/2025 4:30 PM"
+"12354","12/5/2025 3:55 PM","Line : kearoh ^_^1145","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","ตรวจสอบข้อมูลเบอร์ 0955826916 ไม่พบสินเชื่อ /  ลบข้อมูล kyc / dipchip ใหม่",,"เจ้าของเบอร์คือ ประทุม. พึ่งสะอาด	1101400291311	",,,"KYC","0","Done",,,"12/5/2025 4:38 PM"
+"12353","12/5/2025 1:55 PM","Line : มณเฑียร เทพพุทธา","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","092-5306485 มีข้อมูล น.ส. ธิดารัตน์ วงษ์ไทย / ตรวจสอบไม่พบสินเชื่อ / แจ้งหลักฐานเจ้าของเบอร์","ลูกค้าไม่ส่งข้อมูล",,,,"Information","0","Done",,,"12/5/2025 1:59 PM"
+"12352","12/5/2025 12:55 PM","Line : แพรว11287 หาดสำราญ","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ลืม pin cobe","ตรวจสอบวิธีแก้ปัญหาลืม pin ได้ในคู่มือ",,,,,"Information","0","Done",,,"12/5/2025 12:55 PM"
+"12351","12/5/2025 11:45 AM","หลายสาขา ","6","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ติดปัญหาทำสินเชื่อ SG","ให้ติดต่อ SG",,,,,"Information","0","Done",,,"12/5/2025 5:24 PM"
+"12350","12/5/2025 11:26 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","ให้ลองบัตรอื่น ว่าติดปัญหาเหมือนกันไหม / เข็ดทำความสะอาดชิปบัตร",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/5/2025 3:10 PM"
+"12349","12/5/2025 10:58 AM","หลายสาขา","4","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ",,,,,"Register JDIDeKYC","0","Done",,,"12/5/2025 4:05 PM"
+"12348","12/5/2025 10:19 AM","หลายสาขา","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","- ตรวจสอบว่ามีการ ปิดกั้นข้อความ (Block SMS) หรือไม่ค่ะ
+- ตรวจสอบที่ จดหมายขยะ / ข้อความสแปม / ข้อความที่ถูกบล็อก ว่ามี OTP เข้ามาหรือไม่
+- ลอง เปิด–ปิดโหมดเครื่องบิน (Airplane Mode) จากนั้นเปิดใช้งานใหม่อีกครั้ง",,,,,"ปัญหาแอพ","0","Done",,,
+"12347","12/5/2025 9:33 AM","หลายสาขา","5","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"แอปค้างหน้าสีส้ม เข้าทำรายการไม่ได้","เปิดปิดโหมดเครื่องบินหรือเปลี่ยนสัญญานอินเตอร์เน็ต / แนะนำให้เปลี่ยนใช้มือถือรุ่นแอดดรอย",,"เนื่องจากแท็บเล็ตซัมซุงมักติดปัญหากับการใช้งานแอป JDID",,,"ปัญหาอุปกรณ์","0","Done",,,"12/5/2025 11:47 AM"
+"12346","12/5/2025 9:12 AM","Apirak Chaimol","1","PROD","PAH Advance","Kavalin Sripet","System","Facebook Page Pah Advance","Very low (1 customer)",,,"สอบถามพนักงาน prtr กดเบิกได้หรือยัง","เบื้องต้นตรวจสอบแล้ว บริษัท PRTR สามารถกดเบิกป๋าได้ตามปกติแล้ว
+ แนะนำให้ติดต่อฝ่ายบุคคลเพื่อตรวจสอบสิทธิ์เพิ่มเติม
+สามารถติดต่อได้ที่ LINE: @prtrconnect",,,,,"Information","0","Done",,,"12/5/2025 9:37 AM"
+"12345","12/5/2025 7:23 AM","พนักงานตี๋น้อยหลายท่าน","2","PROD","Teenoi","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"สอบถามคูปองกินตี๋น้อยฟรีเดือนเกิด เดือนธันวาคม ของพนักงานตี๋น้อย","แจ้งสำหรับพนักงานที่เกิดในเดือนธันวาคม ขณะนี้ทางฝ่ายบุคคลยังไม่ได้ส่งรายชื่อผู้มีสิทธิ์มาที่บริษัทนะคะ
+จึงขอรอให้ฝ่ายบุคคลส่งรายชื่อพนักงานที่ได้รับสิทธิ์คูปองวันเกิดก่อน",,,,,"Information","0","Done",,,"12/5/2025 9:11 AM"
+"12344","12/4/2025 8:12 PM","หลายสาขา ","9","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ","แจ้ง j point ทำการตรวจสอบ",,"  ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/4/2025 9:00 PM"
+"12343","12/4/2025 8:11 PM","หลายสาขา","7","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/4/2025 9:00 PM"
+"12342","12/4/2025 8:02 PM","หลายสาขา ","6","PROD","PAH Advance","Wannapha Maensurin","System","Telephone","Very low (1 customer)",,,"กดเบิกป๋าไม่ได้ ไม่พบข้อมูล","แจ้งทำรายการหลังจากวันที่5 เป็นต้นไป หากทำรายการไม่ได้ ติดต่อ HR เพื่อตรวจสอบสิทธิ",,,,,"Information","0","Done",,,"12/4/2025 9:00 PM"
+"12341","12/4/2025 7:59 PM","หลายสาขา","7","PROD","SGF+","Wannapha Maensurin","System","Telephone","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ที่ผูกกับ SGF+ ","แจ้งทำรายการยืนยันตัวตนที่ร้านเดิม หรือ jaymart เพื่อทำรายการเปลี่ยนเบอร์ ",,,,,"Information","0","Done",,,"12/4/2025 8:00 PM"
+"12340","12/4/2025 7:58 PM","หลายสาขา ","5","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","สอบถาม เเละเเจ้งให้เว้นระยะการทำรายการ เเละตรวจสอบการปิดกั้น sms ",,,,,"ปัญหาแอพ","0","Done",,,"12/4/2025 9:00 PM"
+"12339","12/4/2025 7:57 PM","หลายสาขา","6","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/4/2025 9:00 PM"
+"12338","12/4/2025 7:55 PM","หลายสาขา ","4","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามข้อมูลสินเชื่อ SG","แนะนำติดต่อ SG ",,,,,"Information","0","Done",,,"12/4/2025 8:00 PM"
+"12337","12/4/2025 6:39 PM","หลายสาขา ","2","PROD","JAS_CRM","Wannapha Maensurin","System","Jas Family CRM Support","Very low (1 customer)",,,"สมัครสมาชิกไม่สำเร็จ","แจ้ง J point ทำการแก้ไข ",,,,,"Information","0","Done",,,"12/4/2025 7:00 PM"
+"12336","12/4/2025 12:35 AM","Line : tacha🎀 (1275)","1","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","คูปอง","คูปองไม่เข้า","คูปอง Samsung Mobile care ไม่เข้า
+","สอบถามและ ตรวจสอบเเจ้งให้ทำรายการใหม่ให้ถูกต้อง ",,"เนื่องจากเจ้าหน้าที่ใส่เบอร์ในที่อยู่จัดส่งไม่ตรงกับเบอร์สมัครสมาชิก ",,,"coupon","1","Done",,,"12/4/2025 3:00 PM"
+"12335","12/4/2025 4:15 PM","Line : @BM Tanaphat BS. ","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์
+","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,"ขออนุมัติอุปกรณ์
+",,,"Register JDIDeKYC","0","Done",,,"12/4/2025 6:00 PM"
+"12334","12/4/2025 5:27 PM","Line : พงศกร   ทีมมมม","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละตรวจสอบ0616616071/ ส่งเรื่องตรวจสอบสินเชื่อ ","ตรวจสอบพบว่า นาย ณัฐพล นนท์ตรี ยืนยันตัวตนเเล้ว เเละ สัญญา : LockPhone หมายเลข : 5024894382255",,"ไม่ได้มีการส่งเข้ามา",,"Information","1","Done",,,"12/4/2025 5:31 PM"
+"12333","12/4/2025 5:15 PM","Line : โอ  สุนันทา","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid statuscode format
+","สอบถามลองให้เทสกับบัตรอื่น และลองเช็ดทำความสะอาดชิปบัตรที่พบปัญหา",,,,,"ปัญหาบัตรประชาชน","1","Done",,,"12/4/2025 5:20 PM"
+"12332","12/4/2025 3:06 PM","Line :🍾🅱️eer🍻 B0513.AR14","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","แจ้งหลักฐานเจ้าของเบอร์ 0980823151 / ลบข้อมูล kyc / dipchip ใหม่",,,,,"KYC","0","Done",,,"12/4/2025 3:12 PM"
+"12331","12/4/2025 3:00 PM","Line ; 19660 ผู้ใหญ่ปลื้ม","1","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"แอปอยู่หน้าเข้ารับบริการยืนยันตัวตน","ขอทราบเลขบัตรตรวจสอบว่ายืนยันตัวตนหรือยัง",,,"ไม่แจ้งเลขบัตร",,"Information","0","Done",,,"12/4/2025 3:01 PM"
+"12330","12/4/2025 12:45 PM","Line : Apple789🍎","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","ลองให้เทสกับบัตรเจ้าหน้าที่ / เข็ดทำความสะอาดชิปบัตร",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/4/2025 12:46 PM"
+"12329","12/4/2025 10:10 AM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22) 
+","แจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/4/2025 2:14 PM"
+"12328","12/3/2025 9:00 AM","หลายสาขา","4","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง Jpoint ทำการตรวจสอบแก้ไข ",,"เปบี่ยนเบอร์",,,"Change info","0","Done",,,"12/3/2025 8:00 PM"
+"12327","12/3/2025 9:00 AM","หลายสาขา","9","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง Jpoint ทำการตรวจสอบแก้ไข 
+",,"ไม่พบข้อมูล",,,"Information","0","Done",,,"12/3/2025 8:00 PM"
+"12326","12/3/2025 9:00 AM","หลายสาขา","4","PROD","JDID EKYC","Kavalin Sripet","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/3/2025 6:00 PM"
+"12325","12/3/2025 7:48 PM","Line : Kaewalin","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D99) ","แจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/3/2025 7:49 PM"
+"12324","12/3/2025 6:08 PM","Line : 🐯Sucha😻","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Failed to fetch config Using default  values","เเจ้งให้ถอนการติดตั้งแอพ เเละทำรายการใหม่อีกครั้ง",,,,,"ปัญหาแอพ","0","Done",,,"12/3/2025 6:08 PM"
+"12323","12/3/2025 5:52 PM","Line ;Donut","1","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เข้าแอป SG ไม่ได้","ให้ติดต่อ SG",,,,,"Information","0","Done",,,"12/3/2025 5:52 PM"
+"12322","12/3/2025 3:59 PM","Line : BMนิษฐา🏔️💼🛠️3️⃣6️⃣8️⃣7️⃣🍀🎐","1","PROD","ONE ID","Kavalin Sripet","System","Line","Very low (1 customer)",,,"กดยืนยันเบอร์โทรไม่ได้","พนักงานแจ้งว่าทำรายการได้แล้ว",,,,,"Information","0","Done",,,"12/3/2025 3:00 PM"
+"12321","12/3/2025 8:10 AM","Apirak Chaimol","1","PROD","PAH Advance","Kavalin Sripet","System","Facebook Page Pah Advance","Very low (1 customer)",,,"สอบถามป๋า แอดวานช์ของบริษัทโตชิบา เครือ PRTR เปิดให้บริการวันไหน","แจ้งให้เข้าทำรายการประมาณวันที่ 5 อีกครั้ง",,,,,"Information","0","Done",,,"12/3/2025 2:41 PM"
+"12320","12/3/2025 1:27 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","ลองให้เทสกับบัตรเจ้าหน้าที่ / เข็ดทำความสะอาดชิปบัตร",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/3/2025 3:00 PM"
+"12319","12/3/2025 11:38 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ที่เคยลงทะเบียนไว้","ทำรายการลบข้อมูลที่ลงทะเบียน",,"ต้องการลงทะเบียนใหม่ / แก้ไขข้อมูลลงทะเบียน",,,"Register JDIDeKYC","0","Done",,,"12/3/2025 3:36 PM"
+"12318","12/3/2025 11:02 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","ตรวจสอบข้อมูลสินเชื่อ / ให้ส่งหลักฐานเจ้าของเบอร์","ลูกค้าไม่ส่งหลักฐานเข้ามา",,,,"Information","0","Done",,,"12/3/2025 5:28 PM"
+"12317","12/3/2025 10:09 AM","หลายสาขา","6","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/3/2025 12:09 PM"
+"12316","12/3/2025 9:41 AM","หลายสาขา","11","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","แนะนำเว้นระยะการทำรายการ เเละตรวจสอบการปิดกั้น SMS ",,,,,"ปัญหาแอพ","0","Done",,,"12/3/2025 6:30 PM"
+"12315","12/2/2025 1:59 PM","หลายสาขา","5","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง J point ทำการแก้ไข",,"เปลี่ยนเบอร์ ",,,"Change info","0","Done",,,"12/2/2025 8:00 PM"
+"12314","12/2/2025 12:00 PM","หลายสาขา","6","PROD","JMB_CRM","Kavalin Sripet","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","อื่นๆ","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง J point ทำการแก้ไข",," ไม่พบข้อมูล",,,"Information","0","Done",,,"12/2/2025 8:00 PM"
+"12313","12/2/2025 10:12 AM","พั้นซ์' ซซ","1","PROD","JOIN","Kavalin Sripet","System","Facebook Page Jfin","Very low (1 customer)",,,"ลูกค้าได้กำหนด PIN Code เป็นระดับ strong แล้ว และเมื่อทำการยืนยัน PIN Code อีกครั้ง ระบุรหัสเดิมแต่มี error ขึ้นว่า คุณยืนยัน PIN Code ไม่ตรงกัน","ให้ส่งข้อมูลเพื่อแจ้งลบกระเป๋าเบอร์ 0945135082",,"0945135082 ตรวจสอบเบอร์นี้เคยสมัครเมื่อ 27/10/2023  / สถานะเป็น broze","ลูกค้ายังไม่ส่งข้อมูลลบกระเป๋า",,"Information","0","Pending",,,
+"12312","12/2/2025 5:52 PM","Natwipalak Kumsukdachaphat","1","PROD","JDID EKYC","Kavalin Sripet","System","Facebook Page Join","Very low (1 customer)",,,"ใส่ pin ไปหลายรอบแล้วทำไมถึงขึ้นว่า fail ","รบกวนลองทำการลบแอปโหลดใหม่และทำรายการใหม่อีกครั้ง",,,,,"Information","0","Done",,,"12/2/2025 9:04 AM"
+"12311","12/2/2025 2:50 PM","Line :Paweena","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22) ","แจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/2/2025 2:53 PM"
+"12310","12/2/2025 1:16 PM","Line : SIRINAT 🎀⛅️ ¹²⁹⁹","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"คูปอง J wallet 3% ไม่เข้า","ตรวจสอบข้อมูลลูกค้าเป้นสมาชิกเดิมอยู่แล้ว
+ID1349900353078
+นางสาวหนึ่งฤทัย รักโคตร
+วดป09/06/2533
+0631329246",,,,,"Information","0","Done",,,"12/2/2025 1:34 PM"
+"12309","12/2/2025 9:00 AM","หลายสาขา","11","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/2/2025 8:00 PM"
+"12308","12/2/2025 11:44 AM","หลายสาขา","1","PROD","JDID EKYC","Kavalin Sripet","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/2/2025 8:00 PM"
+"12307","12/2/2025 12:35 PM","หลายสาขา","3","PROD","ONE ID","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP","เเจ้งให้ทำรายการเว้นระยะเข้าทำรายการใหม่ / ตรวจสอบการปิดกั้น OTP ",,,,,"OTP","0","Done",,,"12/2/2025 2:39 PM"
+"12306","12/2/2025 12:02 PM","หลายสาขา","2","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ที่เคยลงทะเบียนไว้","ทำรายการลบข้อมูลที่ลงทะเบียน",,,,,"Register JDIDeKYC","0","Done",,,"12/2/2025 2:35 PM"
+"12305","12/2/2025 10:26 AM","หลายสาขา","7","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/2/2025 3:00 PM"
+"12304","12/2/2025 10:58 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","แนะนำเว้นระยะการทำรายการ เเละตรวจสอบการปิดกั้น SMS ",,,,,"ปัญหาแอพ","0","Done",,,"12/2/2025 6:00 PM"
+"12303","12/2/2025 10:32 AM","หลายสาขา","3","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","ลองให้เทสกับบัตรเจ้าหน้าที่ / เข็ดทำความสะอาดชิปบัตร",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/2/2025 3:00 PM"
+"12302","12/2/2025 10:19 AM","หลายสาขา","6","PROD","SGF+","Kavalin Sripet","System","Line","Very low (1 customer)",,,"สอบถามข้อมูลเกี่ยวกับการทำสินเชื่อ SG","แจ้งให้ติดต่อ SG",,,,,"Information","0","Done",,,"12/2/2025 6:00 PM"
+"12301","12/2/2025 9:33 AM","หลายสาขา","2","PROD","ONE ID","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ขึ้น error : Mobile number exists in ekyc But do not match the current ID card  or passport ","ตรวจสอบเคยยืนยันตัวตนแล้วด้วยเบอร์อื่น / ยืนยันตัวตนใหม่เพื่อเปลี่ยนเบอร์",,"เปลี่ยนเบอร์ใหม่",,,"Information","0","Done",,,"12/2/2025 12:32 PM"
+"12300","12/2/2025 9:19 AM","หลายสาขา","6","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น","ตรวจสอบข้อมูลสินเชื่อ / ให้ส่งหลักฐานเจ้าของเบอร์","ลูกค้าเปลี่ยนเบอร์อื่นและไม่ส่งหลักฐานเข้ามา",,,,"Information","0","Done",,,"12/2/2025 7:30 PM"
+"12299","12/1/2025 8:38 PM","หลายสาขา","8","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขึ้น error ระบบ SMS ขัดข้องกรุณาติดต่อเจ้าหน้าที่","แจ้งให้เว้นระยะการทำรายการ 10นาที เเละไม่กดขอ otp ซ้ำ ให้ตรวจสอบการปิดกั้น SMS ที่เครื่องของลูกค้า ",,,,,"ปัญหาแอพ","0","Done",,,"12/1/2025 9:00 PM"
+"12298","12/1/2025 8:37 PM","หลายสาขา","4","PROD","SGF+","Wannapha Maensurin","System","Telephone","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์ที่ผูกกับ SGF+ ","แจ้งติดต่อยืนยันตัวตนที่ร้านที่ทำการผ่อน หรือ jaymart สาขาใกล้บ้าน ",,,,,"Information","0","Done",,,"12/1/2025 9:00 PM"
+"12297","12/1/2025 8:35 PM","หลายสาขา ","5","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"Error : Invalid status code format","สอบถาม เเละลองให้เทสกับบัตรเจ้าหน้าที่ / เข็ดทำความสะอาดชิปบัตร",,,,,"ปัญหาแอพ","0","Done",,,"12/1/2025 9:00 PM"
+"12296","12/1/2025 8:34 PM","หลายสาขา","4","PROD","PAH Advance","Wannapha Maensurin","System","Telephone","Very low (1 customer)",,,"ไม่พบรายชื่อในแอพป๋า","เเจ้งติดต่อเจ้าหน้าที่ HR ที่ดูเเลเพื่อตรวจสอบ เเละเข้าทำรายการหลังวันที่ 4 ",,,,,"Information","0","Done",,,"12/1/2025 9:00 PM"
+"12295","12/1/2025 8:33 PM","หลายสาขา ","5","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์ ","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/1/2025 9:00 PM"
+"12294","12/1/2025 8:31 PM","หลายสาขา","2","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง Jpoint ทำการตรวจสอบแก้ไข ",,"เปลี่ยนเบอร์  JMB CRM",,,"Change info","0","Done",,,"12/1/2025 9:00 PM"
+"12293","12/1/2025 8:30 PM","หลายสาขา ","13","PROD","JMB_CRM","Wannapha Maensurin","System","Jaymart CRM Support","Very low (1 customer)","ลงทะเบียน","ข้อมูล J Point ไม่ถูกต้อง","สมัครสมาชิกไม่สำเร็จ ","เเจ้ง J point ทำการแก้ไข",," ไม่พบข้อมูล JMB CRM",,,"Information","0","Done",,,"12/1/2025 9:00 PM"
+"12292","12/1/2025 8:29 PM","หลายสาขา","5","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group JMB","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/1/2025 9:00 PM"
+"12291","12/1/2025 8:28 PM","หลายสาขา ","5","PROD","JDID EKYC","Wannapha Maensurin","System","Line Group Singer","Very low (1 customer)",,,"ขออนุมัติอุปกรณ์","ทาง JDID ขออนุญาตแบ่งรอบในการอนุมัติอุปกรณ์ Dipchip เป็น 4 รอบ
+",,,,,"Register JDIDeKYC","0","Done",,,"12/1/2025 9:00 PM"
+"12290","12/1/2025 8:06 AM","Line : @Sawitri_B ","1","PROD","CASA_CRM","Kavalin Sripet","System","CASA CRM Working","Very low (1 customer)",,,"คูปอง  12 Drink 1,000 ไม่เข้า","เเจ้งพี่โจ้ทำรายการแก้ไข","ทำรายการแก้ไขเรียบร้อย ","เนื่องจากเจ้าหน้าที่หน้าร้านใส่เบอร์ผิด ","สาขา สุขุมวิท20
+รบกวนตรวจสอบ คูปอง 12 Drink 1,000
+ของสมาชิก 081-609-1550 ให้หน่อยค่ะ
+ลูกค้าซื้อคูปองไปเมื่อ 28/11/68 คูปองยังไม่เข้าค่ะ เนื่องจากใส่เบอร์ผิด ",,"Staff Error","1","Done",,,"12/1/2025 1:08 PM"
+"12289","12/1/2025 6:19 PM","Line : 🕊️KENji📱NKP🐦‍🔥","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถาม เเละทำการตรวจสอบ /แจ้งฟอร์มทำรายการ เเละส่งตรวจสอบสินเชื่อ ","ส่งตรวจสอบสินเชื่อ เเละลบข้อมูลเเจ้งให้ยืนยันตัวตนใหม่","เนื่องจากน้าของเจ้าของเบอร์เคยนำเบอร์นี้ทำรายการยืนยันตัวตน",,,"KYC","1","Done",,,"12/1/2025 6:53 PM"
+"12288","12/1/2025 6:30 PM","Line : 🩷🩵จำปูน6700895OBS💵🪙❤","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามการยกเลิกสัญญาสินเชื่อ ","แนะนำติดต่อสอบถาม SG ",,,,,"Information","0","Done",,,"12/1/2025 6:32 PM"
+"12287","12/1/2025 6:03 PM","Line : Jirapa | LRM32","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละทำรายการตรวจสอบเบอร์ / เเจ้งฟอร์ม เเละทำรายการส่งตรวจสอบสินเขื่อ ","เบื้องต้นตรวจสอบไม่พบสินเชื่อ เเต่เนื่องจากส่งหลักฐานไม่ถูกต้อง ต้องมีการส่งแก้ไขเข้ามาอีกครั้ง 
+เเต่ลูกค้ากลับเเล้ว จึงไม่ได้ทำรายการ","ข้อมูลค้างเป็นของคนก่อนหน้า เนื่องจากทำรายการต่อกัน ","0863160023",,"Information","1","Done",,,"12/1/2025 6:23 PM"
+"12286","12/1/2025 5:56 PM","Line : K.ทู📲apple wireless🤗","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"สอบถามการทำรายการลงทะเบียน JDID ","เเจ้งคู่มือการทำรายการ JDID ",,"ต้องการลวทะเบียนเพิ่มพนักงานใหม่",,,"Change info","0","Done",,,"12/1/2025 6:00 PM"
+"12285","12/1/2025 5:18 PM","Line : ปล่อยผ่อนมือถือ,🥰🥰🥰","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"สอบถามการเพิ่มเครื่องลงทะเบียน JDID","เเจ้งคู่มือเเละเเจ้งลงทะเบียน 1 เครื่อง/1 เบอร์",,"ต้องการเพิ่มเครื่องเพื่อทำรายการ",,,"Information","0","Done",,,"12/1/2025 5:39 PM"
+"12284","12/1/2025 3:19 PM","Line: 🍑NUM PUNCH 🍑 BS 1733","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามเเละทำรายการตรวจสอบ / ลบข้อมูลเเจ้งให้ลงทะเบียนเข้ามาอีกครั้ง ",,,"0659034666",,"Change info","1","Done",,,"12/1/2025 3:33 PM"
+"12283","12/1/2025 5:40 PM","Line : Joyzabbbbbbbb","1","PROD","JDID EKYC","Kavalin Sripet","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ที่เคยลงทะเบียนไว้","ทำรายการลบข้อมูลที่ลงทะเบียน",,,,,"Register JDIDeKYC","0","Done",,,"12/1/2025 5:55 PM"
+"12282","12/1/2025 4:22 PM","Line :@🐇Su1595 ","1","PROD","JDID EKYC","Kavalin Sripet","System","Line Group JMB","Very low (1 customer)",,,"error อ่านข้อมูลบัตรไม่สำเร็จ (D22) ","แจ้งเนื่องจากบัตรของลูกค้า สิ้นสภาพการใช้งาน ",,,,,"ปัญหาบัตรประชาชน","0","Done",,,"12/1/2025 4:22 PM"
+"12281","12/1/2025 3:13 PM","ยิ้มยิ้มโอ๋เอ๋ ไม่รีบ","1","PROD","JOIN","Wannapha Maensurin","System","Facebook Page Join","Very low (1 customer)",,,"ต้องการเปลี่ยนเบอร์","ตรวจสอบหลักฐานที่เเจ้งเข้ามาเเละทำรายการลบข้อมูล Join  เเจ้งให้ Log in เบอร์ใหม่ เเละเเจ้งหากต้องการอัพเกรดสถานะติดต่อทำรายการยืนยันตัวตนที่ Jaymart สาขาใกล้บ้าน ",,"ต้องการเปลี่ยนเบอร์ เเละเข้าระบบ Join ไม่ได้ ไม่มีรหัส seed phrase",,,"Seed Phrase","0","Done",,,"12/1/2025 5:00 PM"
+"12280","12/1/2025 11:48 AM","Line : Matchima","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","สอบถามเเละตรวจสอบเบอร์ / เจ้าหน้าที่ไม่ได้มีการตอบกลับ","ตรวจสอบพบ 0620700366 ทำรายการเข้ามาวันนี้ โดย น.ส. ทวาย สะราคำ
+ ",,,,"Information","1","Done",,,"12/1/2025 2:00 PM"
+"12279","12/1/2025 12:14 AM","Line : BAT Weeraphong","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ต้องการทำรายการลบข้อมูลเจ้าหน้าที่ 
+","สอบถามเเละทำรายการลบข้อมูล / เเจ้งให้ลงทะเบียนเข้ามาอีกครั้ง",,"ต้องการแก้ไขข้อมูลเจ้าหน้าที่ ",,,"Change info","1","Done",,,"12/1/2025 1:00 PM"
+"12278","12/1/2025 1:54 PM","Line : kullcha_9️⃣9️⃣🪬","1","PROD","SGF+","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"โทรศัพท์หายต้องการสอบถามข้อมูลในส่วนสินเชื่อ ","แนะนำติดต่อสอบถาม SG ",,,,,"Information","0","Done",,,"12/1/2025 1:58 PM"
+"12277","12/1/2025 1:39 PM","Line : Jommobile❤️","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"error JDID หยุดทำงานอยู่เรื่อย
+","สอบถามเเละเเจ้งให้ลองทำรายการเทสกับบัตรอื่น / เเนะนำให้ถอนการติดตั้ง เเละเข้าทำรายการอีกครั้ง ","สามารถทำรายการได้เรียบร้อย ",,,,"ปัญหาแอพ","1","Done",,,"12/1/2025 2:12 PM"
+"12276","12/1/2025 2:24 PM","Line : 𝗦𝘂𝗽𝗼𝗿𝗻𝗰𝗵𝗮𝗶 🧑🏻‍💼1351","1","PROD","JDID EKYC","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"เบอร์เคยมีการยืนยันตัวตนด้วยบัตรประชาชนอื่น
+","ตรวจสอบ / ส่งเรื่องตรวจสอบสินเชื่อกับ SG ","เบื้องต้นส่งเรื่องตรวจสอบสินเชื่อ พบว่า 0814077298 มีการทำรายการทำสัญญาเเล้ว",,,,"Information","0","Done",,,"12/1/2025 2:32 PM"
+"12275","12/1/2025 10:05 AM","Line : BIG1-PON1/BCโพนพิสัย","1","PROD","ONE ID","Wannapha Maensurin","System","Line","Very low (1 customer)",,,"ไม่ได้รับเลข OTP
+","สอบถามเเละเเจ้งให้ทำรายการเว้นระยะเข้าทำรายการใหม่ / ตรวจสอบการปิดกั้น OTP ",,,,,"OTP","1","Done",,,"12/1/2025 12:00 AM"
