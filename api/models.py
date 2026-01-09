@@ -115,6 +115,7 @@ class File(Base):
     uploaded_at = Column(DateTime, default=utcnow)
     
     bot = relationship("Bot", back_populates="files")
+    chunks = relationship("FileChunk", back_populates="file", cascade="all, delete-orphan")
     
     def to_dict(self):
         return {
@@ -125,3 +126,31 @@ class File(Base):
             "size_bytes": self.size_bytes,
             "uploaded_at": self.uploaded_at.isoformat() if self.uploaded_at else None,
         }
+
+
+from pgvector.sqlalchemy import Vector
+
+class FileChunk(Base):
+    """Chunks of file content with vector embeddings"""
+    __tablename__ = "file_chunks"
+
+    id = Column(String, primary_key=True)
+    file_id = Column(String, ForeignKey("files.id"), nullable=False)
+    chunk_index = Column(Integer, nullable=False)
+    content = Column(Text, nullable=False)
+    # Gemini text-embedding-004 is 768 dimensions
+    embedding = Column(Vector(768))
+
+    file = relationship("File", back_populates="chunks")
+
+class Feedback(Base):
+    """User feedback for AI messages"""
+    __tablename__ = "feedbacks"
+
+    id = Column(String, primary_key=True)
+    message_id = Column(String, ForeignKey("messages.id"), nullable=True) # Refers to assistant message
+    bot_id = Column(String, ForeignKey("bots.id"), nullable=True)
+    user_id = Column(String, nullable=False)
+    score = Column(Integer, nullable=False) # 1 or -1
+    category = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
