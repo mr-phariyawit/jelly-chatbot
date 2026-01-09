@@ -154,3 +154,30 @@ class Feedback(Base):
     score = Column(Integer, nullable=False) # 1 or -1
     category = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class AdminUser(Base):
+    """Admin dashboard users with role-based access"""
+    __tablename__ = "admin_users"
+
+    id = Column(String, primary_key=True)
+    email = Column(String, unique=True, nullable=False, index=True)
+    name = Column(String, nullable=True)
+    avatar_url = Column(String, nullable=True)
+    role = Column(String, default="admin")  # admin, viewer
+    allowed_bot_ids = Column(Text, nullable=True)  # JSON array for data governance, null = all access
+    created_at = Column(DateTime, default=utcnow)
+    last_login = Column(DateTime, nullable=True)
+
+    def to_dict(self):
+        import json
+        return {
+            "id": self.id,
+            "email": self.email,
+            "name": self.name,
+            "avatar_url": self.avatar_url,
+            "role": self.role,
+            "allowed_bot_ids": json.loads(self.allowed_bot_ids) if self.allowed_bot_ids else None,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "last_login": self.last_login.isoformat() if self.last_login else None,
+        }

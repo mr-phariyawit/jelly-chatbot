@@ -59,3 +59,53 @@ export interface Message {
 export interface SessionDetail extends Session {
     messages: Message[];
 }
+
+export interface AdminUser {
+    id: string;
+    email: string;
+    name?: string;
+    avatar_url?: string;
+    role: string;
+    allowed_bot_ids?: string[];
+    created_at?: string;
+    last_login?: string;
+}
+
+// Auth API functions
+export const authApi = {
+    googleAuth: async (data: {
+        email: string;
+        name?: string;
+        avatar_url?: string;
+        google_id: string;
+    }) => {
+        const response = await api.post<AdminUser>('/auth/google', data);
+        return response.data;
+    },
+
+    getCurrentUser: async (email: string) => {
+        const response = await api.get<AdminUser>('/auth/me', {
+            params: { email },
+        });
+        return response.data;
+    },
+
+    listUsers: async () => {
+        const response = await api.get<AdminUser[]>('/users');
+        return response.data;
+    },
+
+    updateUser: async (userId: string, data: {
+        name?: string;
+        role?: string;
+        allowed_bot_ids?: string[];
+    }) => {
+        const response = await api.put<AdminUser>(`/users/${userId}`, data);
+        return response.data;
+    },
+
+    deleteUser: async (userId: string) => {
+        const response = await api.delete(`/users/${userId}`);
+        return response.data;
+    },
+};
