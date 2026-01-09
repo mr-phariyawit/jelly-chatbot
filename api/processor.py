@@ -7,9 +7,9 @@ Main logic for processing support requests using AI (Gemini) and Jira
 import os
 import re
 import logging
+import requests
 from typing import Dict, Any, Optional, List
 
-import google.generativeai as genai
 # from jira import JIRA -> Moved to jira_service
 from linebot.v3.messaging import MessagingApi, ReplyMessageRequest, TextMessage
 from jira_service import JiraService
@@ -17,6 +17,45 @@ from jira_service import JiraService
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+class GeminiRESTClient:
+    """Gemini API client using REST instead of gRPC to avoid credential issues."""
+
+    def __init__(self, api_key: str, model: str = "gemini-2.0-flash"):
+        self.api_key = api_key
+        self.model = model
+        self.base_url = "https://generativelanguage.googleapis.com/v1beta"
+
+    def generate_content(self, prompt: str, timeout: int = 60) -> str:
+        """Generate content using REST API."""
+        url = f"{self.base_url}/models/{self.model}:generateContent?key={self.api_key}"
+        payload = {
+            "contents": [{"parts": [{"text": prompt}]}]
+        }
+
+        response = requests.post(url, json=payload, timeout=timeout)
+
+        if response.status_code == 200:
+            data = response.json()
+            return data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+        else:
+            raise Exception(f"Gemini API error: {response.status_code} - {response.text[:200]}")
+
+    def embed_content(self, text: str, task_type: str = "RETRIEVAL_QUERY") -> list:
+        """Generate embeddings using REST API."""
+        url = f"{self.base_url}/models/text-embedding-004:embedContent?key={self.api_key}"
+        payload = {
+            "content": {"parts": [{"text": text}]}
+        }
+
+        response = requests.post(url, json=payload, timeout=30)
+
+        if response.status_code == 200:
+            data = response.json()
+            return data.get("embedding", {}).get("values", [])
+        else:
+            raise Exception(f"Embedding API error: {response.status_code} - {response.text[:200]}")
 
 # System Prompt (Ported from TypeScript)
 SYSTEM_PROMPT = """คุณคือ AI Support Assistant ของ JVC (J Ventures) ทำหน้าที่ช่วยเหลือพนักงานหน้าร้านแก้ไขปัญหาเกี่ยวกับแอปพลิเคชันต่างๆ
@@ -55,15 +94,15 @@ from models import File
 
 class Processor:
     def __init__(self):
-        # Initialize Gemini
-        gemini_key = os.getenv("GEMINI_API_KEY")
-        if gemini_key:
-            genai.configure(api_key=gemini_key)
-            self.model = genai.GenerativeModel('gemini-2.0-flash') # Fast and stable
+        # Initialize Gemini REST Client (avoid gRPC issues)
+        self.gemini_key = os.getenv("GEMINI_API_KEY")
+        if self.gemini_key:
+            self.gemini = GeminiRESTClient(self.gemini_key, "gemini-2.0-flash")
+            logger.info("Gemini REST client initialized")
         else:
             logger.warning("GEMINI_API_KEY not set")
-            self.model = None
-            
+            self.gemini = None
+
         # Initialize Jira Service
         self.jira_service = JiraService()
 
@@ -110,16 +149,11 @@ class Processor:
                 logger.info("No vectors found, falling back to legacy full-text")
                 return self._fetch_knowledge_base_legacy(db, bot_id)
 
-            # 2. Embed Query
-            if not self.model: # Actually we need generic genai, not chat model
+            # 2. Embed Query using REST client
+            if not self.gemini:
                 return ""
-                
-            embedding_result = genai.embed_content(
-                model='models/text-embedding-004',
-                content=query,
-                task_type="retrieval_query"
-            )
-            query_vector = embedding_result['embedding']
+
+            query_vector = self.gemini.embed_content(query, "retrieval_query")
             
             # 3. Vector Search
             # PostGres syntax: order_by(FileChunk.embedding.cosine_distance(query_vector))
@@ -160,54 +194,65 @@ class Processor:
             return ""
 
     def process_image(self, user_id: str, image_content: bytes, db: Session, bot_id: str) -> Dict[str, Any]:
-        """Process image message using Gemini Vision + RAG"""
-        logger.info(f"Processing image for Bot {bot_id}")
-        
-        if not self.model:
+        """Process image message using Gemini Vision + RAG (REST API)"""
+        logger.info(f"Processing image for Bot {bot_id}, user {user_id}")
+
+        if not self.gemini:
              return {"message": "AI not ready", "should_escalate": False}
 
         try:
-            # 1. Vision Analysis (Extract Error/Text)
-            # We use a specific prompt to get search-friendly text
+            import base64
+
+            # 1. Vision Analysis using REST API with base64 encoded image
             vision_prompt = """
-            Analyze this image. If it shows an error message or technical issue, extract the key error text and describe the problem concisely. 
+            Analyze this image. If it shows an error message or technical issue, extract the key error text and describe the problem concisely.
             If it's just a general photo, describe what it is.
             Output format: [Analysis] <description>
             """
-            
-            # Create a Part object or pass bytes directly depending on SDK version.
-            # google.generativeai supports dict for blobs
-            image_blob = {
-                "mime_type": "image/jpeg", # Assumed, LINE sends JPEG mostly
-                "data": image_content
+
+            # Encode image to base64
+            image_b64 = base64.b64encode(image_content).decode('utf-8')
+
+            # REST API call with image
+            url = f"{self.gemini.base_url}/models/{self.gemini.model}:generateContent?key={self.gemini.api_key}"
+            payload = {
+                "contents": [{
+                    "parts": [
+                        {"text": vision_prompt},
+                        {"inline_data": {"mime_type": "image/jpeg", "data": image_b64}}
+                    ]
+                }]
             }
-            
-            vision_response = self.model.generate_content([vision_prompt, image_blob])
-            image_analysis = vision_response.text
+
+            response = requests.post(url, json=payload, timeout=60)
+            if response.status_code != 200:
+                raise Exception(f"Vision API error: {response.status_code}")
+
+            data = response.json()
+            image_analysis = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
             logger.info(f"Image Analysis: {image_analysis}")
-            
+
             # 2. RAG Search with Analysis
-            # We search the KB using the description of the error
             rag_context = self._search_knowledge_base(db, bot_id, image_analysis)
-            
+
             # 3. Final Answer Generation
             final_prompt = f"""
             User sent an image.
             Image Analysis: {image_analysis}
-            
+
             Relevant Knowledge Base Context:
             {rag_context}
-            
+
             Instruction:
             Based on the image analysis and the knowledge base, provide a solution or helpful response to the user.
             If the knowledge base has a specific fix for this error, Provide it clearly.
             Response in Thai Language.
             """
-            
-            final_response = self.model.generate_content(final_prompt)
+
+            final_response = self.gemini.generate_content(final_prompt)
             return {
-                "message": final_response.text,
-                "should_escalate": "contact admin" in final_response.text.lower()
+                "message": final_response,
+                "should_escalate": "contact admin" in final_response.lower()
             }
 
         except Exception as e:
@@ -219,15 +264,15 @@ class Processor:
 
     def process_message(self, user_id: str, content: str, history: List[Dict[str, str]], db: Session = None, bot_id: str = None) -> Dict[str, Any]:
         """
-        Process user message with Gemini and handle escalation
+        Process user message with Gemini REST API and handle escalation
         """
-        logger.info(f"Processing message for Bot ID: {bot_id}")
-        if not self.model:
+        logger.info(f"Processing message for Bot ID: {bot_id}, user: {user_id}")
+        if not self.gemini:
             return {
                 "message": "ขออภัยค่ะ ระบบ AI ไม่พร้อมใช้งานในขณะนี้ (Missing API Key)",
                 "should_escalate": False
             }
-        
+
         # 1. Fetch Knowledge Base (Vector or Legacy)
         knowledge_context = ""
         if db and bot_id:
@@ -237,10 +282,10 @@ class Processor:
 
         if knowledge_context:
             logger.info(f"Injecting Knowledge Base context (len={len(knowledge_context)})")
-        
+
         # Build context
         context_str = "\\n".join([f"{'User' if m['role'] == 'user' else 'AI'}: {m['content']}" for m in history])
-        
+
         prompt = f"""{SYSTEM_PROMPT}
 
 {knowledge_context}
@@ -253,10 +298,8 @@ class Processor:
 กรุณาตอบในฐานะ AI Support Assistant โดยใช้ข้อมูลจาก "ฐานความรู้ (Knowledge Base)" ด้านบนในการตอบคำถามได้เลย (ถ้ามีข้อมูลที่ตรงกัน):"""
 
         try:
-            # Debug Prompt
-            # print(prompt) 
-            response = self.model.generate_content(prompt)
-            ai_text = response.text.strip()
+            # Use REST API instead of gRPC SDK
+            ai_text = self.gemini.generate_content(prompt).strip()
             
             # Remove Markdown (Line doesn't support it)
             ai_text = re.sub(r'\*\*([^*]+)\*\*', r'\1', ai_text)  # Bold
