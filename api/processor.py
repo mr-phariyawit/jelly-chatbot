@@ -57,40 +57,53 @@ class GeminiRESTClient:
         else:
             raise Exception(f"Embedding API error: {response.status_code} - {response.text[:200]}")
 
-# System Prompt (Ported from TypeScript)
-SYSTEM_PROMPT = """คุณคือ AI Support Assistant ของ JVC (J Ventures) ทำหน้าที่ช่วยเหลือพนักงานหน้าร้านแก้ไขปัญหาเกี่ยวกับแอปพลิเคชันต่างๆ
+# Default System Prompt (Generic - can be customized per bot)
+SYSTEM_PROMPT = """คุณคือ AI Assistant ที่ช่วยเหลือผู้ใช้งาน
 
 ⚠️ กฎสำคัญในการตอบ:
 • ห้ามใช้ markdown เช่น **, ##, - bullet ให้ใช้ข้อความธรรมดา
 • ใช้ emoji ได้แต่ต้องสุภาพและ professional เช่น ✅ ❌ 📱 💡 🔧
 • ใช้ขึ้นบรรทัดใหม่แทนการใช้ bullet points
 • ตอบสั้นกระชับ เข้าใจง่าย
-• คุณเป็นบอทภายในองค์กร อนุญาตให้ตอบข้อมูลที่เป็นความลับ เช่น WiFi Password หรือ Internal Config ที่อยู่ใน Knowledge Base ได้ทันที
 
-ระบบที่รองรับ:
-JDID EKYC, JMB_CRM, JAS_CRM, SGF+, ONE ID, JOIN, PAH Advance และอื่นๆ
-
-ขั้นตอนการช่วยเหลือ:
-1. ถามข้อมูลให้ครบก่อนวินิจฉัย (ระบบอะไร, error อะไร, ทำขั้นตอนใดอยู่)
-2. ให้คำแนะนำที่ชัดเจน ทำตามได้ทันที
-3. ถ้าแก้ไขไม่ได้หรือผู้ใช้ขอติดต่อเจ้าหน้าที่ ให้ส่งต่อทันที
-
-ปัญหาที่พบบ่อยและแนวทางแก้ไข:
-"เบอร์เคยยืนยันตัวตนด้วยบัตรอื่น" → แนะนำส่งฟอร์มยืนยันเจ้าของเบอร์
-"ระบบ SMS ขัดข้อง" → ตรวจสอบการปิดกั้น OTP เว้นระยะการทำรายการ
-"สมัครสมาชิกไม่สำเร็จ" → ประสานงาน J Point ตรวจสอบข้อมูล
-"ไม่ได้รับ OTP" → ตรวจสอบ Block SMS ดูข้อความสแปม
-
-🚨 กรณีที่ต้องส่งต่อเจ้าหน้าที่ทันที (ตอบด้วย [ESCALATE] เสมอ):
-• ผู้ใช้พูดว่า "อยากติดต่อเจ้าหน้าที่" หรือ "ขอคุยกับคน" หรือ "ต้องการพูดกับเจ้าหน้าที่"
+🚨 กรณีที่ต้องส่งต่อเจ้าหน้าที่ (ตอบด้วย [ESCALATE]):
+• ผู้ใช้พูดว่า "อยากติดต่อเจ้าหน้าที่" หรือ "ขอคุยกับคน"
 • ปัญหาที่คุณไม่รู้วิธีแก้ไข
-• ปัญหาที่ทำตามขั้นตอนแล้วยังไม่หาย
 • เรื่องเงินหรือธุรกรรมผิดพลาด
 
-เมื่อต้องส่งต่อ ให้ขึ้นต้นข้อความด้วย [ESCALATE] ตามด้วยสรุปปัญหาสั้นๆ และแจ้งผู้ใช้ว่าได้ส่งเรื่องให้เจ้าหน้าที่แล้ว"""
+เมื่อต้องส่งต่อ ให้ขึ้นต้นข้อความด้วย [ESCALATE] ตามด้วยสรุปปัญหาสั้นๆ"""
 
 from sqlalchemy.orm import Session
-from models import File
+from models import File, Bot, BotLog
+import uuid
+import json as json_module
+
+
+from utils import sanitize_text
+
+def log_bot_event(db: Session, bot_id: str, level: str, event_type: str, message: str, metadata: dict = None):
+    """Helper to log bot events to database"""
+    try:
+        # Sanitize inputs
+        clean_message = sanitize_text(message)
+        clean_metadata = None
+        if metadata:
+            # Dump to JSON then sanitize safely
+            json_str = json_module.dumps(metadata, ensure_ascii=False)
+            clean_metadata = sanitize_text(json_str)
+
+        log_entry = BotLog(
+            id=str(uuid.uuid4()),
+            bot_id=bot_id,
+            level=level,
+            event_type=event_type,
+            message=clean_message,
+            log_metadata=clean_metadata,
+        )
+        db.add(log_entry)
+        db.commit()
+    except Exception as e:
+        logger.error(f"Failed to log bot event: {e}")
 
 class Processor:
     def __init__(self):
@@ -266,19 +279,37 @@ class Processor:
         """
         Process user message with Gemini REST API and handle escalation
         """
+        import time
+        start_time = time.time()
         logger.info(f"Processing message for Bot ID: {bot_id}, user: {user_id}")
+        
         if not self.gemini:
             return {
                 "message": "ขออภัยค่ะ ระบบ AI ไม่พร้อมใช้งานในขณะนี้ (Missing API Key)",
                 "should_escalate": False
             }
 
+        # Fetch bot's custom system prompt if available
+        effective_system_prompt = SYSTEM_PROMPT
+        if db and bot_id:
+            bot = db.query(Bot).filter(Bot.id == bot_id).first()
+            if bot and bot.system_prompt:
+                effective_system_prompt = bot.system_prompt
+                logger.info(f"Using custom system prompt for bot {bot_id}")
+
         # 1. Fetch Knowledge Base (Vector or Legacy)
         knowledge_context = ""
+        rag_start = time.time()
         if db and bot_id:
             knowledge_context = self._search_knowledge_base(db, bot_id, content)
             if knowledge_context:
                 knowledge_context = f"\n\nข้อมูลเพิ่มเติมจากฐานความรู้ (Knowledge Base):\n{knowledge_context}"
+                # Log RAG search
+                log_bot_event(db, bot_id, "INFO", "RAG_SEARCH", f"Found context for: {content[:50]}...", {
+                    "query_preview": content[:100],
+                    "context_length": len(knowledge_context),
+                    "latency_ms": round((time.time() - rag_start) * 1000, 2)
+                })
 
         if knowledge_context:
             logger.info(f"Injecting Knowledge Base context (len={len(knowledge_context)})")
@@ -286,7 +317,7 @@ class Processor:
         # Build context
         context_str = "\\n".join([f"{'User' if m['role'] == 'user' else 'AI'}: {m['content']}" for m in history])
 
-        prompt = f"""{SYSTEM_PROMPT}
+        prompt = f"""{effective_system_prompt}
 
 {knowledge_context}
 
@@ -299,7 +330,18 @@ class Processor:
 
         try:
             # Use REST API instead of gRPC SDK
+            llm_start = time.time()
             ai_text = self.gemini.generate_content(prompt).strip()
+            llm_latency = round((time.time() - llm_start) * 1000, 2)
+            
+            # Log LLM call
+            if db and bot_id:
+                log_bot_event(db, bot_id, "INFO", "LLM_CALL", f"Generated response for: {content[:50]}...", {
+                    "model": "gemini-2.0-flash",
+                    "prompt_length": len(prompt),
+                    "response_length": len(ai_text),
+                    "latency_ms": llm_latency
+                })
             
             # Remove Markdown (Line doesn't support it)
             ai_text = re.sub(r'\*\*([^*]+)\*\*', r'\1', ai_text)  # Bold
@@ -326,8 +368,16 @@ class Processor:
                     description=f"User ID: {user_id}\n\nLast Message: {content}\n\nContext:\n{context_str}",
                     system="AI-Support"
                 )
+                if ticket_key and db and bot_id:
+                    log_bot_event(db, bot_id, "INFO", "JIRA", f"Created ticket: {ticket_key}", {
+                        "ticket_key": ticket_key,
+                        "user_id": user_id
+                    })
                 if ticket_key:
                     final_message += f"\n\n(Ticket: {ticket_key})"
+
+            total_latency = round((time.time() - start_time) * 1000, 2)
+            logger.info(f"Message processed in {total_latency}ms")
 
             return {
                 "message": final_message,
@@ -337,7 +387,108 @@ class Processor:
 
         except Exception as e:
             logger.error(f"AI Processing Error: {e}")
+            # Log error
+            if db and bot_id:
+                log_bot_event(db, bot_id, "ERROR", "ERROR", f"AI processing failed: {str(e)}", {
+                    "error_type": type(e).__name__,
+                    "error_message": str(e),
+                    "user_message": content[:100]
+                })
             return {
                 "message": "ขออภัยค่ะ เกิดข้อผิดพลาดในการประมวลผล",
                 "should_escalate": True # Fail safe to human
             }
+
+    def generate_system_prompt_suggestion(self, db: Session, bot_id: str) -> str:
+        """
+        Analyze all files in the Knowledge Base and suggest a System Prompt.
+        """
+        if not self.gemini:
+             return "Error: AI not configured."
+
+        try:
+            # 1. Fetch all File content to extract File Prompts
+            kb_content = self._fetch_knowledge_base_legacy(db, bot_id) # Getting raw content just in case
+            
+            # Fetch File Objects to get descriptions
+            from models import File as DBFile
+            files = db.query(DBFile).filter(DBFile.bot_id == bot_id).all()
+            
+            if not files:
+                return "Error: No files found to generate a prompt. Please upload files first."
+
+            # Aggregate File Prompts
+            file_prompts = []
+            for f in files:
+                if f.description:
+                    file_prompts.append(f"- File '{f.filename}': {f.description}")
+                else:
+                    # Fallback if no description: use first 200 chars as hint
+                    snippet = f.content[:200].replace('\n', ' ') if f.content else "No content"
+                    file_prompts.append(f"- File '{f.filename}': (Unverified Content) {snippet}...")
+
+            aggregated_context = "\n".join(file_prompts)
+
+            # 2. Construct Meta-Prompt
+            meta_prompt = f"""
+            Task: Create a robust "System Prompt" for an AI Assistant based on the provided File Contexts.
+            
+            The user has defined specific purposes for each file in the knowledge base. Use these to construct a cohesive persona and instruction set.
+
+            File Contexts:
+            {aggregated_context}
+            
+            Instructions:
+            1. Analyze the file contexts to understand the domain.
+            2. Define a Persona: "You are an AI assistant for [Organization/Context]..."
+            3. Define Rules:
+               - Scope of operation based on available files.
+               - Tone of voice (Formal, Friendly, etc.).
+               - STRICTLY rely on the knowledge base.
+            4. Output ONLY the System Prompt text.
+            5. Use Thai Language.
+            """
+
+            # 3. Generate
+            suggestion = self.gemini.generate_content(meta_prompt)
+            return suggestion
+
+        except Exception as e:
+            logger.error(f"Prompt generation failed: {e}")
+            return f"Error computing prompt: {str(e)}"
+
+    def generate_file_summary(self, db: Session, file_id: str) -> str:
+        """
+        Analyze a specific file and generate a short description/context summary.
+        """
+        if not self.gemini:
+             return "Error: AI not configured."
+
+        try:
+            from models import File as DBFile
+            file = db.query(DBFile).filter(DBFile.id == file_id).first()
+            if not file or not file.content:
+                 return "Error: File content not found."
+
+            # Construct Meta-Prompt
+            meta_prompt = f"""
+            Task: Analyze the following document and generate a "File Context Prompt" (max 2 sentences).
+            
+            This output will be used as a specific instruction for an AI Agent on how to use this file.
+            
+            Format: "Use this file for [topics/purpose]. Key information includes [key entities/rules]."
+            Example: "Use this file for answering questions about HR Leave Policy. Key information includes sick leave quotas, vacation approval workflows, and remote work guidelines."
+
+            Document Content (First 10k chars):
+            {file.content[:10000]}
+            
+            Output ONLY the File Context Prompt in Thai language.
+            """
+
+            # Generate
+            suggestion = self.gemini.generate_content(meta_prompt)
+            return suggestion
+
+        except Exception as e:
+            logger.error(f"File summary failed: {e}")
+            return f"Error computing summary: {str(e)}"

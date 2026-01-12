@@ -83,9 +83,14 @@ class Bot(Base):
     created_at = Column(DateTime, default=utcnow)
     updated_at = Column(DateTime, default=utcnow)
     
+    # Advanced Configuration
+    system_prompt = Column(Text, nullable=True)  # Custom system prompt override
+    model_config = Column(Text, nullable=True)   # JSON: {"model": "gemini-2.0-flash", "temperature": 0.7}
+    
     # Relationships
     files = relationship("File", back_populates="bot", cascade="all, delete-orphan")
     sessions = relationship("Session", back_populates="bot")
+    logs = relationship("BotLog", back_populates="bot", cascade="all, delete-orphan")
     
     def to_dict(self):
         return {
@@ -98,6 +103,8 @@ class Bot(Base):
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "file_count": len(self.files) if self.files else 0,
             "session_count": len(self.sessions) if self.sessions else 0,
+            "system_prompt": self.system_prompt,
+            "model_config": self.model_config,
         }
 
 
@@ -110,6 +117,7 @@ class File(Base):
     filename = Column(String, nullable=False)
     content_type = Column(String, nullable=True)
     content = Column(Text, nullable=True)
+    description = Column(Text, nullable=True) # AI-generated or user-defined description
     file_url = Column(String, nullable=True)
     size_bytes = Column(Integer, nullable=True)
     uploaded_at = Column(DateTime, default=utcnow)
@@ -122,6 +130,7 @@ class File(Base):
             "id": self.id,
             "bot_id": self.bot_id,
             "filename": self.filename,
+            "description": self.description,
             "content_type": self.content_type,
             "size_bytes": self.size_bytes,
             "uploaded_at": self.uploaded_at.isoformat() if self.uploaded_at else None,
@@ -181,3 +190,31 @@ class AdminUser(Base):
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "last_login": self.last_login.isoformat() if self.last_login else None,
         }
+
+
+class BotLog(Base):
+    """Technical logs for bot operations (not user chat sessions)"""
+    __tablename__ = "bot_logs"
+
+    id = Column(String, primary_key=True)
+    bot_id = Column(String, ForeignKey("bots.id"), nullable=False, index=True)
+    level = Column(String, nullable=False, default="INFO")  # INFO, WARN, ERROR
+    event_type = Column(String, nullable=False, index=True)  # WEBHOOK, LLM_CALL, RAG_SEARCH, JIRA, ERROR
+    message = Column(Text, nullable=False)
+    log_metadata = Column(Text, nullable=True)  # JSON: request/response, latency, tokens, etc.
+    created_at = Column(DateTime, default=utcnow, index=True)
+
+    bot = relationship("Bot", back_populates="logs")
+
+    def to_dict(self):
+        import json
+        return {
+            "id": self.id,
+            "bot_id": self.bot_id,
+            "level": self.level,
+            "event_type": self.event_type,
+            "message": self.message,
+            "metadata": json.loads(self.log_metadata) if self.log_metadata else None,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+

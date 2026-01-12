@@ -1,167 +1,147 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
+@theme {
+  /* Map Shadcn variables to Tailwind Utilities */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-ibm-plex);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
+  
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Custom Design System Tokens */
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-purple: var(--purple);
+  --color-purple-dark: var(--purple-dark);
 }
 
-:root {
-  /* JVC Brand Colors (60/30/10 ratio) */
-  --jvc-white: #FFFFFF;
-  --jvc-black: #1E1C1C;
-  --jvc-red: #E4000F;
+@layer base {
+  :root {
+    /* Brand Colors (Thai Astrology: Purple & Gold) */
+    --purple: #7B2D8E;
+    --purple-dark: #5B1D6E;
+    --gold: #D4A634;
+    --gold-light: #E4B644;
 
-  /* JVC Gray Scale */
-  --jvc-gray-1: #F7F7F7;
-  --jvc-gray-2: #F5F5F5;
-  --jvc-gray-3: #EEEEEE;
-  --jvc-gray-4: #E8E8E8;
-  --jvc-gray-5: #E1E1E1;
+    /* Neutrals */
+    --bg-primary: #0D0A12;
+    --bg-secondary: #1A1625;
+    --bg-tertiary: #241F30;
+    --text-primary: #F0EDF5;
+    --text-secondary: #A09AAD;
+    --border-color: #2A243A;
 
-  /* Theme Mapping */
-  --radius: 0.625rem;
-  --background: var(--jvc-white);
-  --foreground: var(--jvc-black);
-  --card: var(--jvc-white);
-  --card-foreground: var(--jvc-black);
-  --popover: var(--jvc-white);
-  --popover-foreground: var(--jvc-black);
-  --primary: var(--jvc-black);
-  --primary-foreground: var(--jvc-white);
-  --secondary: var(--jvc-gray-2);
-  --secondary-foreground: var(--jvc-black);
-  --muted: var(--jvc-gray-2);
-  --muted-foreground: #666666;
-  --accent: var(--jvc-red);
-  --accent-foreground: var(--jvc-white);
-  --destructive: var(--jvc-red);
-  --border: var(--jvc-gray-4);
-  --input: var(--jvc-gray-4);
-  --ring: var(--jvc-black);
-  --chart-1: var(--jvc-red);
-  --chart-2: #2563EB;
-  --chart-3: #16A34A;
-  --chart-4: #F59E0B;
-  --chart-5: #8B5CF6;
-  --sidebar: var(--jvc-white);
-  --sidebar-foreground: var(--jvc-black);
-  --sidebar-primary: var(--jvc-black);
-  --sidebar-primary-foreground: var(--jvc-white);
-  --sidebar-accent: var(--jvc-gray-2);
-  --sidebar-accent-foreground: var(--jvc-black);
-  --sidebar-border: var(--jvc-gray-4);
-  --sidebar-ring: var(--jvc-black);
-}
+    /* Gradients */
+    --gradient-purple: linear-gradient(135deg, #7B2D8E 0%, #5B1D6E 100%);
+    --gradient-gold: linear-gradient(135deg, #D4A634 0%, #E4B644 100%);
+    --gradient-hero: linear-gradient(135deg, #7B2D8E 0%, #D4A634 50%, #7B2D8E 100%);
 
-.dark {
-  --background: var(--jvc-black);
-  --foreground: var(--jvc-white);
-  --card: #2A2828;
-  --card-foreground: var(--jvc-white);
-  --popover: #2A2828;
-  --popover-foreground: var(--jvc-white);
-  --primary: var(--jvc-white);
-  --primary-foreground: var(--jvc-black);
-  --secondary: #3A3838;
-  --secondary-foreground: var(--jvc-white);
-  --muted: #3A3838;
-  --muted-foreground: #A0A0A0;
-  --accent: var(--jvc-red);
-  --accent-foreground: var(--jvc-white);
-  --destructive: #FF4444;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.15);
-  --ring: #666666;
-  --chart-1: var(--jvc-red);
-  --chart-2: #60A5FA;
-  --chart-3: #4ADE80;
-  --chart-4: #FBBF24;
-  --chart-5: #A78BFA;
-  --sidebar: #2A2828;
-  --sidebar-foreground: var(--jvc-white);
-  --sidebar-primary: var(--jvc-red);
-  --sidebar-primary-foreground: var(--jvc-white);
-  --sidebar-accent: #3A3838;
-  --sidebar-accent-foreground: var(--jvc-white);
-  --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #666666;
+    /* Shadcn/UI Mappings */
+    --background: #0D0A12;
+    --foreground: #F0EDF5;
+
+    --card: #1A1625;
+    --card-foreground: #F0EDF5;
+
+    --popover: #1A1625;
+    --popover-foreground: #F0EDF5;
+
+    --primary: #D4A634; /* Gold */
+    --primary-foreground: #0D0A12; /* Dark Text on Gold */
+
+    --secondary: #241F30;
+    --secondary-foreground: #F0EDF5;
+
+    --muted: #241F30;
+    --muted-foreground: #A09AAD;
+
+    --accent: #241F30;
+    --accent-foreground: #D4A634;
+
+    --destructive: #EF4444;
+    --destructive-foreground: #F8FAFC;
+
+    --border: #2A243A;
+    --input: #2A243A;
+    --ring: #D4A634;
+
+    --radius: 0.75rem;
+    
+    /* Font Variables */
+    --font-prompt: 'Prompt', sans-serif;
+    --font-ibm-plex: 'IBM Plex Sans', sans-serif;
+  }
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border-color);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-prompt), var(--font-ibm-plex), sans-serif;
   }
 }
 
-/* Glassmorphism Utilities */
-.glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+/* Custom Effects */
+.gradient-text {
+  background: var(--gradient-hero);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease infinite;
 }
 
-.glass-dark {
-  background: rgba(30, 28, 28, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* JVC Red Gradient for accents */
-.jvc-gradient {
-  background: linear-gradient(135deg, var(--jvc-red) 0%, #FF1A1A 100%);
+/* Glass/Dark Card override */
+.card-shine {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
 }
 
-/* Login page background gradient */
-.login-bg {
-  background: linear-gradient(135deg, #F7F7F7 0%, #FFFFFF 50%, #F5F5F5 100%);
+.card-shine:hover {
+  transform: translateY(-2px);
+  border-color: var(--purple);
+  box-shadow: 0 8px 32px rgba(123, 45, 142, 0.15);
 }
 
-.dark .login-bg {
-  background: linear-gradient(135deg, #1E1C1C 0%, #2A2828 50%, #1E1C1C 100%);
+/* Button Gradient Helper */
+.btn-gold-gradient {
+  background: var(--gradient-gold);
+  color: #1A1625;
+  box-shadow: 0 4px 12px rgba(212, 166, 52, 0.3);
+  transition: all 0.3s ease;
+}
+.btn-gold-gradient:hover {
+  box-shadow: 0 8px 24px rgba(212, 166, 52, 0.5);
+  transform: translateY(-1px);
 }

@@ -61,7 +61,6 @@ class AddMessageResponse(BaseModel):
     is_new_session: bool
 
 
-# Bot schemas
 class BotCreate(BaseModel):
     name: str
     description: Optional[str] = None
@@ -69,6 +68,8 @@ class BotCreate(BaseModel):
     channel_secret: str
     channel_access_token: str
     user_id: Optional[str] = None
+    system_prompt: Optional[str] = None
+    model_config_json: Optional[str] = None  # JSON string
 
 
 class BotUpdate(BaseModel):
@@ -77,6 +78,8 @@ class BotUpdate(BaseModel):
     channel_secret: Optional[str] = None
     channel_access_token: Optional[str] = None
     is_active: Optional[bool] = None
+    system_prompt: Optional[str] = None
+    model_config_json: Optional[str] = None  # JSON string
 
 
 class BotResponse(BaseModel):
@@ -90,6 +93,8 @@ class BotResponse(BaseModel):
     file_count: int
     session_count: int
     created_at: datetime
+    system_prompt: Optional[str] = None
+    model_config_json: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -105,8 +110,39 @@ class FileResponse(BaseModel):
     bot_id: str
     filename: str
     content_type: Optional[str]
+    description: Optional[str]  # Added description field
     size_bytes: Optional[int]
     uploaded_at: datetime
 
     class Config:
         from_attributes = True
+
+
+# BotLog schemas
+class BotLogCreate(BaseModel):
+    level: str = "INFO"  # INFO, WARN, ERROR
+    event_type: str  # WEBHOOK, LLM_CALL, RAG_SEARCH, JIRA, ERROR
+    message: str
+    metadata: Optional[str] = None  # JSON string
+
+
+class BotLogResponse(BaseModel):
+    id: str
+    bot_id: str
+    level: str
+    event_type: str
+    message: str
+    metadata: Optional[str] = None
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class BotLogsListResponse(BaseModel):
+    logs: List[BotLogResponse]
+    total: int
+    page: int
+
+class FileUpdate(BaseModel):
+    description: Optional[str] = None

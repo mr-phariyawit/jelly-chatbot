@@ -8,6 +8,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  trustHost: true,
   pages: {
     signIn: "/login",
   },
@@ -16,7 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider === "google" && user.email) {
         try {
           // Register/update user in backend
-          const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://session-api-687023036300.us-central1.run.app";
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://session-api-m55puks34q-as.a.run.app";
           await fetch(`${apiUrl}/auth/google`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },

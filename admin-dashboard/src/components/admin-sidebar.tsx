@@ -48,14 +48,14 @@ export function AdminSidebar() {
   };
 
   return (
-    <div className="flex h-full w-64 flex-col border-r bg-background">
+    <div className="flex h-full w-64 flex-col border-r border-[var(--border-color)] bg-[var(--bg-primary)]/95 backdrop-blur-xl text-[var(--text-primary)]">
         {/* Logo */}
         <div className="flex h-14 items-center border-b px-4">
             <Link href="/admin/bots" className="flex items-center gap-2 font-semibold">
-                <div className="w-8 h-8 rounded-lg jvc-gradient flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">JVC</span>
+                <div className="h-8 w-8 relative">
+                    <img src="/logo.svg" alt="AI Platform Logo" className="object-contain h-full w-full" />
                 </div>
-                <span>AI Support Admin</span>
+                <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--gold)] to-[var(--gold-light)]">AI Support</span>
             </Link>
         </div>
 
@@ -66,7 +66,7 @@ export function AdminSidebar() {
                     <Link key={link.href} href={link.href}>
                         <Button
                             variant={pathname.startsWith(link.href) ? 'secondary' : 'ghost'}
-                            className="w-full justify-start gap-2"
+                            className={cn("w-full justify-start gap-2", pathname.startsWith(link.href) && "text-[var(--gold)] font-bold border border-[var(--border-color)]")}
                         >
                             <link.icon className="h-4 w-4" />
                             {link.label}
@@ -84,7 +84,7 @@ export function AdminSidebar() {
                         <Button variant="ghost" className="w-full justify-start gap-2 h-auto py-2">
                             <Avatar className="h-8 w-8">
                                 <AvatarImage src={session.user.image || undefined} alt={session.user.name || ''} />
-                                <AvatarFallback className="bg-[var(--jvc-red)] text-white text-xs">
+                                <AvatarFallback className="bg-[var(--purple)] text-white text-xs">
                                     {getInitials(session.user.name)}
                                 </AvatarFallback>
                             </Avatar>

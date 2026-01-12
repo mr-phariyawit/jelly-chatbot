@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Default to local development, can be overridden by env var
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-687023036300.us-central1.run.app';
+// Default to production, can be overridden by env var
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-m55puks34q-as.a.run.app';
 
 export const api = axios.create({
     baseURL: BASE_URL,
@@ -21,6 +21,8 @@ export interface Bot {
     file_count: number;
     session_count: number;
     created_at: string;
+    system_prompt?: string;
+    model_config_json?: string;
 }
 
 export interface BotDetail extends Bot {
@@ -34,6 +36,7 @@ export interface BotFile {
     content_type?: string;
     size_bytes?: number;
     uploaded_at: string;
+    description?: string;
 }
 
 export interface Session {
@@ -69,6 +72,39 @@ export interface AdminUser {
     allowed_bot_ids?: string[];
     created_at?: string;
     last_login?: string;
+}
+
+// BotLog types
+export interface BotLog {
+    id: string;
+    bot_id: string;
+    level: 'INFO' | 'WARN' | 'ERROR';
+    event_type: 'WEBHOOK' | 'LLM_CALL' | 'RAG_SEARCH' | 'JIRA' | 'ERROR';
+    message: string;
+    metadata?: string; // JSON string
+    created_at: string;
+}
+
+export interface BotLogsResponse {
+    logs: BotLog[];
+    total: number;
+    page: number;
+    page_size: number;
+}
+
+export interface BotLogStats {
+    total: number;
+    by_level: {
+        INFO: number;
+        WARN: number;
+        ERROR: number;
+    };
+    by_event_type: {
+        WEBHOOK: number;
+        LLM_CALL: number;
+        RAG_SEARCH: number;
+        JIRA: number;
+    };
 }
 
 // Auth API functions
@@ -109,3 +145,67 @@ export const authApi = {
         return response.data;
     },
 };
+
+// Bot Logs API functions
+export const botLogsApi = {
+    getLogs: async (botId: string, params?: {
+        level?: string;
+        event_type?: string;
+        page?: number;
+        page_size?: number;
+    }) => {
+        const response = await api.get<BotLogsResponse>(`/bots/${botId}/logs`, { params });
+        return response.data;
+    },
+
+    getLogDetail: async (botId: string, logId: string) => {
+        const response = await api.get<BotLog>(`/bots/${botId}/logs/${logId}`);
+        return response.data;
+    },
+
+    getLogStats: async (botId: string) => {
+        const response = await api.get<BotLogStats>(`/bots/${botId}/logs/stats`);
+        return response.data;
+    },
+
+    clearLogs: async (botId: string, olderThanDays: number = 7) => {
+        const response = await api.delete(`/bots/${botId}/logs`, {
+            params: { older_than_days: olderThanDays },
+        });
+        return response.data;
+    },
+};
+
+// Bot API functions
+export const botApi = {
+    updateBot: async (botId: string, data: {
+        name?: string;
+        description?: string;
+        channel_secret?: string;
+        channel_access_token?: string;
+        is_active?: boolean;
+        system_prompt?: string;
+        model_config_json?: string;
+    }) => {
+        const response = await api.patch<Bot>(`/bots/${botId}`, data);
+        return response.data;
+    },
+
+    generatePrompt: async (botId: string) => {
+        const response = await api.post<{ suggested_prompt: string }>(`/bots/${botId}/generate-prompt`);
+        return response.data;
+    },
+};
+
+export const fileApi = {
+    updateFile: async (fileId: string, data: { description?: string }) => {
+        const response = await api.patch<BotFile>(`/files/${fileId}`, data);
+        return response.data;
+    },
+
+    analyzeFile: async (fileId: string) => {
+        const response = await api.post<{ summary: string }>(`/files/${fileId}/analyze`);
+        return response.data;
+    },
+};
+

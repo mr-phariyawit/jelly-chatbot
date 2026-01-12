@@ -7,28 +7,26 @@ export default function LoginPage() {
   return (
     <div className="login-bg min-h-screen flex items-center justify-center p-4">
       {/* Decorative elements */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-[var(--jvc-red)]/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-[var(--jvc-red)]/3 rounded-full blur-3xl" />
+      <div className="absolute top-20 left-20 w-72 h-72 bg-[var(--purple)]/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-[var(--gold)]/10 rounded-full blur-3xl" />
 
       {/* Login Card */}
       <div className="glass relative z-10 w-full max-w-md rounded-2xl shadow-2xl p-8">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl jvc-gradient mb-4">
-            <span className="text-white font-bold text-2xl">JVC</span>
+          <div className="inline-flex items-center justify-center w-20 h-20 mb-6">
+            <img src="/logo.png" alt="AI Platform Logo" className="object-contain w-full h-full" />
           </div>
-          <h1 className="text-2xl font-bold text-[var(--jvc-black)]">
-            AI Support Admin
+          <h1 className="text-3xl font-bold gradient-text mb-2">
+            AI Support Platform
           </h1>
-          <p className="text-muted-foreground mt-2">
-            Sign in to access the dashboard
-          </p>
+          <p className="text-[var(--text-secondary)]">Sign in to manage your AI assistants</p>
         </div>
 
         {/* Google Sign In Button */}
         <Button
           onClick={() => signIn("google", { callbackUrl: "/admin/bots" })}
-          className="w-full h-12 bg-[var(--jvc-black)] hover:bg-[var(--jvc-black)]/90 text-white font-medium rounded-lg flex items-center justify-center gap-3 transition-all duration-200 hover:shadow-lg"
+          className="w-full h-12 bg-white hover:bg-gray-50 text-[var(--bg-primary)] font-medium rounded-lg flex items-center justify-center gap-3 transition-all duration-200 hover:shadow-lg border border-[var(--border-color)]"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path
@@ -53,7 +51,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <p className="text-center text-sm text-muted-foreground mt-8">
-          Only authorized JVC employees can access this dashboard
+          Only authorized personnel can access this dashboard
         </p>
       </div>
 

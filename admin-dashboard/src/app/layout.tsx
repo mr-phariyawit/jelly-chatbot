@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans_Thai, Geist_Mono } from "next/font/google";
+import { Prompt, IBM_Plex_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import Providers from "@/components/providers";
 import { AuthProvider } from "@/components/auth-provider";
 
-const ibmPlexSansThai = IBM_Plex_Sans_Thai({
-  weight: ["400", "500", "600", "700"],
+const prompt = Prompt({
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["thai", "latin"],
-  variable: "--font-ibm-plex",
+  variable: "--font-prompt",
 });
+
+const ibmPlexSans = IBM_Plex_Sans({
+    weight: ["400", "500", "600", "700"],
+    subsets: ["latin"],
+    variable: "--font-ibm-plex",
+  });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -17,8 +23,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JVC AI Support Admin",
-  description: "Admin dashboard for JVC AI Support Bot",
+  title: "AI Support Platform",
+  description: "Admin dashboard for AI Support Platform",
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/logo.svg',
+  },
 };
 
 export default function RootLayout({
@@ -29,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ibmPlexSansThai.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${prompt.variable} ${ibmPlexSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
         <AuthProvider>
           <Providers>{children}</Providers>

@@ -5,19 +5,23 @@ import os
 
 from models import Base
 
+
 # Configuration
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./sessions.db")
 
 # Create engine with appropriate configuration
 connect_args = {}
-if "sqlite" in DATABASE_URL:
-    connect_args = {"check_same_thread": False}
-
 # For PostgreSQL with Unix socket (Cloud Run), use psycopg2
 if "postgresql" in DATABASE_URL:
     # Replace pg8000 with psycopg2 if present
     DATABASE_URL = DATABASE_URL.replace("postgresql+pg8000://", "postgresql://")
     print(f"Using PostgreSQL connection")
+elif os.getenv("K_SERVICE"):
+    # CRITICAL: Prevent data loss in Cloud Run
+    raise RuntimeError(
+        "CRITICAL ERROR: Attempting to use SQLite in Cloud Run environment (K_SERVICE). "
+        "This will result in data loss. Setup DATABASE_URL to verify persistence."
+    )
 
 engine = create_engine(DATABASE_URL, connect_args=connect_args)
 

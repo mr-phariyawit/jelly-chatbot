@@ -12,12 +12,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from fastapi import FastAPI, HTTPException, Depends, Query, UploadFile, File as FastAPIFile, Request, BackgroundTasks
+
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session as DBSession
 from sqlalchemy import desc, text
 
 from database import get_db, init_db
-from models import Session, Message, Bot, File, AdminUser
+from models import Session, Message, Bot, File, AdminUser, BotLog
 from schemas import (
     SessionResponse,
     SessionDetailResponse,
@@ -30,6 +31,11 @@ from schemas import (
     BotResponse,
     BotDetailResponse,
     FileResponse,
+    BotLogCreate,
+    BotLogResponse,
+    BotLogResponse,
+    BotLogsListResponse,
+    FileUpdate,
 )
 
 # Configuration
@@ -45,7 +51,11 @@ app = FastAPI(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "*", 
+        "https://admin-dashboard-m55puks34q-as.a.run.app",
+        "http://localhost:3000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -56,6 +66,17 @@ app.add_middleware(
 def startup():
     """Initialize database on startup."""
     init_db()
+
+
+@app.get("/")
+def root():
+    """Root endpoint to avoid 404."""
+    return {
+        "service": "JVC AI Session API",
+        "status": "running",
+        "docs_url": "/docs",
+        "health_check": "/health"
+    }
 
 
 @app.get("/health")
@@ -704,6 +725,12 @@ async def active_webhook(
 
     # 3. Schedule background processing for each event
     events = json.loads(body_str).get("events", [])
+    
+    # Log webhook received
+    create_bot_log(db, bot.id, "INFO", "WEBHOOK", f"Received {len(events)} event(s)", {
+        "event_count": len(events),
+        "event_types": [e.get("type") for e in events]
+    })
 
     for event in events:
         background_tasks.add_task(
@@ -741,6 +768,7 @@ def create_bot(bot: BotCreate, db: DBSession = Depends(get_db)):
         channel_access_token=bot.channel_access_token,
         user_id=bot.user_id,
         webhook_path=webhook_path,
+        system_prompt=bot.system_prompt,
     )
     
     db.add(new_bot)
@@ -762,6 +790,90 @@ def create_bot(bot: BotCreate, db: DBSession = Depends(get_db)):
         session_count=0,
         created_at=new_bot.created_at,
     )
+
+
+@app.post("/bots/create-default", response_model=BotResponse)
+def create_default_bot(db: DBSession = Depends(get_db)):
+    """Create a default test bot with predefined credentials"""
+    # Default test bot credentials
+    DEFAULT_BOT = {
+        "name": "JVC IT Support Bot (Test)",
+        "description": "Default test bot for JVC IT Support",
+        "channel_id": "2008690282",
+        "channel_secret": "d0bcaa5333ac29f1b65b0a204268fe8a",
+        "channel_access_token": "0CTKYq9cLZJJIQJRufb1ozz52/njox/wjMHbT8JDMdzi6Xe2GtkUSmGRCxQKfHxS4aUs2xodx+eNWTanqhcMV3Ptd2TuNCahyUnEREagEU6C4Ti/BEDqVnca/sLiDvNdoSrlmgH5Hsq5t/l+dIXDWwdB04t89/1O/w1cDnyilFU=",
+        "user_id": "U4bc18b6ecbdc3f7984b2e249d16c854f",
+    }
+    
+    # Check if default bot already exists
+    existing = db.query(Bot).filter(Bot.channel_id == DEFAULT_BOT["channel_id"]).first()
+    if existing:
+        base_url = os.getenv("API_BASE_URL", "https://session-api-687023036300.us-central1.run.app")
+        return BotResponse(
+            id=existing.id,
+            name=existing.name,
+            description=existing.description,
+            channel_id=existing.channel_id,
+            webhook_path=existing.webhook_path,
+            webhook_url=f"{base_url}{existing.webhook_path}",
+            is_active=existing.is_active,
+            file_count=len(existing.files) if existing.files else 0,
+            session_count=len(existing.sessions) if existing.sessions else 0,
+            created_at=existing.created_at,
+            system_prompt=existing.system_prompt,
+            model_config_json=existing.model_config,
+        )
+    
+    bot_id = str(uuid.uuid4())
+    webhook_path = f"/webhook/{bot_id[:8]}"
+    
+    new_bot = Bot(
+        id=bot_id,
+        name=DEFAULT_BOT["name"],
+        description=DEFAULT_BOT["description"],
+        channel_id=DEFAULT_BOT["channel_id"],
+        channel_secret=DEFAULT_BOT["channel_secret"],
+        channel_access_token=DEFAULT_BOT["channel_access_token"],
+        user_id=DEFAULT_BOT["user_id"],
+        webhook_path=webhook_path,
+    )
+    
+    db.add(new_bot)
+    db.commit()
+    db.refresh(new_bot)
+    
+    base_url = os.getenv("API_BASE_URL", "https://session-api-687023036300.us-central1.run.app")
+    
+    return BotResponse(
+        id=new_bot.id,
+        name=new_bot.name,
+        description=new_bot.description,
+        channel_id=new_bot.channel_id,
+        webhook_path=new_bot.webhook_path,
+        webhook_url=f"{base_url}{new_bot.webhook_path}",
+        is_active=new_bot.is_active,
+        file_count=0,
+        session_count=0,
+        created_at=new_bot.created_at,
+    )
+
+
+
+@app.post("/bots/{bot_id}/generate-prompt")
+def generate_bot_prompt(bot_id: str, db: DBSession = Depends(get_db)):
+    """
+    Generate a suggested system prompt based on uploaded files.
+    """
+    bot = db.query(Bot).filter(Bot.id == bot_id).first()
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+        
+    suggestion = processor.generate_system_prompt_suggestion(db, bot_id)
+    
+    if suggestion.startswith("Error"):
+        raise HTTPException(status_code=400, detail=suggestion)
+        
+    return {"suggested_prompt": suggestion}
 
 
 @app.get("/bots", response_model=List[BotResponse])
@@ -808,6 +920,8 @@ def get_bot(bot_id: str, db: DBSession = Depends(get_db)):
         file_count=len(bot.files) if bot.files else 0,
         session_count=len(bot.sessions) if bot.sessions else 0,
         created_at=bot.created_at,
+        system_prompt=bot.system_prompt,
+        model_config_json=bot.model_config_json,
         files=[
             FileResponse(
                 id=f.id,
@@ -816,6 +930,7 @@ def get_bot(bot_id: str, db: DBSession = Depends(get_db)):
                 content_type=f.content_type,
                 size_bytes=f.size_bytes,
                 uploaded_at=f.uploaded_at,
+                description=f.description,
             )
             for f in bot.files
         ],
@@ -840,6 +955,10 @@ def update_bot(bot_id: str, update: BotUpdate, db: DBSession = Depends(get_db)):
         bot.channel_access_token = update.channel_access_token
     if update.is_active is not None:
         bot.is_active = update.is_active
+    if update.system_prompt is not None:
+        bot.system_prompt = update.system_prompt
+    if update.model_config_json is not None:
+        bot.model_config = update.model_config_json
     
     bot.updated_at = datetime.utcnow()
     db.commit()
@@ -858,6 +977,8 @@ def update_bot(bot_id: str, update: BotUpdate, db: DBSession = Depends(get_db)):
         file_count=len(bot.files) if bot.files else 0,
         session_count=len(bot.sessions) if bot.sessions else 0,
         created_at=bot.created_at,
+        system_prompt=bot.system_prompt,
+        model_config_json=bot.model_config,
     )
 
 
@@ -991,6 +1112,7 @@ def list_files(bot_id: str, db: DBSession = Depends(get_db)):
             content_type=f.content_type,
             size_bytes=f.size_bytes,
             uploaded_at=f.uploaded_at,
+            description=f.description,
         )
         for f in bot.files
     ]
@@ -1021,6 +1143,51 @@ def delete_file(file_id: str, db: DBSession = Depends(get_db)):
     return {"message": f"File {file.filename} deleted successfully"}
 
 
+
+
+@app.patch("/files/{file_id}", response_model=FileResponse)
+def update_file(file_id: str, update: FileUpdate, db: DBSession = Depends(get_db)):
+    """Update file description"""
+    file = db.query(File).filter(File.id == file_id).first()
+    if not file:
+        raise HTTPException(status_code=404, detail="File not found")
+        
+    if update.description is not None:
+        file.description = update.description
+        
+    db.commit()
+    db.refresh(file)
+    
+    return FileResponse(
+        id=file.id,
+        bot_id=file.bot_id,
+        filename=file.filename,
+        description=file.description,
+        content_type=file.content_type,
+        size_bytes=file.size_bytes,
+        uploaded_at=file.uploaded_at,
+    )
+
+
+@app.post("/files/{file_id}/analyze")
+def analyze_file(file_id: str, db: DBSession = Depends(get_db)):
+    """Generate AI summary for a file"""
+    file = db.query(File).filter(File.id == file_id).first()
+    if not file:
+        raise HTTPException(status_code=404, detail="File not found")
+        
+    suggestion = processor.generate_file_summary(db, file_id)
+    
+    if suggestion.startswith("Error"):
+        raise HTTPException(status_code=400, detail=suggestion)
+        
+    # Auto-save summary to description
+    file.description = suggestion
+    db.commit()
+    
+    return {"summary": suggestion}
+
+
 # ============================================
 # Admin User Authentication Endpoints
 # ============================================
@@ -1047,6 +1214,17 @@ class AdminUserResponse(BaseModel):
     allowed_bot_ids: Optional[List[str]]
     created_at: Optional[str]
     last_login: Optional[str]
+
+
+class FileResponse(BaseModel):
+    """Response model for a file"""
+    id: str
+    bot_id: str
+    filename: str
+    content_type: str
+    size_bytes: int
+    uploaded_at: datetime
+    description: Optional[str] = None
 
 
 class AdminUserUpdate(BaseModel):
@@ -1187,3 +1365,142 @@ def delete_user(user_id: str, db: DBSession = Depends(get_db)):
     db.commit()
 
     return {"message": f"User {user.email} deleted successfully"}
+
+
+# ====================================
+# Bot Logs Endpoints
+# ====================================
+
+def create_bot_log(db: DBSession, bot_id: str, level: str, event_type: str, message: str, metadata: dict = None):
+    """Helper function to create a bot log entry. Can be called from processor."""
+    import json
+    log = BotLog(
+        id=str(uuid.uuid4()),
+        bot_id=bot_id,
+        level=level,
+        event_type=event_type,
+        message=message,
+        log_metadata=json.dumps(metadata) if metadata else None,
+    )
+    db.add(log)
+    db.commit()
+    return log
+
+
+@app.get("/bots/{bot_id}/logs", response_model=BotLogsListResponse)
+def list_bot_logs(
+    bot_id: str,
+    level: Optional[str] = Query(None, description="Filter by level: INFO, WARN, ERROR"),
+    event_type: Optional[str] = Query(None, description="Filter by event type: WEBHOOK, LLM_CALL, RAG_SEARCH, JIRA, ERROR"),
+    page: int = Query(1, ge=1, description="Page number"),
+    page_size: int = Query(50, ge=1, le=200, description="Items per page"),
+    db: DBSession = Depends(get_db),
+):
+    """List technical logs for a specific bot with optional filtering"""
+    bot = db.query(Bot).filter(Bot.id == bot_id).first()
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+    
+    query = db.query(BotLog).filter(BotLog.bot_id == bot_id)
+    
+    if level:
+        query = query.filter(BotLog.level == level.upper())
+    if event_type:
+        query = query.filter(BotLog.event_type == event_type.upper())
+    
+    total = query.count()
+    logs = query.order_by(desc(BotLog.created_at)).offset((page - 1) * page_size).limit(page_size).all()
+    
+    return BotLogsListResponse(
+        logs=[
+            BotLogResponse(
+                id=log.id,
+                bot_id=log.bot_id,
+                level=log.level,
+                event_type=log.event_type,
+                message=log.message,
+                metadata=log.metadata,
+                created_at=log.created_at,
+            )
+            for log in logs
+        ],
+        total=total,
+        page=page,
+        page_size=page_size,
+    )
+
+
+@app.get("/bots/{bot_id}/logs/{log_id}", response_model=BotLogResponse)
+def get_bot_log(bot_id: str, log_id: str, db: DBSession = Depends(get_db)):
+    """Get a single log entry detail"""
+    log = db.query(BotLog).filter(BotLog.id == log_id, BotLog.bot_id == bot_id).first()
+    if not log:
+        raise HTTPException(status_code=404, detail="Log not found")
+    
+    return BotLogResponse(
+        id=log.id,
+        bot_id=log.bot_id,
+        level=log.level,
+        event_type=log.event_type,
+        message=log.message,
+        metadata=log.metadata,
+        created_at=log.created_at,
+    )
+
+
+@app.delete("/bots/{bot_id}/logs")
+def clear_bot_logs(
+    bot_id: str,
+    older_than_days: int = Query(7, ge=1, description="Delete logs older than N days"),
+    db: DBSession = Depends(get_db),
+):
+    """Clear old logs for a specific bot"""
+    bot = db.query(Bot).filter(Bot.id == bot_id).first()
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+    
+    cutoff = datetime.utcnow() - timedelta(days=older_than_days)
+    deleted = db.query(BotLog).filter(
+        BotLog.bot_id == bot_id,
+        BotLog.created_at < cutoff
+    ).delete()
+    db.commit()
+    
+    return {"message": f"Deleted {deleted} logs older than {older_than_days} days"}
+
+
+@app.get("/bots/{bot_id}/logs/stats")
+def get_bot_log_stats(bot_id: str, db: DBSession = Depends(get_db)):
+    """Get log statistics for a bot"""
+    bot = db.query(Bot).filter(Bot.id == bot_id).first()
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+    
+    # Count by level
+    total = db.query(BotLog).filter(BotLog.bot_id == bot_id).count()
+    info_count = db.query(BotLog).filter(BotLog.bot_id == bot_id, BotLog.level == "INFO").count()
+    warn_count = db.query(BotLog).filter(BotLog.bot_id == bot_id, BotLog.level == "WARN").count()
+    error_count = db.query(BotLog).filter(BotLog.bot_id == bot_id, BotLog.level == "ERROR").count()
+    
+    # Count by event type
+    webhook_count = db.query(BotLog).filter(BotLog.bot_id == bot_id, BotLog.event_type == "WEBHOOK").count()
+    llm_count = db.query(BotLog).filter(BotLog.bot_id == bot_id, BotLog.event_type == "LLM_CALL").count()
+    rag_count = db.query(BotLog).filter(BotLog.bot_id == bot_id, BotLog.event_type == "RAG_SEARCH").count()
+    jira_count = db.query(BotLog).filter(BotLog.bot_id == bot_id, BotLog.event_type == "JIRA").count()
+    
+    return {
+        "total": total,
+        "by_level": {
+            "INFO": info_count,
+            "WARN": warn_count,
+            "ERROR": error_count,
+        },
+        "by_event_type": {
+            "WEBHOOK": webhook_count,
+            "LLM_CALL": llm_count,
+            "RAG_SEARCH": rag_count,
+            "JIRA": jira_count,
+        }
+    }
+
+

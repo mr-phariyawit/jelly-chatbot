@@ -35,6 +35,7 @@ interface CreateBotForm {
     channel_secret: string;
     channel_access_token: string;
     user_id?: string;
+    system_prompt?: string;
 }
 
 export function CreateBotDialog() {
@@ -49,6 +50,7 @@ export function CreateBotDialog() {
             channel_secret: '',
             channel_access_token: '',
             user_id: '',
+            system_prompt: '',
         },
     });
 
@@ -174,6 +176,27 @@ export function CreateBotDialog() {
                                     <FormControl>
                                         <Textarea className="h-20" placeholder="Long-lived access token" {...field} />
                                     </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="system_prompt"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>System Prompt (Optional)</FormLabel>
+                                    <FormControl>
+                                        <Textarea 
+                                            className="h-32" 
+                                            placeholder="กำหนด personality ของ Bot เช่น 'คุณคือ AI Assistant ของบริษัท XYZ ทำหน้าที่ช่วยเหลือลูกค้า...'" 
+                                            {...field} 
+                                        />
+                                    </FormControl>
+                                    <FormDescription>
+                                        กำหนดบุคลิกและพฤติกรรมของ Bot ถ้าไม่ใส่จะใช้ค่าเริ่มต้น
+                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
