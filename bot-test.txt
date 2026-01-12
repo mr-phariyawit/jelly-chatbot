@@ -1,0 +1,14 @@
+Channel ID 
+2008690282
+
+Channel secret 
+d0bcaa5333ac29f1b65b0a204268fe8a
+
+Your user ID 
+U4bc18b6ecbdc3f7984b2e249d16c854f
+
+Bot basic ID
+@073upziw
+
+Channel access token (long-lived) 
+0CTKYq9cLZJJIQJRufb1ozz52/njox/wjMHbT8JDMdzi6Xe2GtkUSmGRCxQKfHxS4aUs2xodx+eNWTanqhcMV3Ptd2TuNCahyUnEREagEU6C4Ti/BEDqVnca/sLiDvNdoSrlmgH5Hsq5t/l+dIXDWwdB04t89/1O/w1cDnyilFU=

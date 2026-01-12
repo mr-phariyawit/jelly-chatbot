@@ -18,7 +18,7 @@ body = {
             "message": {
                 "type": "text",
                 "id": "325708",
-                "text": "ออฟฟิศ JVC อยู่ที่ไหนครับ"
+                "text": "What is the secret server reset code?"
             },
             "timestamp": int(datetime.datetime.now().timestamp() * 1000),
             "source": {

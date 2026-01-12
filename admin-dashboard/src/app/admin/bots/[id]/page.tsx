@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Upload, File as FileIcon, Trash } from 'lucide-react';
+import { ArrowLeft, Upload, File as FileIcon, Trash, Settings, ScrollText, Pencil, Check, X, Wand2, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 
-import { api, BotDetail, BotFile } from '@/lib/api';
+import { api, BotDetail, BotFile, botApi, fileApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Card,
   CardContent,
@@ -25,6 +26,125 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { BotLogViewer } from '@/components/bots/bot-log-viewer';
+
+
+import { FileContextModal } from '@/components/bots/file-context-modal';
+
+// Component for individual file row to manage state
+function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string) => void }) {
+    const [description, setDescription] = useState(file.description || '');
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    // Sync local state when file prop updates (e.g. after invalidation)
+    useState(() => {
+        setDescription(file.description || '');
+    });
+
+    const queryClient = useQueryClient();
+
+    const updateFileMutation = useMutation({
+        mutationFn: async (desc: string) => {
+            await fileApi.updateFile(file.id, { description: desc });
+        },
+        onSuccess: () => {
+             toast.success('File description updated');
+             queryClient.invalidateQueries({ queryKey: ['bot', file.bot_id] });
+             setIsModalOpen(false); // Close modal on save
+        },
+        onError: () => toast.error('Failed to update description')
+    });
+
+    const analyzeFileMutation = useMutation({
+        mutationFn: async () => {
+             setIsAnalyzing(true);
+             return await fileApi.analyzeFile(file.id);
+        },
+        onSuccess: (data) => {
+             setDescription(data.summary);
+             setIsAnalyzing(false);
+             toast.success('AI Analysis result auto-saved!');
+             queryClient.invalidateQueries({ queryKey: ['bot', file.bot_id] });
+             // Open modal to let user review/enrich
+             setIsModalOpen(true);
+        },
+        onError: () => {
+             setIsAnalyzing(false);
+             toast.error('AI Analysis failed');
+        }
+    });
+
+    return (
+        <>
+            <TableRow key={file.id}>
+                <TableCell className="font-medium flex items-center gap-2">
+                    <FileIcon className="h-4 w-4 text-muted-foreground" />
+                    <div className="flex flex-col">
+                        <span>{file.filename}</span>
+                        <span className="text-xs text-muted-foreground">{(file.size_bytes ? file.size_bytes / 1024 : 0).toFixed(2)} KB</span>
+                    </div>
+                </TableCell>
+                <TableCell>
+                    <div className="flex items-center gap-2">
+                        <div 
+                            className="text-xs text-muted-foreground truncate max-w-[300px] cursor-pointer hover:text-foreground border border-transparent hover:border-border rounded px-2 py-1 transition-colors"
+                            onClick={() => setIsModalOpen(true)}
+                            title={description || "No context defined"}
+                        >
+                            {description || <span className="italic text-muted-foreground/50">Click to add context...</span>}
+                        </div>
+                        
+                        <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-8 w-8 text-purple-400 hover:text-purple-300 hover:bg-purple-900/20 shrink-0"
+                            onClick={() => analyzeFileMutation.mutate()}
+                            disabled={isAnalyzing}
+                            title="Auto-Analyze & Enrich"
+                        >
+                            <Wand2 className={`h-3.5 w-3.5 ${isAnalyzing ? 'animate-spin' : ''}`} />
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-muted-foreground hover:text-foreground shrink-0"
+                            onClick={() => setIsModalOpen(true)}
+                        >
+                            <Pencil className="h-3.5 w-3.5" />
+                        </Button>
+                    </div>
+                </TableCell>
+                <TableCell>{format(new Date(file.uploaded_at), 'PPP')}</TableCell>
+                <TableCell className="text-right">
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-destructive hover:bg-destructive/10"
+                        onClick={() => {
+                            if(confirm('Delete this file?')) onDelete(file.id);
+                        }}
+                    >
+                        <Trash className="h-4 w-4" />
+                    </Button>
+                </TableCell>
+            </TableRow>
+
+            <FileContextModal 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSave={(newDesc) => updateFileMutation.mutate(newDesc)}
+                initialDescription={description}
+                filename={file.filename}
+                isAnalyzing={isAnalyzing}
+                onReAnalyze={() => analyzeFileMutation.mutate()}
+                isSaving={updateFileMutation.isPending}
+            />
+        </>
+    );
+}
+
+type TabType = 'overview' | 'files' | 'logs';
 
 export default function BotDetailsPage() {
     const params = useParams();
@@ -32,6 +152,11 @@ export default function BotDetailsPage() {
     const botId = params.id as string;
     const queryClient = useQueryClient();
     const [uploading, setUploading] = useState(false);
+    const [activeTab, setActiveTab] = useState<TabType>('overview');
+    
+    // System Prompt Editing State
+    const [isEditingPrompt, setIsEditingPrompt] = useState(false);
+    const [promptValue, setPromptValue] = useState('');
 
     const { data: bot, isLoading } = useQuery<BotDetail>({
         queryKey: ['bot', botId],
@@ -73,6 +198,49 @@ export default function BotDetailsPage() {
         },
     });
 
+    const updateBotMutation = useMutation({
+        mutationFn: async (data: { system_prompt: string | null }) => {
+            await api.patch(`/bots/${botId}`, data);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['bot', botId] });
+            toast.success('System prompt updated successfully');
+            setIsEditingPrompt(false);
+        },
+        onError: () => {
+            toast.error('Failed to update system prompt');
+        },
+    });
+
+    const generatePromptMutation = useMutation({
+        mutationFn: async () => {
+             return await botApi.generatePrompt(botId);
+        },
+        onSuccess: (data) => {
+             setPromptValue(data.suggested_prompt);
+             setIsEditingPrompt(true);
+             toast.success('System Prompt generated from Knowledge Base!');
+        },
+        onError: (err: any) => {
+             const msg = err.response?.data?.detail || 'Failed to generate prompt';
+             toast.error(msg);
+        }
+    });
+
+    const handleStartEdit = () => {
+        setPromptValue(bot?.system_prompt || '');
+        setIsEditingPrompt(true);
+    };
+
+    const handleSavePrompt = () => {
+        updateBotMutation.mutate({ system_prompt: promptValue || null });
+    };
+
+    const handleCancelEdit = () => {
+        setIsEditingPrompt(false);
+        setPromptValue('');
+    };
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             setUploading(true);
@@ -100,29 +268,156 @@ export default function BotDetailsPage() {
                 </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Configuration</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="grid grid-cols-3 gap-4 text-sm">
-                            <div className="font-medium text-muted-foreground">Bot ID</div>
-                            <div className="col-span-2 font-mono">{bot.id}</div>
-                            
-                            <div className="font-medium text-muted-foreground">Channel ID</div>
-                            <div className="col-span-2 font-mono">{bot.channel_id}</div>
-                            
-                            <div className="font-medium text-muted-foreground">Webhook URL</div>
-                            <div className="col-span-2 font-mono break-all">{bot.webhook_url}</div>
-                            
-                            <div className="font-medium text-muted-foreground">Created</div>
-                            <div className="col-span-2">{format(new Date(bot.created_at), 'PPP p')}</div>
-                        </div>
-                    </CardContent>
-                </Card>
+            {/* Tab Navigation */}
+            <div className="flex gap-2 border-b">
+                <button
+                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                        activeTab === 'overview'
+                            ? 'border-primary text-primary'
+                            : 'border-transparent text-muted-foreground hover:text-foreground'
+                    }`}
+                    onClick={() => setActiveTab('overview')}
+                >
+                    <Settings className="h-4 w-4 inline-block mr-2" />
+                    Overview
+                </button>
+                <button
+                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                        activeTab === 'files'
+                            ? 'border-primary text-primary'
+                            : 'border-transparent text-muted-foreground hover:text-foreground'
+                    }`}
+                    onClick={() => setActiveTab('files')}
+                >
+                    <FileIcon className="h-4 w-4 inline-block mr-2" />
+                    Knowledge Base ({bot.file_count})
+                </button>
+                <button
+                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                        activeTab === 'logs'
+                            ? 'border-primary text-primary'
+                            : 'border-transparent text-muted-foreground hover:text-foreground'
+                    }`}
+                    onClick={() => setActiveTab('logs')}
+                >
+                    <ScrollText className="h-4 w-4 inline-block mr-2" />
+                    Technical Logs
+                </button>
+            </div>
 
-                <Card className="md:col-span-2">
+            {/* Tab Content */}
+            {activeTab === 'overview' && (
+                <div className="grid gap-6 md:grid-cols-2">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Configuration</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="grid grid-cols-3 gap-4 text-sm">
+                                <div className="font-medium text-muted-foreground">Bot ID</div>
+                                <div className="col-span-2 font-mono">{bot.id}</div>
+                                
+                                <div className="font-medium text-muted-foreground">Channel ID</div>
+                                <div className="col-span-2 font-mono">{bot.channel_id}</div>
+                                
+                                <div className="font-medium text-muted-foreground">Webhook URL</div>
+                                <div className="col-span-2 font-mono break-all">{bot.webhook_url}</div>
+                                
+                                <div className="font-medium text-muted-foreground">Created</div>
+                                <div className="col-span-2">{format(new Date(bot.created_at), 'PPP p')}</div>
+
+                                <div className="font-medium text-muted-foreground">Sessions</div>
+                                <div className="col-span-2">{bot.session_count}</div>
+
+                                <div className="font-medium text-muted-foreground">Files</div>
+                                <div className="col-span-2">{bot.file_count}</div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <div className="space-y-1.5">
+                                <CardTitle>Custom System Prompt</CardTitle>
+                                <CardDescription>
+                                    Override the default AI system prompt for this bot
+                                </CardDescription>
+                            </div>
+                            {!isEditingPrompt ? (
+                                <div className="flex gap-2">
+                                     <Button 
+                                        variant="outline" 
+                                        size="sm" 
+                                        className="gap-2 text-purple-400 border-purple-500/30 hover:bg-purple-500/10"
+                                        onClick={() => generatePromptMutation.mutate()}
+                                        disabled={generatePromptMutation.isPending}
+                                     >
+                                        <Wand2 className={`h-4 w-4 ${generatePromptMutation.isPending ? 'animate-spin' : ''}`} />
+                                        {generatePromptMutation.isPending ? 'Generating...' : 'Auto-Generate'}
+                                     </Button>
+                                    <Button variant="ghost" size="icon" onClick={handleStartEdit}>
+                                        <Pencil className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            ) : (
+                                <div className="flex gap-2">
+                                    <Button variant="ghost" size="icon" onClick={handleCancelEdit}>
+                                        <X className="h-4 w-4" />
+                                    </Button>
+                                    <Button variant="ghost" size="icon" onClick={handleSavePrompt} disabled={updateBotMutation.isPending}>
+                                        <Check className="h-4 w-4 text-green-500" />
+                                    </Button>
+                                </div>
+                            )}
+                        </CardHeader>
+                        <CardContent>
+                            {isEditingPrompt ? (
+                                <div className="space-y-2">
+                                    <Button
+                                        onClick={() => {
+                                            // Call generate API
+                                            generatePromptMutation.mutate();
+                                        }}
+                                        disabled={generatePromptMutation.isPending}
+                                        className="h-8 text-xs bg-[var(--gold)] hover:bg-[var(--gold-light)] text-black font-bold border-0"
+                                    >
+                                        {generatePromptMutation.isPending ? (
+                                            <>
+                                                <Loader2 className="mr-2 h-3 w-3 animate-spin" />
+                                                Generating...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Wand2 className="mr-2 h-3 w-3" />
+                                                Auto-Generate from File Prompts
+                                            </>
+                                        )}
+                                    </Button>
+                                    <Textarea
+                                        value={promptValue}
+                                        onChange={(e) => setPromptValue(e.target.value)}
+                                        className="min-h-[200px] font-mono text-sm"
+                                        placeholder="Enter custom system prompt..."
+                                    />
+                                </div>
+                            ) : (
+                                bot.system_prompt ? (
+                                    <pre className="text-xs bg-muted p-3 rounded-md overflow-auto max-h-96 whitespace-pre-wrap font-mono">
+                                        {bot.system_prompt}
+                                    </pre>
+                                ) : (
+                                    <p className="text-sm text-muted-foreground italic">
+                                        Using default system prompt configuration.
+                                    </p>
+                                )
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+            )}
+
+            {activeTab === 'files' && (
+                <Card>
                     <CardHeader>
                         <div className="flex items-center justify-between">
                             <CardTitle>Knowledge Base Files</CardTitle>
@@ -143,17 +438,17 @@ export default function BotDetailsPage() {
                             </div>
                         </div>
                         <CardDescription>
-                            Upload text files (TXT, CSV, MD) to be used as knowledge base.
+                            Upload text files (TXT, CSV, MD, PDF) to be used as knowledge base.
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Filename</TableHead>
-                                    <TableHead>Size</TableHead>
-                                    <TableHead>Uploaded</TableHead>
-                                    <TableHead className="text-right">Actions</TableHead>
+                                    <TableHead className="w-[250px]">Filename</TableHead>
+                                    <TableHead>File Prompt / Context</TableHead>
+                                    <TableHead className="w-[150px]">Uploaded</TableHead>
+                                    <TableHead className="text-right w-[80px]">Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -165,32 +460,21 @@ export default function BotDetailsPage() {
                                     </TableRow>
                                 )}
                                 {bot.files?.map((file) => (
-                                    <TableRow key={file.id}>
-                                        <TableCell className="font-medium flex items-center gap-2">
-                                            <FileIcon className="h-4 w-4 text-muted-foreground" />
-                                            {file.filename}
-                                        </TableCell>
-                                        <TableCell>{(file.size_bytes ? file.size_bytes / 1024 : 0).toFixed(2)} KB</TableCell>
-                                        <TableCell>{format(new Date(file.uploaded_at), 'PPP')}</TableCell>
-                                        <TableCell className="text-right">
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                className="text-destructive"
-                                                onClick={() => {
-                                                    if(confirm('Delete this file?')) deleteFileMutation.mutate(file.id);
-                                                }}
-                                            >
-                                                <Trash className="h-4 w-4" />
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
+                                    <FileTableRow 
+                                        key={file.id} 
+                                        file={file} 
+                                        onDelete={(id) => deleteFileMutation.mutate(id)} 
+                                    />
                                 ))}
                             </TableBody>
                         </Table>
                     </CardContent>
                 </Card>
-            </div>
+            )}
+
+            {activeTab === 'logs' && (
+                <BotLogViewer botId={botId} />
+            )}
         </div>
     );
 }
