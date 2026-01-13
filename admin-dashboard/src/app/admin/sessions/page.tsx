@@ -2,10 +2,10 @@
 
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { format } from 'date-fns';
 import { MessageSquare, Users, AlertCircle } from 'lucide-react';
 
 import { api, Session } from '@/lib/api';
+import { useFormattedDate } from '@/hooks/use-formatted-date';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/table';
 
 export default function SessionsPage() {
+    const { formatRelative } = useFormattedDate();
     const { data: sessions, isLoading } = useQuery<Session[]>({
         queryKey: ['sessions'],
         queryFn: async () => {
@@ -94,7 +95,7 @@ export default function SessionsPage() {
                                         {session.bot_id ? session.bot_id.substring(0, 8) + '...' : 'N/A'}
                                     </TableCell>
                                     <TableCell className="text-sm">
-                                        {format(new Date(session.started_at), 'PP p')}
+                                        {formatRelative(session.started_at)}
                                     </TableCell>
                                     <TableCell className="text-right">{session.message_count}</TableCell>
                                     <TableCell className="text-right">

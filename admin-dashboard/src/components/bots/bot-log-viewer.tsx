@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { format } from 'date-fns';
 import { RefreshCw, Trash2, AlertCircle, Info, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { botLogsApi, BotLog, BotLogStats } from '@/lib/api';
+import { useFormattedDate } from '@/hooks/use-formatted-date';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -49,6 +49,7 @@ const eventTypeColors: Record<string, string> = {
 };
 
 export function BotLogViewer({ botId }: BotLogViewerProps) {
+    const { formatDate } = useFormattedDate();
     const queryClient = useQueryClient();
     const [levelFilter, setLevelFilter] = useState<string>('all');
     const [eventTypeFilter, setEventTypeFilter] = useState<string>('all');
@@ -211,7 +212,7 @@ export function BotLogViewer({ botId }: BotLogViewerProps) {
                                                 ) : null}
                                             </TableCell>
                                             <TableCell className="font-mono text-xs">
-                                                {format(new Date(log.created_at), 'yyyy-MM-dd HH:mm:ss')}
+                                                {formatDate(log.created_at, 'yyyy-MM-dd HH:mm:ss')}
                                             </TableCell>
                                             <TableCell>
                                                 <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${levelColors[log.level] || ''}`}>

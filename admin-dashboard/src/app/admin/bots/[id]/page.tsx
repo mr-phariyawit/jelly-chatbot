@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Upload, File as FileIcon, Trash, Settings, ScrollText, Pencil, Check, X, Wand2, Loader2, Bot } from 'lucide-react';
-import { format } from 'date-fns';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 
 import { api, BotDetail, BotFile, botApi, fileApi } from '@/lib/api';
+import { useFormattedDate } from '@/hooks/use-formatted-date';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import {
@@ -45,6 +45,7 @@ import { TalkToData } from '@/components/bots/talk-to-data';
 
 // Component for individual file row to manage state
 function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string) => void }) {
+    const { formatDateOnly } = useFormattedDate();
     const [description, setDescription] = useState(file.description || '');
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -142,7 +143,7 @@ function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string
                         </Button>
                     </div>
                 </TableCell>
-                <TableCell>{format(new Date(file.uploaded_at), 'PPP')}</TableCell>
+                <TableCell>{formatDateOnly(file.uploaded_at)}</TableCell>
                 <TableCell className="text-right">
                     <Button
                         variant="ghost"
@@ -172,6 +173,7 @@ function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string
 type TabType = 'overview' | 'files' | 'logs' | 'chat';
 
 export default function BotDetailsPage() {
+    const { formatRelative } = useFormattedDate();
     const params = useParams();
     const router = useRouter();
     const botId = params.id as string;
@@ -458,7 +460,7 @@ export default function BotDetailsPage() {
                                         <div className="font-medium text-muted-foreground">Webhook URL</div>
                                         <div className="font-mono text-xs break-all">{bot.webhook_url}</div>
                                         <div className="font-medium text-muted-foreground">Created</div>
-                                        <div>{format(new Date(bot.created_at), 'PPP p')}</div>
+                                        <div>{formatRelative(bot.created_at)}</div>
                                         <div className="font-medium text-muted-foreground">Sessions</div>
                                         <div>{bot.session_count}</div>
                                         <div className="font-medium text-muted-foreground">Files</div>
@@ -489,7 +491,7 @@ export default function BotDetailsPage() {
                                     <div className="col-span-2 font-mono text-xs break-all">{bot.webhook_url}</div>
                                     
                                     <div className="font-medium text-muted-foreground">Created</div>
-                                    <div className="col-span-2">{format(new Date(bot.created_at), 'PPP p')}</div>
+                                    <div className="col-span-2">{formatRelative(bot.created_at)}</div>
 
                                     <div className="font-medium text-muted-foreground">Sessions</div>
                                     <div className="col-span-2">{bot.session_count}</div>

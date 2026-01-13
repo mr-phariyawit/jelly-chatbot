@@ -63,6 +63,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# GZip compression for faster response delivery
+from starlette.middleware.gzip import GZipMiddleware
+app.add_middleware(GZipMiddleware, minimum_size=500)
+
 
 @app.on_event("startup")
 def startup():

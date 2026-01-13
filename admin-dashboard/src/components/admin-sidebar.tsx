@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
-import { LayoutDashboard, MessageSquare, Bot, LogOut, ChevronDown } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Bot, LogOut, ChevronDown, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -34,6 +34,11 @@ export function AdminSidebar() {
         href: '/admin/analytics',
         label: 'Analytics',
         icon: LayoutDashboard,
+    },
+    {
+        href: '/admin/settings',
+        label: 'Settings',
+        icon: Settings,
     }
   ];
 

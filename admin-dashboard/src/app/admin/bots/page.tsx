@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
 import { CreateBotDialog } from '@/components/bots/create-bot-dialog';
+import { BotsPageSkeleton } from '@/components/bots/bot-skeleton';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -54,6 +55,9 @@ export default function BotsPage() {
             return response.data;
         },
         enabled: !!session?.user?.email,
+        staleTime: 30 * 1000,      // Data fresh for 30 seconds
+        gcTime: 5 * 60 * 1000,     // Keep in cache 5 minutes
+        refetchOnWindowFocus: true, // Background refresh on tab focus
     });
 
     const deleteMutation = useMutation({
@@ -70,7 +74,7 @@ export default function BotsPage() {
     });
 
     if (isLoading) {
-        return <div className="p-8">Loading bots...</div>;
+        return <BotsPageSkeleton />;
     }
 
     return (

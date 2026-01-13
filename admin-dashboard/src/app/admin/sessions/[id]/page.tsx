@@ -3,9 +3,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, User, Bot } from 'lucide-react';
-import { format } from 'date-fns';
 
 import { api, SessionDetail } from '@/lib/api';
+import { useFormattedDate } from '@/hooks/use-formatted-date';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -17,6 +17,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 
 export default function SessionDetailsPage() {
+    const { formatTimeOnly } = useFormattedDate();
     const params = useParams();
     const router = useRouter();
     const sessionId = params.id as string;
@@ -93,7 +94,7 @@ export default function SessionDetailsPage() {
                                     <div className={`text-[10px] mt-1 ${
                                         msg.role === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
                                     }`}>
-                                        {format(new Date(msg.timestamp), 'p')}
+                                        {formatTimeOnly(msg.timestamp)}
                                     </div>
                                 </div>
                             </div>

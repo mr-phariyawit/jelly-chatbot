@@ -23,7 +23,19 @@ elif os.getenv("K_SERVICE"):
         "This will result in data loss. Setup DATABASE_URL to verify persistence."
     )
 
-engine = create_engine(DATABASE_URL, connect_args=connect_args)
+# Create engine with connection pooling for better performance
+if "postgresql" in DATABASE_URL:
+    engine = create_engine(
+        DATABASE_URL,
+        connect_args=connect_args,
+        pool_size=5,           # Number of permanent connections
+        max_overflow=10,       # Extra connections when pool is full
+        pool_timeout=30,       # Wait time for available connection
+        pool_recycle=1800,     # Recycle connections every 30 minutes
+        pool_pre_ping=True,    # Verify connection before use
+    )
+else:
+    engine = create_engine(DATABASE_URL, connect_args=connect_args)
 
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
