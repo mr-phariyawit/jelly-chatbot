@@ -15,12 +15,12 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 mb-6">
-            <img src="/logo.png" alt="AI Platform Logo" className="object-contain w-full h-full" />
+            <img src="/profile-papa.png" alt="PaPa ChatBot Logo" className="object-contain w-full h-full rounded-full" />
           </div>
           <h1 className="text-3xl font-bold gradient-text mb-2">
-            AI Support Platform
+            PaPa ChatBot
           </h1>
-          <p className="text-[var(--text-secondary)]">Sign in to manage your AI assistants</p>
+          <p className="text-[var(--text-secondary)]">Sign in to manage PaPa ChatBot</p>
         </div>
 
         {/* Google Sign In Button */}

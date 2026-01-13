@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -40,6 +41,7 @@ interface CreateBotForm {
 
 export function CreateBotDialog() {
     const [open, setOpen] = useState(false);
+    const { data: session } = useSession();
     const queryClient = useQueryClient();
 
     const form = useForm<CreateBotForm>({
@@ -56,7 +58,10 @@ export function CreateBotDialog() {
 
     const mutation = useMutation({
         mutationFn: async (data: CreateBotForm) => {
-            const response = await api.post('/bots', data);
+            const config = session?.user?.email 
+                ? { headers: { 'X-User-Email': session.user.email } } 
+                : {};
+            const response = await api.post('/bots', data, config);
             return response.data;
         },
         onSuccess: () => {

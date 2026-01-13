@@ -11,11 +11,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from fastapi import FastAPI, HTTPException, Depends, Query, UploadFile, File as FastAPIFile, Request, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Depends, Query, UploadFile, File as FastAPIFile, Request, BackgroundTasks, Header
 
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session as DBSession
+from sqlalchemy.orm import Session as DBSession, defer
 from sqlalchemy import desc, text
+from google.cloud import storage
 
 from database import get_db, init_db
 from models import Session, Message, Bot, File, AdminUser, BotLog
@@ -45,16 +46,17 @@ SESSION_TIMEOUT_MINUTES = 30
 app = FastAPI(
     title="Session Logging API",
     description="API for tracking LINE bot chat sessions",
-    version="1.0.0",
+    version="1.1.0",
 )
 
 # CORS middleware
+# Note: allow_origins=["*"] with allow_credentials=True is NOT allowed by CORS spec.
+# Must list explicit origins when credentials are enabled.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "*", 
-        "https://admin-dashboard-m55puks34q-as.a.run.app",
-        "http://localhost:3000"
+        "https://admin-dashboard-182206907696.us-central1.run.app",
+        "http://localhost:3000",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -66,6 +68,18 @@ app.add_middleware(
 def startup():
     """Initialize database on startup."""
     init_db()
+    # from database import migrate_db
+    # migrate_db() # Moved to manual endpoint to prevent startup timeout
+
+@app.post("/debug/migrate")
+def manual_migrate(db: DBSession = Depends(get_db)):
+    """Trigger DB migration manually."""
+    from database import migrate_db
+    try:
+        migrate_db()
+        return {"status": "migration completed"}
+    except Exception as e:
+        return {"status": "failed", "error": str(e)}
 
 
 @app.get("/")
@@ -448,6 +462,17 @@ def update_session(
     )
 
 
+@app.post("/debug/migrate-files-to-gcs")
+def migrate_files_to_gcs(db: DBSession = Depends(get_db)):
+    """Migrate legacy files with content in DB to GCS"""
+    from migration_service import MigrationService
+    try:
+        service = MigrationService(db)
+        result = service.migrate_legacy_files()
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
@@ -749,7 +774,11 @@ from fastapi import UploadFile, File as FastAPIFile
 
 # Bot CRUD endpoints
 @app.post("/bots", response_model=BotResponse)
-def create_bot(bot: BotCreate, db: DBSession = Depends(get_db)):
+def create_bot(
+    bot: BotCreate, 
+    db: DBSession = Depends(get_db),
+    x_user_email: Optional[str] = Header(None, alias="X-User-Email")
+):
     """Create a new LINE bot configuration"""
     bot_id = str(uuid.uuid4())
     webhook_path = f"/webhook/{bot_id[:8]}"
@@ -766,7 +795,7 @@ def create_bot(bot: BotCreate, db: DBSession = Depends(get_db)):
         channel_id=bot.channel_id,
         channel_secret=bot.channel_secret,
         channel_access_token=bot.channel_access_token,
-        user_id=bot.user_id,
+        user_id=x_user_email or bot.user_id, # Use header email if available
         webhook_path=webhook_path,
         system_prompt=bot.system_prompt,
     )
@@ -774,6 +803,12 @@ def create_bot(bot: BotCreate, db: DBSession = Depends(get_db)):
     db.add(new_bot)
     db.commit()
     db.refresh(new_bot)
+    
+    # Log BOT_CREATED event
+    log_bot_event(db, new_bot.id, "INFO", "BOT_CREATED", f"Bot '{new_bot.name}' created", {
+        "bot_name": new_bot.name,
+        "created_by": x_user_email or bot.user_id
+    })
     
     # Get base URL from environment or use default
     base_url = os.getenv("API_BASE_URL", "https://session-api-687023036300.us-central1.run.app")
@@ -877,9 +912,20 @@ def generate_bot_prompt(bot_id: str, db: DBSession = Depends(get_db)):
 
 
 @app.get("/bots", response_model=List[BotResponse])
-def list_bots(db: DBSession = Depends(get_db)):
-    """List all bots"""
-    bots = db.query(Bot).order_by(desc(Bot.created_at)).all()
+def list_bots(
+    db: DBSession = Depends(get_db),
+    x_user_email: Optional[str] = Header(None, alias="X-User-Email")
+):
+    """List all bots, filtered by owner if email header provided"""
+    query = db.query(Bot)
+    
+    super_admin = os.getenv("SUPER_ADMIN")
+    
+    # Filter by user unless it's the super admin
+    if x_user_email and x_user_email != super_admin:
+        query = query.filter(Bot.user_id == x_user_email)
+        
+    bots = query.order_by(desc(Bot.created_at)).all()
     base_url = os.getenv("API_BASE_URL", "https://session-api-687023036300.us-central1.run.app")
     
     return [
@@ -921,7 +967,7 @@ def get_bot(bot_id: str, db: DBSession = Depends(get_db)):
         session_count=len(bot.sessions) if bot.sessions else 0,
         created_at=bot.created_at,
         system_prompt=bot.system_prompt,
-        model_config_json=bot.model_config_json,
+        model_config_json=bot.model_config,
         files=[
             FileResponse(
                 id=f.id,
@@ -955,6 +1001,8 @@ def update_bot(bot_id: str, update: BotUpdate, db: DBSession = Depends(get_db)):
         bot.channel_access_token = update.channel_access_token
     if update.is_active is not None:
         bot.is_active = update.is_active
+    if update.user_id is not None:
+        bot.user_id = update.user_id
     if update.system_prompt is not None:
         bot.system_prompt = update.system_prompt
     if update.model_config_json is not None:
@@ -990,6 +1038,14 @@ def delete_bot(bot_id: str, db: DBSession = Depends(get_db)):
     if not bot:
         raise HTTPException(status_code=404, detail="Bot not found")
     
+    # Store info for logging before deletion
+    bot_name = bot.name
+    
+    # Log BOT_DELETED event before deletion
+    log_bot_event(db, bot_id, "WARN", "BOT_DELETED", f"Bot '{bot_name}' deleted", {
+        "bot_name": bot_name
+    })
+    
     # Delete will cascade to files and update sessions
     db.delete(bot)
     db.commit()
@@ -999,79 +1055,146 @@ def delete_bot(bot_id: str, db: DBSession = Depends(get_db)):
 
 # File management endpoints
 @app.post("/bots/{bot_id}/files", response_model=FileResponse)
-async def upload_file(
-    bot_id: str,
-    file: UploadFile = FastAPIFile(...),
-    db: DBSession = Depends(get_db)
+def upload_file(
+    bot_id: str, 
+    file: UploadFile = FastAPIFile(...), 
+    db: DBSession = Depends(get_db),
+    background_tasks: BackgroundTasks = None
 ):
-    """Upload a knowledge base file for a bot"""
+    """Upload a file to Knowledge Base (GCS Stream -> Vector DB)"""
+    # Verify bot existence
     bot = db.query(Bot).filter(Bot.id == bot_id).first()
-    
     if not bot:
         raise HTTPException(status_code=404, detail="Bot not found")
+        
+    file_id = str(uuid.uuid4())
+    bucket_name = os.getenv("GCS_BUCKET_NAME", "jvc-ai-kms-uploads")
     
-    # helper to read file size without consuming stream permanently (we need to pass stream to extractor)
-    # Actually Extract method reads it.
-    # We can read it once, and pass bytes.
-    content_bytes = await file.read()
-    file_size = len(content_bytes)
-    
-    # Extract Text using Ingestion Service
-    # We instantiate service just for extraction helper
-    file_content = ""
     try:
-        # Re-wrap bytes for the service if it expects UploadFile or handle bytes directly?
-        # The service method `extract_text_from_upload` takes `file` (UploadFile).
-        # But we already read `content_bytes`.
-        # Let's use the internal methods of IngestionService directory since we have bytes
-        from ingestion_service import IngestionService
+        # GCS Stream Upload
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        
+        # Ensure bucket exists (optional, or assume infra is ready)
+        # if not bucket.exists(): bucket.create(location="us-central1") 
+        
+        # Blob Path: bot_id/file_id/filename
+        blob_name = f"{bot_id}/{file_id}/{file.filename}"
+        blob = bucket.blob(blob_name)
+        
+        # Stream upload directly from SpooledTemporaryFile
+        # rewind file just in case
+        file.file.seek(0)
+        blob.upload_from_file(file.file, content_type=file.content_type)
+        
+        gcs_uri = f"gs://{bucket_name}/{blob_name}"
+        
+        # Determine file size (blob.size might update after upload, or use file.size/seek)
+        try:
+            file.file.seek(0, 2)
+            size_bytes = file.file.tell()
+        except:
+            size_bytes = 0 # Fallback
+            
+        # Create DB Record with GCS URI
+        db_file = File(
+            id=file_id,
+            bot_id=bot_id,
+            filename=file.filename,
+            content_type=file.content_type,
+            content="[Stored in GCS]", # Placeholder
+            gcs_uri=gcs_uri,
+            size_bytes=size_bytes,
+            status="pending"
+        )
+        db.add(db_file)
+        db.commit()
+        db.refresh(db_file)
+        
+        # Log FILE_UPLOADED event
+        log_bot_event(db, bot_id, "INFO", "FILE_UPLOADED", f"File '{file.filename}' uploaded to GCS", {
+            "filename": file.filename,
+            "file_id": file_id,
+            "size_bytes": size_bytes,
+            "content_type": file.content_type,
+            "gcs_uri": gcs_uri
+        })
+        
+        # Trigger Background Processing (Download -> Chunk -> Embed)
+        # process_file_background will now handle gcs_uri logic via IngestionService
+        background_tasks.add_task(process_file_background, db_file.id)
+
+        return FileResponse(
+            id=db_file.id,
+            bot_id=db_file.bot_id,
+            filename=db_file.filename,
+            description=None,
+            content_type=db_file.content_type,
+            size_bytes=db_file.size_bytes,
+            status=db_file.status,
+            uploaded_at=db_file.uploaded_at.isoformat()
+        )
+        
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
+
+def process_file_background(file_id: str):
+    """Background task to extract text and ingest."""
+    from database import SessionLocal
+    from ingestion_service import IngestionService
+    from models import File
+    
+    db = SessionLocal()
+    try:
+        print(f"Starting background processing for file {file_id}")
+        
+        file = db.query(File).filter(File.id == file_id).first()
+        if not file:
+            print(f"File {file_id} not found")
+            return
+
+        # Update status
+        file.status = "indexing"  # Changed from 'processing' - indicates file is being indexed
+        db.commit()
+        
         ingestion = IngestionService()
         
-        if file.content_type == "application/pdf":
-            file_content = ingestion._parse_pdf(content_bytes)
-        elif file.content_type in ["text/csv", "application/vnd.ms-excel"]:
-            file_content = ingestion._parse_csv(content_bytes)
-        elif file.content_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-            file_content = ingestion._parse_excel(content_bytes)
-        else:
-            # Default Text
-            file_content = content_bytes.decode('utf-8', errors='ignore')
+        try:
+            # Main ingestion logic (handles GCS download -> Extract -> Chunk -> Embed)
+            ingestion.process_file(db, file_id)
+            
+            file = db.query(File).filter(File.id == file_id).first()
+            file.status = "indexed"  # Changed from 'completed' - indicates file is indexed in vector DB
+            db.commit()
+            
+            # Log FILE_INDEXED event
+            log_bot_event(db, file.bot_id, "INFO", "FILE_INDEXED", f"File '{file.filename}' indexed successfully", {
+                "filename": file.filename,
+                "file_id": file_id
+            })
+            print(f"Completed background processing for file {file_id}")
+            
+        except Exception as e:
+            print(f"Ingestion failed for {file_id}: {e}")
+            db.rollback()
+            file = db.query(File).filter(File.id == file_id).first()
+            if file:
+                file.status = "failed"
+                file.description = f"Failed: {str(e)}"
+                db.commit()
+                
+                # Log ERROR event
+                log_bot_event(db, file.bot_id, "ERROR", "ERROR", f"File indexing failed: {file.filename}", {
+                    "filename": file.filename,
+                    "file_id": file_id,
+                    "error": str(e)
+                })
             
     except Exception as e:
-        print(f"Extraction failed: {e}")
-        # We continue with empty content or partial content
-        file_content = f"Error extracting content: {str(e)}"
-
-    new_file = File(
-        id=str(uuid.uuid4()),
-        bot_id=bot_id,
-        filename=file.filename,
-        content_type=file.content_type,
-        content=file_content,
-        size_bytes=file_size,
-    )
-    
-    db.add(new_file)
-    db.commit()
-    db.refresh(new_file)
-    
-    # Trigger Ingestion (Chunking & Embedding)
-    # Since we already have the text in new_file.content, process_file will use it.
-    try:
-        from ingestion_service import IngestionService
-        ingestion = IngestionService()
-        ingestion.process_file(db, new_file.id)
-    except Exception as e:
-        print(f"Ingestion failed: {e}")
-    
-    return FileResponse(
-        id=new_file.id,
-        bot_id=new_file.bot_id,
-        filename=new_file.filename,
-        content_type=new_file.content_type,
-        size_bytes=new_file.size_bytes,
-        uploaded_at=new_file.uploaded_at,
-    )
+        print(f"Background wrapper failed for {file_id}: {e}")
+    finally:
+        db.close()
 
 @app.get("/feedbacks", response_model=List[Dict[str, Any]])
 def get_feedbacks(bot_id: str = None, limit: int = 50, db: DBSession = Depends(get_db)):
@@ -1137,10 +1260,20 @@ def delete_file(file_id: str, db: DBSession = Depends(get_db)):
     if not file:
         raise HTTPException(status_code=404, detail="File not found")
 
+    # Store info for logging before deletion
+    filename = file.filename
+    bot_id = file.bot_id
+    
+    # Log FILE_DELETED event
+    log_bot_event(db, bot_id, "WARN", "FILE_DELETED", f"File '{filename}' deleted", {
+        "filename": filename,
+        "file_id": file_id
+    })
+
     db.delete(file)
     db.commit()
 
-    return {"message": f"File {file.filename} deleted successfully"}
+    return {"message": f"File {filename} deleted successfully"}
 
 
 
@@ -1169,21 +1302,59 @@ def update_file(file_id: str, update: FileUpdate, db: DBSession = Depends(get_db
     )
 
 
+
+def log_bot_event(db: DBSession, bot_id: str, level: str, event_type: str, message: str, metadata: dict = None):
+    """Helper to write to BotLog"""
+    import json
+    try:
+        log_entry = BotLog(
+            id=str(uuid.uuid4()),
+            bot_id=bot_id,
+            level=level,
+            event_type=event_type,
+            message=message,
+            log_metadata=json.dumps(metadata) if metadata else None,
+            created_at=datetime.utcnow()
+        )
+        db.add(log_entry)
+        # We don't commit here to let the caller handle transactions, 
+        # BUT for logs we often want them to persist even if the main tx fails.
+        # For now, we'll let the caller commit.
+        db.commit() 
+    except Exception as e:
+        print(f"Failed to write log: {e}")
+
 @app.post("/files/{file_id}/analyze")
 def analyze_file(file_id: str, db: DBSession = Depends(get_db)):
     """Generate AI summary for a file"""
-    file = db.query(File).filter(File.id == file_id).first()
+    # OPTIMIZATION: Use defer to NOT load the huge content column just for id/filename check
+    file = db.query(File).options(defer(File.content)).filter(File.id == file_id).first()
     if not file:
         raise HTTPException(status_code=404, detail="File not found")
+    
+    # Check bot existence similarly with deferred heavy fields if any (Bot is usually small)
+    bot = db.query(Bot).filter(Bot.id == file.bot_id).first()
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+        
+    start_time = datetime.utcnow()
+    log_bot_event(db, file.bot_id, "INFO", "LLM_CALL", f"Starting AI Analysis for file: {file.filename}")
         
     suggestion = processor.generate_file_summary(db, file_id)
     
     if suggestion.startswith("Error"):
+        log_bot_event(db, file.bot_id, "ERROR", "ERROR", f"AI Analysis Failed for {file.filename}: {suggestion}")
         raise HTTPException(status_code=400, detail=suggestion)
         
     # Auto-save summary to description
     file.description = suggestion
     db.commit()
+    
+    elapsed = (datetime.utcnow() - start_time).total_seconds()
+    log_bot_event(db, file.bot_id, "INFO", "LLM_CALL", f"AI Analysis Success for {file.filename}", {
+        "summary_preview": suggestion[:100],
+        "latency_s": elapsed
+    })
     
     return {"summary": suggestion}
 
@@ -1419,7 +1590,7 @@ def list_bot_logs(
                 level=log.level,
                 event_type=log.event_type,
                 message=log.message,
-                metadata=log.metadata,
+                metadata=log.log_metadata,
                 created_at=log.created_at,
             )
             for log in logs
@@ -1443,7 +1614,7 @@ def get_bot_log(bot_id: str, log_id: str, db: DBSession = Depends(get_db)):
         level=log.level,
         event_type=log.event_type,
         message=log.message,
-        metadata=log.metadata,
+        metadata=log.log_metadata,
         created_at=log.created_at,
     )
 
@@ -1504,3 +1675,371 @@ def get_bot_log_stats(bot_id: str, db: DBSession = Depends(get_db)):
     }
 
 
+# =============================================================================
+# "Talk to Data" Chat Endpoint (Phase 2)
+# =============================================================================
+
+class ChatRequest(BaseModel):
+    """Request model for chat endpoint"""
+    message: str
+    debug: bool = False  # Include retrieved chunks and scores
+
+class ChatSource(BaseModel):
+    """Source citation for RAG"""
+    filename: str
+    chunk_preview: str
+    similarity_score: Optional[float] = None
+
+class ChatResponse(BaseModel):
+    """Response model for chat endpoint"""
+    message: str
+    sources: List[ChatSource] = []
+    debug_info: Optional[Dict[str, Any]] = None
+    token_usage: Optional[Dict[str, int]] = None
+
+
+@app.post("/bots/{bot_id}/chat", response_model=ChatResponse)
+def chat_with_bot(
+    bot_id: str,
+    request: ChatRequest,
+    db: DBSession = Depends(get_db)
+):
+    """
+    Talk to Data: Test bot with RAG pipeline from admin dashboard.
+    Mirrors LINE webhook logic but returns JSON for debugging.
+    """
+    import time
+    start_time = time.time()
+    
+    # 1. Verify bot exists
+    bot = db.query(Bot).filter(Bot.id == bot_id).first()
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+    
+    # 2. Initialize processor
+    processor_instance = Processor()
+    if not processor_instance.gemini:
+        raise HTTPException(status_code=500, detail="AI not configured (missing GEMINI_API_KEY)")
+    
+    # 3. Build system prompt
+    system_prompt = bot.system_prompt or "You are a helpful AI assistant."
+    
+    # 4. RAG: Search knowledge base for relevant chunks
+    sources = []
+    debug_chunks = []
+    rag_context = ""
+    
+    try:
+        from models import FileChunk, File as DBFile
+        
+        # Embed query
+        query_vector = processor_instance.gemini.embed_content(request.message, "retrieval_query")
+        
+        # Vector search
+        chunks = db.query(FileChunk).join(DBFile).filter(DBFile.bot_id == bot_id)\
+                   .order_by(FileChunk.embedding.cosine_distance(query_vector))\
+                   .limit(5).all()
+        
+        if chunks:
+            rag_parts = []
+            for i, chunk in enumerate(chunks):
+                rag_parts.append(f"--- Context {i+1} (from {chunk.file.filename}) ---\n{chunk.content}")
+                sources.append(ChatSource(
+                    filename=chunk.file.filename,
+                    chunk_preview=chunk.content[:200] + "..." if len(chunk.content) > 200 else chunk.content
+                ))
+                if request.debug:
+                    debug_chunks.append({
+                        "index": i+1,
+                        "filename": chunk.file.filename,
+                        "chunk_index": chunk.chunk_index,
+                        "content": chunk.content[:500],
+                        "length": len(chunk.content)
+                    })
+            rag_context = "\n\n".join(rag_parts)
+            
+    except Exception as e:
+        # Fallback: no RAG context
+        rag_context = ""
+        if request.debug:
+            debug_chunks = [{"error": str(e)}]
+    
+    # 5. Build final prompt
+    final_prompt = f"""
+    {system_prompt}
+    
+    === Knowledge Base Context ===
+    {rag_context if rag_context else "(No relevant context found)"}
+    
+    === User Question ===
+    {request.message}
+    
+    === Instructions ===
+    - Answer the user's question based on the context provided.
+    - If the context is empty or irrelevant, answer based on your general knowledge but indicate that.
+    - Respond in Thai unless the user explicitly asks for English.
+    """
+    
+    # 6. Generate response
+    try:
+        response_text = processor_instance.gemini.generate_content(final_prompt, timeout=60)
+        token_usage = getattr(processor_instance.gemini, 'last_token_usage', None)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"AI generation failed: {str(e)}")
+    
+    # 7. Log the chat event
+    latency_ms = int((time.time() - start_time) * 1000)
+    log_bot_event(db, bot_id, "INFO", "TALK_TO_DATA", f"Admin chat test: '{request.message[:50]}...'", {
+        "query_preview": request.message[:100],
+        "chunks_found": len(sources),
+        "latency_ms": latency_ms,
+        "token_usage": token_usage
+    })
+    
+    # 8. Build response
+    response = ChatResponse(
+        message=response_text,
+        sources=sources,
+        token_usage=token_usage
+    )
+    
+    if request.debug:
+        response.debug_info = {
+            "system_prompt_preview": system_prompt[:200] + "..." if len(system_prompt) > 200 else system_prompt,
+            "chunks_retrieved": debug_chunks,
+            "latency_ms": latency_ms,
+            "model": processor_instance.gemini.model if processor_instance.gemini else None
+        }
+    
+    return response
+
+
+# =============================================================================
+# Analytics Dashboard Endpoints (Phase 3)
+# =============================================================================
+
+class AnalyticsOverview(BaseModel):
+    """Overview analytics for dashboard"""
+    total_messages: int = 0
+    total_sessions: int = 0
+    total_files: int = 0
+    total_bots: int = 0
+    total_tokens: int = 0
+    estimated_cost_usd: float = 0.0
+    active_users_7d: int = 0
+
+class TokenUsageStats(BaseModel):
+    """Token usage statistics"""
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
+    total_tokens: int = 0
+    estimated_cost_usd: float = 0.0
+
+class MessagesByDay(BaseModel):
+    """Message count by day"""
+    date: str
+    count: int
+
+class AnalyticsDashboard(BaseModel):
+    """Full analytics dashboard response"""
+    overview: AnalyticsOverview
+    token_usage: TokenUsageStats
+    messages_by_day: List[MessagesByDay] = []
+    top_bots: List[Dict[str, Any]] = []
+    recent_errors: int = 0
+
+
+@app.get("/analytics/overview", response_model=AnalyticsOverview)
+def get_analytics_overview(
+    bot_id: Optional[str] = Query(None, description="Filter by bot ID"),
+    db: DBSession = Depends(get_db)
+):
+    """Get overview analytics for the dashboard"""
+    from models import Message, Session, File, Bot, BotLog
+    from sqlalchemy import func
+    import json
+    
+    # Base query filters
+    bot_filter = Bot.id == bot_id if bot_id else True
+    
+    # Total counts
+    total_bots = db.query(func.count(Bot.id)).filter(bot_filter).scalar() or 0
+    total_sessions = db.query(func.count(Session.id)).join(Bot).filter(bot_filter).scalar() or 0
+    total_messages = db.query(func.count(Message.id)).join(Session).join(Bot).filter(bot_filter).scalar() or 0
+    total_files = db.query(func.count(File.id)).join(Bot).filter(bot_filter).scalar() or 0
+    
+    # Token usage from logs
+    total_tokens = 0
+    llm_logs = db.query(BotLog).filter(
+        BotLog.event_type.in_(["LLM_CALL", "TALK_TO_DATA", "AI_CALL"])
+    )
+    if bot_id:
+        llm_logs = llm_logs.filter(BotLog.bot_id == bot_id)
+    
+    for log in llm_logs.all():
+        if log.log_metadata:
+            try:
+                metadata = json.loads(log.log_metadata)
+                if "token_usage" in metadata and metadata["token_usage"]:
+                    total_tokens += metadata["token_usage"].get("total_tokens", 0)
+            except:
+                pass
+    
+    # Estimated cost (Gemini 2.0 Flash pricing: ~$0.075/1M tokens average)
+    estimated_cost = (total_tokens / 1_000_000) * 0.075
+    
+    # Active users (unique sessions in last 7 days)
+    from datetime import datetime, timedelta
+    seven_days_ago = datetime.utcnow() - timedelta(days=7)
+    active_users = db.query(func.count(func.distinct(Session.user_id))).filter(
+        Session.started_at >= seven_days_ago
+    ).scalar() or 0
+    
+    return AnalyticsOverview(
+        total_messages=total_messages,
+        total_sessions=total_sessions,
+        total_files=total_files,
+        total_bots=total_bots,
+        total_tokens=total_tokens,
+        estimated_cost_usd=round(estimated_cost, 4),
+        active_users_7d=active_users
+    )
+
+
+@app.get("/analytics/token-usage", response_model=TokenUsageStats)
+def get_token_usage(
+    bot_id: Optional[str] = Query(None, description="Filter by bot ID"),
+    days: int = Query(30, description="Number of days to look back"),
+    db: DBSession = Depends(get_db)
+):
+    """Get token usage statistics"""
+    from models import BotLog
+    from datetime import datetime, timedelta
+    import json
+    
+    start_date = datetime.utcnow() - timedelta(days=days)
+    
+    query = db.query(BotLog).filter(
+        BotLog.event_type.in_(["LLM_CALL", "TALK_TO_DATA", "AI_CALL"]),
+        BotLog.created_at >= start_date
+    )
+    if bot_id:
+        query = query.filter(BotLog.bot_id == bot_id)
+    
+    prompt_tokens = 0
+    completion_tokens = 0
+    
+    for log in query.all():
+        if log.log_metadata:
+            try:
+                metadata = json.loads(log.log_metadata)
+                if "token_usage" in metadata and metadata["token_usage"]:
+                    prompt_tokens += metadata["token_usage"].get("prompt_tokens", 0)
+                    completion_tokens += metadata["token_usage"].get("completion_tokens", 0)
+            except:
+                pass
+    
+    total = prompt_tokens + completion_tokens
+    # Gemini pricing estimate
+    estimated_cost = (total / 1_000_000) * 0.075
+    
+    return TokenUsageStats(
+        prompt_tokens=prompt_tokens,
+        completion_tokens=completion_tokens,
+        total_tokens=total,
+        estimated_cost_usd=round(estimated_cost, 4)
+    )
+
+
+@app.get("/analytics/messages-by-day", response_model=List[MessagesByDay])
+def get_messages_by_day(
+    bot_id: Optional[str] = Query(None, description="Filter by bot ID"),
+    days: int = Query(14, description="Number of days to look back"),
+    db: DBSession = Depends(get_db)
+):
+    """Get message count by day for charts"""
+    from models import Message, Session, Bot
+    from sqlalchemy import func, cast, Date
+    from datetime import datetime, timedelta
+    
+    start_date = datetime.utcnow() - timedelta(days=days)
+    
+    query = db.query(
+        cast(Message.timestamp, Date).label('date'),
+        func.count(Message.id).label('count')
+    ).join(Session).join(Bot)
+    
+    if bot_id:
+        query = query.filter(Bot.id == bot_id)
+    
+    query = query.filter(Message.timestamp >= start_date)\
+                 .group_by(cast(Message.timestamp, Date))\
+                 .order_by(cast(Message.timestamp, Date))
+    
+    results = []
+    for row in query.all():
+        results.append(MessagesByDay(
+            date=row.date.isoformat() if row.date else "",
+            count=row.count
+        ))
+    
+    return results
+
+
+@app.get("/analytics/dashboard", response_model=AnalyticsDashboard)
+def get_full_analytics_dashboard(
+    bot_id: Optional[str] = Query(None, description="Filter by bot ID"),
+    db: DBSession = Depends(get_db)
+):
+    """Get complete analytics dashboard data in one call"""
+    from models import Bot, BotLog
+    from sqlalchemy import func
+    from datetime import datetime, timedelta
+    
+    # Get overview
+    overview = get_analytics_overview(bot_id=bot_id, db=db)
+    
+    # Get token usage
+    token_usage = get_token_usage(bot_id=bot_id, days=30, db=db)
+    
+    # Get messages by day
+    messages_by_day = get_messages_by_day(bot_id=bot_id, days=14, db=db)
+    
+    # Top bots by message count
+    top_bots = []
+    if not bot_id:
+        from models import Message, Session
+        top_query = db.query(
+            Bot.id,
+            Bot.name,
+            func.count(Message.id).label('message_count')
+        ).join(Session, Session.bot_id == Bot.id)\
+         .join(Message, Message.session_id == Session.id)\
+         .group_by(Bot.id, Bot.name)\
+         .order_by(func.count(Message.id).desc())\
+         .limit(5)
+        
+        for row in top_query.all():
+            top_bots.append({
+                "id": row.id,
+                "name": row.name,
+                "message_count": row.message_count
+            })
+    
+    # Recent errors (last 7 days)
+    seven_days_ago = datetime.utcnow() - timedelta(days=7)
+    error_query = db.query(func.count(BotLog.id)).filter(
+        BotLog.level == "ERROR",
+        BotLog.created_at >= seven_days_ago
+    )
+    if bot_id:
+        error_query = error_query.filter(BotLog.bot_id == bot_id)
+    recent_errors = error_query.scalar() or 0
+    
+    return AnalyticsDashboard(
+        overview=overview,
+        token_usage=token_usage,
+        messages_by_day=messages_by_day,
+        top_bots=top_bots,
+        recent_errors=recent_errors
+    )

@@ -66,3 +66,63 @@ def get_db_context():
         raise
     finally:
         db.close()
+
+
+def migrate_db():
+    """Run database migrations safely."""
+    from sqlalchemy import text
+    try:
+        with engine.connect() as conn:
+            # 1. Add status column to files table
+            try:
+                conn.execute(text("ALTER TABLE files ADD COLUMN IF NOT EXISTS status VARCHAR DEFAULT 'pending';"))
+                conn.commit()
+                print("Migration: Added status column to files table")
+            except Exception as e:
+                print(f"Migration warning (status column): {e}")
+
+            # 2. Add gcs_uri column to files table
+            try:
+                conn.execute(text("ALTER TABLE files ADD COLUMN IF NOT EXISTS gcs_uri VARCHAR;"))
+                conn.commit()
+                print("Migration: Added gcs_uri column to files table")
+            except Exception as e:
+                print(f"Migration warning (files.gcs_uri column): {e}")
+
+            # 3. Add gcs_uri column to messages table
+            try:
+                conn.execute(text("ALTER TABLE messages ADD COLUMN IF NOT EXISTS gcs_uri VARCHAR;"))
+                conn.commit()
+                print("Migration: Added gcs_uri column to messages table")
+            except Exception as e:
+                print(f"Migration warning (messages.gcs_uri column): {e}")
+
+            # 4. Add size_bytes column to messages table
+            try:
+                conn.execute(text("ALTER TABLE messages ADD COLUMN IF NOT EXISTS size_bytes INTEGER DEFAULT 0;"))
+                conn.commit()
+                print("Migration: Added size_bytes column to messages table")
+            except Exception as e:
+                print(f"Migration warning (messages.size_bytes column): {e}")
+
+            # 3. Create bot_logs table if not exists (Manual fallback for create_all)
+            try:
+                conn.execute(text("""
+                    CREATE TABLE IF NOT EXISTS bot_logs (
+                        id VARCHAR PRIMARY KEY,
+                        bot_id VARCHAR NOT NULL,
+                        level VARCHAR DEFAULT 'INFO',
+                        event_type VARCHAR NOT NULL,
+                        message TEXT NOT NULL,
+                        log_metadata TEXT,
+                        created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() at time zone 'utc'),
+                        FOREIGN KEY (bot_id) REFERENCES bots(id)
+                    );
+                """))
+                conn.commit()
+                print("Migration: Verified bot_logs table")
+            except Exception as e:
+                print(f"Migration warning (bot_logs table): {e}")
+                
+    except Exception as e:
+        print(f"Migration failed completely (DB Connection?): {e}")

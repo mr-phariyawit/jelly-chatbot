@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { MoreHorizontal, Trash, FileText, MessageSquare, ExternalLink } from 'lucide-react';
 import { format } from 'date-fns';
@@ -26,16 +28,32 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
 import { CreateBotDialog } from '@/components/bots/create-bot-dialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export default function BotsPage() {
     const queryClient = useQueryClient();
+    const { data: session } = useSession();
+    const [botToDelete, setBotToDelete] = useState<string | null>(null);
 
     const { data: bots, isLoading } = useQuery<Bot[]>({
-        queryKey: ['bots'],
+        queryKey: ['bots', session?.user?.email],
         queryFn: async () => {
-            const response = await api.get('/bots');
+             const config = session?.user?.email 
+                ? { headers: { 'X-User-Email': session.user.email } } 
+                : {};
+            const response = await api.get('/bots', config);
             return response.data;
         },
+        enabled: !!session?.user?.email,
     });
 
     const deleteMutation = useMutation({
@@ -86,9 +104,7 @@ export default function BotsPage() {
                                             Copy Webhook URL
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuItem className="text-destructive" onClick={() => {
-                                            if(confirm('Are you sure?')) deleteMutation.mutate(bot.id);
-                                        }}>
+                                        <DropdownMenuItem className="text-destructive" onClick={() => setBotToDelete(bot.id)}>
                                             <Trash className="mr-2 h-4 w-4" />
                                             Delete
                                         </DropdownMenuItem>
@@ -131,6 +147,31 @@ export default function BotsPage() {
                     </Card>
                 ))}
             </div>
+
+            <AlertDialog open={!!botToDelete} onOpenChange={(open) => !open && setBotToDelete(null)}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete the bot and related data.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction 
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            onClick={() => {
+                                if (botToDelete) {
+                                    deleteMutation.mutate(botToDelete);
+                                    setBotToDelete(null);
+                                }
+                            }}
+                        >
+                            Delete
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }

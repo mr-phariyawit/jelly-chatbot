@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Default to production, can be overridden by env var
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-m55puks34q-as.a.run.app';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-182206907696.us-central1.run.app';
 
 export const api = axios.create({
     baseURL: BASE_URL,
@@ -37,6 +37,7 @@ export interface BotFile {
     size_bytes?: number;
     uploaded_at: string;
     description?: string;
+    status?: 'pending' | 'processing' | 'extracted' | 'indexing' | 'indexed' | 'completed' | 'failed';
 }
 
 export interface Session {

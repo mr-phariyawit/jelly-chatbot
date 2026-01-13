@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Upload, File as FileIcon, Trash, Settings, ScrollText, Pencil, Check, X, Wand2, Loader2 } from 'lucide-react';
+import { ArrowLeft, Upload, File as FileIcon, Trash, Settings, ScrollText, Pencil, Check, X, Wand2, Loader2, Bot } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
+import ReactMarkdown from 'react-markdown';
 
 import { api, BotDetail, BotFile, botApi, fileApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
@@ -27,9 +28,20 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { BotLogViewer } from '@/components/bots/bot-log-viewer';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 
 import { FileContextModal } from '@/components/bots/file-context-modal';
+import { TalkToData } from '@/components/bots/talk-to-data';
 
 // Component for individual file row to manage state
 function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string) => void }) {
@@ -86,6 +98,21 @@ function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string
                     </div>
                 </TableCell>
                 <TableCell>
+                    {(!file.status || file.status === 'completed' || file.status === 'indexed') ? (
+                        <div className="flex items-center text-green-600 text-xs font-medium">
+                            <Check className="h-3 w-3 mr-1" /> Ready
+                        </div>
+                    ) : (file.status === 'failed') ? (
+                        <div className="flex items-center text-red-500 text-xs font-medium" title={file.description}>
+                            <X className="h-3 w-3 mr-1" /> Failed
+                        </div>
+                    ) : (
+                        <div className="flex items-center text-blue-500 text-xs font-medium animate-pulse">
+                            <Loader2 className="h-3 w-3 mr-1 animate-spin" /> {file.status}
+                        </div>
+                    )}
+                </TableCell>
+                <TableCell>
                     <div className="flex items-center gap-2">
                         <div 
                             className="text-xs text-muted-foreground truncate max-w-[300px] cursor-pointer hover:text-foreground border border-transparent hover:border-border rounded px-2 py-1 transition-colors"
@@ -121,9 +148,7 @@ function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string
                         variant="ghost"
                         size="icon"
                         className="text-destructive hover:bg-destructive/10"
-                        onClick={() => {
-                            if(confirm('Delete this file?')) onDelete(file.id);
-                        }}
+                        onClick={() => onDelete(file.id)}
                     >
                         <Trash className="h-4 w-4" />
                     </Button>
@@ -144,7 +169,7 @@ function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string
     );
 }
 
-type TabType = 'overview' | 'files' | 'logs';
+type TabType = 'overview' | 'files' | 'logs' | 'chat';
 
 export default function BotDetailsPage() {
     const params = useParams();
@@ -153,10 +178,20 @@ export default function BotDetailsPage() {
     const queryClient = useQueryClient();
     const [uploading, setUploading] = useState(false);
     const [activeTab, setActiveTab] = useState<TabType>('overview');
+    const [fileToDelete, setFileToDelete] = useState<string | null>(null);
     
     // System Prompt Editing State
     const [isEditingPrompt, setIsEditingPrompt] = useState(false);
     const [promptValue, setPromptValue] = useState('');
+    
+    // Configuration Editing State
+    const [isEditingConfig, setIsEditingConfig] = useState(false);
+    const [configValues, setConfigValues] = useState({
+        name: '',
+        description: '',
+        channel_secret: '',
+        channel_access_token: '',
+    });
 
     const { data: bot, isLoading } = useQuery<BotDetail>({
         queryKey: ['bot', botId],
@@ -164,6 +199,15 @@ export default function BotDetailsPage() {
             const response = await api.get(`/bots/${botId}`);
             return response.data;
         },
+        // Poll every 3 seconds if any file is not completed or failed
+        refetchInterval: (query) => {
+            const data = query.state.data;
+            if (!data) return false;
+            const hasPending = data.files.some((f: BotFile) => 
+                f.status && !['completed', 'indexed', 'failed'].includes(f.status)
+            );
+            return hasPending ? 3000 : false;
+        }
     });
 
     const uploadMutation = useMutation({
@@ -199,16 +243,23 @@ export default function BotDetailsPage() {
     });
 
     const updateBotMutation = useMutation({
-        mutationFn: async (data: { system_prompt: string | null }) => {
+        mutationFn: async (data: { 
+            name?: string;
+            description?: string;
+            channel_secret?: string;
+            channel_access_token?: string;
+            system_prompt?: string | null;
+        }) => {
             await api.patch(`/bots/${botId}`, data);
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['bot', botId] });
-            toast.success('System prompt updated successfully');
+            toast.success('Bot updated successfully');
             setIsEditingPrompt(false);
+            setIsEditingConfig(false);
         },
         onError: () => {
-            toast.error('Failed to update system prompt');
+            toast.error('Failed to update bot');
         },
     });
 
@@ -221,10 +272,14 @@ export default function BotDetailsPage() {
              setIsEditingPrompt(true);
              toast.success('System Prompt generated from Knowledge Base!');
         },
-        onError: (err: any) => {
-             const msg = err.response?.data?.detail || 'Failed to generate prompt';
-             toast.error(msg);
-        }
+        onError: (error: any) => {
+            console.error("AI Analysis Failed Detailed Error:", error);
+            if (error.response) {
+                console.error("Server Response:", error.response.data);
+                console.error("Status Code:", error.response.status);
+            }
+            toast.error(error.response?.data?.detail || "AI Analysis failed");
+        },
     });
 
     const handleStartEdit = () => {
@@ -303,35 +358,146 @@ export default function BotDetailsPage() {
                     <ScrollText className="h-4 w-4 inline-block mr-2" />
                     Technical Logs
                 </button>
+                <button
+                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                        activeTab === 'chat'
+                            ? 'border-primary text-primary'
+                            : 'border-transparent text-muted-foreground hover:text-foreground'
+                    }`}
+                    onClick={() => setActiveTab('chat')}
+                >
+                    <Bot className="h-4 w-4 inline-block mr-2" />
+                    Talk to Data
+                </button>
             </div>
 
             {/* Tab Content */}
             {activeTab === 'overview' && (
                 <div className="grid gap-6 md:grid-cols-2">
                     <Card>
-                        <CardHeader>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle>Configuration</CardTitle>
+                            {!isEditingConfig ? (
+                                <Button variant="ghost" size="icon" onClick={() => {
+                                    setConfigValues({
+                                        name: bot.name || '',
+                                        description: bot.description || '',
+                                        channel_secret: '',
+                                        channel_access_token: '',
+                                    });
+                                    setIsEditingConfig(true);
+                                }}>
+                                    <Pencil className="h-4 w-4" />
+                                </Button>
+                            ) : (
+                                <div className="flex gap-2">
+                                    <Button variant="ghost" size="icon" onClick={() => setIsEditingConfig(false)}>
+                                        <X className="h-4 w-4" />
+                                    </Button>
+                                    <Button variant="ghost" size="icon" onClick={() => {
+                                        updateBotMutation.mutate({
+                                            name: configValues.name || undefined,
+                                            description: configValues.description || undefined,
+                                            channel_secret: configValues.channel_secret || undefined,
+                                            channel_access_token: configValues.channel_access_token || undefined,
+                                        });
+                                        setIsEditingConfig(false);
+                                    }} disabled={updateBotMutation.isPending}>
+                                        <Check className="h-4 w-4 text-green-500" />
+                                    </Button>
+                                </div>
+                            )}
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <div className="grid grid-cols-3 gap-4 text-sm">
-                                <div className="font-medium text-muted-foreground">Bot ID</div>
-                                <div className="col-span-2 font-mono">{bot.id}</div>
-                                
-                                <div className="font-medium text-muted-foreground">Channel ID</div>
-                                <div className="col-span-2 font-mono">{bot.channel_id}</div>
-                                
-                                <div className="font-medium text-muted-foreground">Webhook URL</div>
-                                <div className="col-span-2 font-mono break-all">{bot.webhook_url}</div>
-                                
-                                <div className="font-medium text-muted-foreground">Created</div>
-                                <div className="col-span-2">{format(new Date(bot.created_at), 'PPP p')}</div>
+                            {isEditingConfig ? (
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="text-xs font-medium text-muted-foreground">Bot Name</label>
+                                        <Input
+                                            value={configValues.name}
+                                            onChange={(e) => setConfigValues(prev => ({ ...prev, name: e.target.value }))}
+                                            placeholder="Bot name"
+                                            className="mt-1"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-medium text-muted-foreground">Description</label>
+                                        <Textarea
+                                            value={configValues.description}
+                                            onChange={(e) => setConfigValues(prev => ({ ...prev, description: e.target.value }))}
+                                            placeholder="Bot description..."
+                                            className="mt-1 min-h-[60px]"
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4 text-sm border-t pt-4">
+                                        <div className="font-medium text-muted-foreground">Bot ID</div>
+                                        <div className="font-mono text-xs">{bot.id}</div>
+                                        <div className="font-medium text-muted-foreground">Channel ID</div>
+                                        <div className="font-mono">{bot.channel_id}</div>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-medium text-muted-foreground">Channel Secret (leave empty to keep current)</label>
+                                        <Input
+                                            type="password"
+                                            value={configValues.channel_secret}
+                                            onChange={(e) => setConfigValues(prev => ({ ...prev, channel_secret: e.target.value }))}
+                                            placeholder="••••••••"
+                                            className="mt-1"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-medium text-muted-foreground">Channel Access Token (leave empty to keep current)</label>
+                                        <Textarea
+                                            value={configValues.channel_access_token}
+                                            onChange={(e) => setConfigValues(prev => ({ ...prev, channel_access_token: e.target.value }))}
+                                            placeholder="••••••••"
+                                            className="mt-1 min-h-[60px]"
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4 text-sm border-t pt-4">
+                                        <div className="font-medium text-muted-foreground">Webhook URL</div>
+                                        <div className="font-mono text-xs break-all">{bot.webhook_url}</div>
+                                        <div className="font-medium text-muted-foreground">Created</div>
+                                        <div>{format(new Date(bot.created_at), 'PPP p')}</div>
+                                        <div className="font-medium text-muted-foreground">Sessions</div>
+                                        <div>{bot.session_count}</div>
+                                        <div className="font-medium text-muted-foreground">Files</div>
+                                        <div>{bot.file_count}</div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-3 gap-4 text-sm">
+                                    <div className="font-medium text-muted-foreground">Bot Name</div>
+                                    <div className="col-span-2 font-medium">{bot.name}</div>
+                                    
+                                    <div className="font-medium text-muted-foreground">Description</div>
+                                    <div className="col-span-2 text-muted-foreground">{bot.description || 'No description'}</div>
+                                    
+                                    <div className="font-medium text-muted-foreground">Bot ID</div>
+                                    <div className="col-span-2 font-mono text-xs">{bot.id}</div>
+                                    
+                                    <div className="font-medium text-muted-foreground">Channel ID</div>
+                                    <div className="col-span-2 font-mono">{bot.channel_id}</div>
+                                    
+                                    <div className="font-medium text-muted-foreground">Channel Secret</div>
+                                    <div className="col-span-2 font-mono">••••••••</div>
+                                    
+                                    <div className="font-medium text-muted-foreground">Access Token</div>
+                                    <div className="col-span-2 font-mono">••••••••</div>
+                                    
+                                    <div className="font-medium text-muted-foreground">Webhook URL</div>
+                                    <div className="col-span-2 font-mono text-xs break-all">{bot.webhook_url}</div>
+                                    
+                                    <div className="font-medium text-muted-foreground">Created</div>
+                                    <div className="col-span-2">{format(new Date(bot.created_at), 'PPP p')}</div>
 
-                                <div className="font-medium text-muted-foreground">Sessions</div>
-                                <div className="col-span-2">{bot.session_count}</div>
+                                    <div className="font-medium text-muted-foreground">Sessions</div>
+                                    <div className="col-span-2">{bot.session_count}</div>
 
-                                <div className="font-medium text-muted-foreground">Files</div>
-                                <div className="col-span-2">{bot.file_count}</div>
-                            </div>
+                                    <div className="font-medium text-muted-foreground">Files</div>
+                                    <div className="col-span-2">{bot.file_count}</div>
+                                </div>
+                            )}
                         </CardContent>
                     </Card>
 
@@ -402,9 +568,9 @@ export default function BotDetailsPage() {
                                 </div>
                             ) : (
                                 bot.system_prompt ? (
-                                    <pre className="text-xs bg-muted p-3 rounded-md overflow-auto max-h-96 whitespace-pre-wrap font-mono">
-                                        {bot.system_prompt}
-                                    </pre>
+                                    <div className="text-xs bg-muted p-3 rounded-md overflow-auto max-h-96 prose prose-invert prose-sm prose-headings:text-purple-400 prose-strong:text-purple-300 prose-li:marker:text-purple-400">
+                                        <ReactMarkdown>{bot.system_prompt}</ReactMarkdown>
+                                    </div>
                                 ) : (
                                     <p className="text-sm text-muted-foreground italic">
                                         Using default system prompt configuration.
@@ -442,10 +608,12 @@ export default function BotDetailsPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Table>
+                        <div className="overflow-x-auto">
+                            <Table>
                             <TableHeader>
                                 <TableRow>
                                     <TableHead className="w-[250px]">Filename</TableHead>
+                                    <TableHead className="w-[100px]">Status</TableHead>
                                     <TableHead>File Prompt / Context</TableHead>
                                     <TableHead className="w-[150px]">Uploaded</TableHead>
                                     <TableHead className="text-right w-[80px]">Actions</TableHead>
@@ -454,7 +622,7 @@ export default function BotDetailsPage() {
                             <TableBody>
                                 {bot.files?.length === 0 && (
                                     <TableRow>
-                                        <TableCell colSpan={4} className="text-center text-muted-foreground py-8">
+                                        <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
                                             No files uploaded yet.
                                         </TableCell>
                                     </TableRow>
@@ -463,11 +631,12 @@ export default function BotDetailsPage() {
                                     <FileTableRow 
                                         key={file.id} 
                                         file={file} 
-                                        onDelete={(id) => deleteFileMutation.mutate(id)} 
+                                        onDelete={(id) => setFileToDelete(id)} 
                                     />
                                 ))}
                             </TableBody>
                         </Table>
+                        </div>
                     </CardContent>
                 </Card>
             )}
@@ -475,6 +644,40 @@ export default function BotDetailsPage() {
             {activeTab === 'logs' && (
                 <BotLogViewer botId={botId} />
             )}
+
+            {activeTab === 'chat' && (
+                <TalkToData 
+                    botId={botId} 
+                    botName={bot.name}
+                    systemPromptPreview={bot.system_prompt?.slice(0, 100)}
+                    fileCount={bot.file_count}
+                />
+            )}
+
+            <AlertDialog open={!!fileToDelete} onOpenChange={(open) => !open && setFileToDelete(null)}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delete this file?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This will permanently remove the file from the knowledge base.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction 
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            onClick={() => {
+                                if (fileToDelete) {
+                                    deleteFileMutation.mutate(fileToDelete);
+                                    setFileToDelete(null);
+                                }
+                            }}
+                        >
+                            Delete
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }

@@ -23,12 +23,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Support Platform",
-  description: "Admin dashboard for AI Support Platform",
+  title: "PaPa ChatBot",
+  description: "Admin dashboard for PaPa ChatBot",
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/logo.svg',
+    icon: '/profile-papa.png',
+    shortcut: '/profile-papa.png',
+    apple: '/profile-papa.png',
   },
 };
 

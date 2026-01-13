@@ -46,7 +46,9 @@ class Message(Base):
     id = Column(String, primary_key=True)
     session_id = Column(String, ForeignKey("sessions.id"), nullable=False)
     role = Column(String, nullable=False)  # user, assistant
-    content = Column(Text, nullable=False)
+    content = Column(Text, nullable=True) # Text extraction (deprecated for huge files)
+    gcs_uri = Column(String, nullable=True) # NEW: GCS Path (gs://...)
+    size_bytes = Column(Integer, default=0)
     timestamp = Column(DateTime, default=utcnow)
     
     session = relationship("Session", back_populates="messages")
@@ -117,9 +119,11 @@ class File(Base):
     filename = Column(String, nullable=False)
     content_type = Column(String, nullable=True)
     content = Column(Text, nullable=True)
+    gcs_uri = Column(String, nullable=True) # NEW: GCS Path (gs://...)
     description = Column(Text, nullable=True) # AI-generated or user-defined description
     file_url = Column(String, nullable=True)
     size_bytes = Column(Integer, nullable=True)
+    status = Column(String, default="pending")  # pending, extracted, indexed, completed, failed
     uploaded_at = Column(DateTime, default=utcnow)
     
     bot = relationship("Bot", back_populates="files")
@@ -133,6 +137,7 @@ class File(Base):
             "description": self.description,
             "content_type": self.content_type,
             "size_bytes": self.size_bytes,
+            "status": self.status,
             "uploaded_at": self.uploaded_at.isoformat() if self.uploaded_at else None,
         }
 

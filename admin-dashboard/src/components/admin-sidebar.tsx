@@ -53,9 +53,9 @@ export function AdminSidebar() {
         <div className="flex h-14 items-center border-b px-4">
             <Link href="/admin/bots" className="flex items-center gap-2 font-semibold">
                 <div className="h-8 w-8 relative">
-                    <img src="/logo.svg" alt="AI Platform Logo" className="object-contain h-full w-full" />
+                    <img src="/profile-papa.png" alt="PaPa ChatBot Logo" className="object-contain h-full w-full rounded-full" />
                 </div>
-                <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--gold)] to-[var(--gold-light)]">AI Support</span>
+                <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--gold)] to-[var(--gold-light)]">PaPa ChatBot</span>
             </Link>
         </div>
 

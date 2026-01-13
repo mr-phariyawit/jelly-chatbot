@@ -38,7 +38,17 @@ class GeminiRESTClient:
 
         if response.status_code == 200:
             data = response.json()
-            return data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+            text = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+            
+            # Extract token usage if available
+            usage = data.get("usageMetadata", {})
+            self.last_token_usage = {
+                "prompt_tokens": usage.get("promptTokenCount", 0),
+                "completion_tokens": usage.get("candidatesTokenCount", 0),
+                "total_tokens": usage.get("totalTokenCount", 0)
+            }
+            
+            return text
         else:
             raise Exception(f"Gemini API error: {response.status_code} - {response.text[:200]}")
 
@@ -457,18 +467,123 @@ class Processor:
             logger.error(f"Prompt generation failed: {e}")
             return f"Error computing prompt: {str(e)}"
 
+    def _extract_content_from_gcs(self, gcs_uri: str, content_type: str = None) -> str:
+        """
+        Download file from GCS and extract text content.
+        For PDFs, extracts only first 3 pages to avoid memory issues.
+        """
+        from google.cloud import storage
+        import io
+        
+        # Parse GCS URI: gs://bucket/path/to/file
+        if not gcs_uri.startswith("gs://"):
+            raise ValueError(f"Invalid GCS URI: {gcs_uri}")
+        
+        parts = gcs_uri[5:].split("/", 1)
+        bucket_name = parts[0]
+        blob_name = parts[1] if len(parts) > 1 else ""
+        
+        logger.info(f"Downloading from GCS: bucket={bucket_name}, blob={blob_name}")
+        
+        # Download blob to memory
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(blob_name)
+        
+        content_bytes = blob.download_as_bytes()
+        logger.info(f"Downloaded {len(content_bytes)} bytes from GCS")
+        
+        # Determine content type from extension if not provided
+        if not content_type:
+            if blob_name.lower().endswith('.pdf'):
+                content_type = 'application/pdf'
+            elif blob_name.lower().endswith('.txt'):
+                content_type = 'text/plain'
+        
+        # Extract text based on content type
+        if content_type and 'pdf' in content_type.lower():
+            # PDF: Extract first 3 pages only
+            try:
+                from pypdf import PdfReader
+                pdf_file = io.BytesIO(content_bytes)
+                reader = PdfReader(pdf_file)
+                
+                text_parts = []
+                max_pages = min(3, len(reader.pages))
+                for i in range(max_pages):
+                    page_text = reader.pages[i].extract_text()
+                    text_parts.append(f"--- Page {i+1} ---\n{page_text}")
+                
+                extracted_text = "\n\n".join(text_parts)
+                logger.info(f"Extracted {len(extracted_text)} chars from first {max_pages} PDF pages")
+                return extracted_text[:15000]  # Limit to 15k chars
+            except Exception as e:
+                logger.error(f"PDF extraction failed: {e}")
+                raise
+        else:
+            # Text files: decode directly
+            try:
+                return content_bytes.decode('utf-8')[:15000]
+            except UnicodeDecodeError:
+                return content_bytes.decode('latin-1')[:15000]
+
     def generate_file_summary(self, db: Session, file_id: str) -> str:
         """
         Analyze a specific file and generate a short description/context summary.
+        Uses SQL-level truncation to handle large files efficiently.
+        Now supports GCS-stored files with PDF extraction.
         """
         if not self.gemini:
+             logger.error("AI Analysis failed: Gemini API Key missing")
              return "Error: AI not configured."
 
         try:
             from models import File as DBFile
-            file = db.query(DBFile).filter(DBFile.id == file_id).first()
-            if not file or not file.content:
-                 return "Error: File content not found."
+            from sqlalchemy import func
+            import time
+            
+            start_time = time.time()
+            logger.info(f"Starting analysis for file {file_id}")
+
+            # Fetch file record to check for GCS URI
+            file_record = db.query(DBFile).filter(DBFile.id == file_id).first()
+            if not file_record:
+                return "Error: File not found."
+
+            content_snippet = None
+            
+            # Priority 1: If file has gcs_uri, download and extract from GCS
+            if file_record.gcs_uri and file_record.gcs_uri.startswith("gs://"):
+                logger.info(f"File stored in GCS: {file_record.gcs_uri}")
+                try:
+                    content_snippet = self._extract_content_from_gcs(file_record.gcs_uri, file_record.content_type)
+                except Exception as e:
+                    logger.warning(f"GCS extraction failed: {e}. Falling back to DB/Chunks.")
+            
+            # Priority 2: Try DB content (if not placeholder)
+            if not content_snippet or content_snippet == "[Stored in GCS]":
+                db_content = db.query(func.substr(DBFile.content, 1, 15000)).filter(DBFile.id == file_id).scalar()
+                if db_content and db_content != "[Stored in GCS]":
+                    content_snippet = db_content
+                    logger.info(f"Using DB content. Length: {len(content_snippet)}")
+
+            # Priority 3: Try FileChunks (for indexed files)
+            if not content_snippet:
+                logger.info("Content empty/null, attempting to fetch from FileChunks...")
+                from models import FileChunk
+                chunks = db.query(FileChunk.content).filter(FileChunk.file_id == file_id)\
+                           .order_by(FileChunk.chunk_index.asc())\
+                           .limit(5).all()
+                if chunks:
+                    content_snippet = "\n".join([c[0] for c in chunks])
+                    logger.info(f"Reconstructed snippet from {len(chunks)} chunks. Length: {len(content_snippet)}")
+            
+            fetch_time = time.time() - start_time
+            logger.info(f"Fetched snippet in {fetch_time:.2f}s. Length: {len(content_snippet) if content_snippet else 0}")
+
+            if not content_snippet:
+                 logger.error(f"Analysis failed: No content for file {file_id}")
+                 return "Error: File content not found or empty."
 
             # Construct Meta-Prompt
             meta_prompt = f"""
@@ -479,16 +594,22 @@ class Processor:
             Format: "Use this file for [topics/purpose]. Key information includes [key entities/rules]."
             Example: "Use this file for answering questions about HR Leave Policy. Key information includes sick leave quotas, vacation approval workflows, and remote work guidelines."
 
-            Document Content (First 10k chars):
-            {file.content[:10000]}
+            Document Content (Snippet):
+            {content_snippet[:12000]}
             
             Output ONLY the File Context Prompt in Thai language.
             """
 
-            # Generate
-            suggestion = self.gemini.generate_content(meta_prompt)
+            # Generate with longer timeout
+            logger.info("Sending request to Gemini...")
+            llm_start = time.time()
+            suggestion = self.gemini.generate_content(meta_prompt, timeout=120)
+            llm_time = time.time() - llm_start
+            
+            logger.info(f"Gemini response received in {llm_time:.2f}s: {suggestion[:50]}...")
+            
             return suggestion
 
         except Exception as e:
-            logger.error(f"File summary failed: {e}")
+            logger.error(f"File summary failed details: {str(e)}", exc_info=True)
             return f"Error computing summary: {str(e)}"

@@ -4,6 +4,7 @@ from typing import List
 from sqlalchemy.orm import Session
 from models import File, FileChunk
 import google.generativeai as genai
+from google.cloud import storage
 import os
 
 # Configure logging
@@ -98,15 +99,51 @@ class IngestionService:
             logger.error(f"Error parsing Excel: {e}")
             raise
 
-    def process_file(self, db: Session, file_id: str):
-        """Read file content, chunk it, embed it, and save chunks."""
+    def download_from_gcs(self, gcs_uri: str) -> bytes:
+        """Download file bytes from GCS URI (gs://bucket/blob)."""
+        if not gcs_uri.startswith("gs://"):
+            raise ValueError(f"Invalid GCS URI: {gcs_uri}")
+        
+        try:
+            # Parse gs://bucket/blob_name
+            parts = gcs_uri[5:].split("/", 1)
+            if len(parts) != 2:
+                raise ValueError(f"Invalid GCS URI format: {gcs_uri}")
+                
+            bucket_name, blob_name = parts
+            storage_client = storage.Client()
+            bucket = storage_client.bucket(bucket_name)
+            blob = bucket.blob(blob_name)
+            
+            return blob.download_as_bytes()
+        except Exception as e:
+            logger.error(f"GCS Download Error: {e}")
+            raise
+
+    def process_file(self, db: Session, file_id: str, content_override: str = None):
+        """Read file content (or use override), chunk it, embed it, and save chunks."""
         file = db.query(File).filter(File.id == file_id).first()
         if not file:
             logger.warning(f"File {file_id} not found")
             return
         
         # Determine content
-        raw_text = file.content
+        raw_text = content_override if content_override else file.content
+        
+        # GCS Support: If no content but we have a GCS URI, download it
+        if not raw_text and file.gcs_uri:
+            logger.info(f"Downloading file {file.filename} from GCS: {file.gcs_uri}")
+            try:
+                content_bytes = self.download_from_gcs(file.gcs_uri)
+                # Use the helper extraction method (we need to be sure we are adding it below)
+                # Ensure we have the helper or add it now.
+                # Assuming extract_text is added to class.
+                raw_text = self.extract_text(content_bytes, file.content_type)
+            except Exception as e:
+                logger.error(f"Failed to download/parse from GCS: {e}")
+                # Update status to failed? The caller `process_file_background` handles exceptions but let's raise
+                raise e
+
         
         # If content is empty/None, it might be binary (though currently File model stores string 'content')
         # Wait, the File model creates a 'content' Text column.
@@ -177,15 +214,12 @@ class IngestionService:
             db.rollback()
             raise e
 
-    async def extract_text_from_upload(self, file, content_type: str) -> str:
-        """Extract text from UploadFile based on Content-Type"""
-        content = await file.read()
-        await file.seek(0) # Reset cursor
-        
+    def extract_text(self, content: bytes, content_type: str) -> str:
+        """Extract text from raw bytes based on Content-Type"""
         if content_type == "application/pdf":
             return self._parse_pdf(content)
         elif content_type in ["text/csv", "application/vnd.ms-excel"]:
-            return self._parse_csv(content) # pandas read_csv handles bytes usually
+            return self._parse_csv(content)
         elif content_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
             return self._parse_excel(content)
         else:

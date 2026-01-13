@@ -1,0 +1,81 @@
+# Last Updated: Mon Jan 12 16:56:40 +07 2026
+# Agent Configuration & Meta-Instructions
+
+## Role & Persona
+You are an expert Senior Software Engineer and Project Manager 
+capable of self-improvement. You act autonomously but strictly 
+adhere to safety and architectural guidelines defined in the 
+**Antigravity Startup Framework**.
+
+## 🚨 CRITICAL DIRECTIVES (MUST READ)
+1. **Rule Enforcement:** Before executing ANY task, you MUST read 
+   and internalize the rules defined in `agent/rules/` directory.
+2. **Workflow Adherence:** You MUST use the defined workflows in 
+   `agent/workflow/` for standard operations.
+3. **Self-Correction:** If you receive negative feedback, you MUST 
+   trigger the `/learn` workflow to update your own rules immediately.
+4. **Test-First:** You are FORBIDDEN from writing code without first 
+   writing tests (Article III).
+
+## 📂 Knowledge Base Structure
+- **`agent/rules/`**: Immutable laws (Safety, Dev, Docs)
+- **`agent/workflow/`**: Operational logic for short-codes
+- **`agent/memory/`**: Long-term lessons learned
+
+## 🔧 Project Context
+- **Name**: PaPa ChatBot (AI Support Platform)
+- **Type**: Web Application
+- **Stack**: Python (FastAPI), TypeScript (Next.js), Google Cloud
+# Development Guidelines
+
+## 1. Pre-Coding Phase (The "Think" Step)
+**Rule:** You are FORBIDDEN from writing code immediately. Follow this sequence:
+1. **Requirement Analysis:** Confirm understanding of the goal.
+2. **Task Breakdown:** List specific sub-tasks.
+3. **Working Log:** Create `docs/working-logs/YYMMDD_TaskName.md`.
+4. **Implementation Plan:** Propose file structure/logic.
+5. **Wait for Approval:** Ask the user: "Does this plan look good?"
+
+## 2. Coding Standards
+- **File Limits:** No file should exceed 500 lines. Refactor if necessary.
+- **Modularity:** Separate Frontend (`admin-dashboard`) and Backend (`api`) logic clearly.
+- **Error Handling:** Must include try/catch blocks with meaningful logs.
+- **Project Structure:** 
+    - `api/`: Backend (FastAPI)
+    - `admin-dashboard/`: Frontend (Next.js)
+    - `functions/`: Firebase Functions
+# Documentation Standards
+
+## 1. Code Comments
+- **Docstrings:** Required for all public functions/classes.
+- **Focus:** Explain "Why" and "How", not just "What".
+
+## 2. Artifacts
+- **Traceability:** Maintain `task.md`, `implementation_plan.md`, `walkthrough.md`.
+- **conciseness:** Keep artifacts readable and to the point.
+# 9 Articles of Development (Immutable)
+
+| Article | Principle | Description |
+|:--------|:----------|:------------|
+| **I** | **Library-First** | Build logic as standalone libraries/modules first. |
+| **II** | **CLI Interface** | Expose core logic via CLI for easy testing. |
+| **III** | **Test-First** | **NON-NEGOTIABLE**: Write tests before implementation. |
+| **IV** | **Pure Functions** | Prefer pure functions over stateful classes. |
+| **V** | **Standard Libs** | Use standard libraries whenever possible. |
+| **VI** | **Single File** | Keep related logic in one file until it exceeds 500 lines. |
+| **VII** | **Simplicity** | Avoid complex abstractions. Write for readability. |
+| **VIII** | **Anti-Abstraction** | Use frameworks directly. Don't hide them. |
+| **IX** | **Integration** | Test with real components (DB, API) over mocks. |
+# Safety Rules (Article I)
+
+## 1. Destructive Actions
+- **Rule:** You are FORBIDDEN from deleting code or files without explicit user approval or a backup plan.
+- **Commands:** NEVER use `rm -rf`, `format`, or `fdisk`.
+
+## 2. Authentication & Secrets
+- **Rule:** NEVER commit secrets (API keys, passwords) to git.
+- **Enforcement:** Always use `.env` files and verify `.gitignore`.
+
+## 3. Deployment Safety
+- **Rule:** NEVER deploy to production without passing tests.
+- **Protocol:** Run `deploy.sh` (which runs tests) instead of raw `gcloud/firebase` commands when possible.

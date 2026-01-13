@@ -80,6 +80,7 @@ class BotUpdate(BaseModel):
     is_active: Optional[bool] = None
     system_prompt: Optional[str] = None
     model_config_json: Optional[str] = None  # JSON string
+    user_id: Optional[str] = None
 
 
 class BotResponse(BaseModel):
