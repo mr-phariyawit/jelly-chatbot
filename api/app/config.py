@@ -27,7 +27,7 @@ class Settings:
     ]
 
     # GCS Settings
-    GCS_BUCKET_NAME: str = os.getenv("GCS_BUCKET_NAME", "jvc-ai-kms-uploads")
+    GCS_BUCKET_NAME: str = os.getenv("GCS_BUCKET_NAME", "ai-kms-platform-uploads")
 
     # AI Settings
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
