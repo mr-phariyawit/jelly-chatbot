@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Default to production, can be overridden by env var
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-182206907696.us-central1.run.app';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-n7u6wpcbqa-uc.a.run.app';
 
 export const api = axios.create({
     baseURL: BASE_URL,
