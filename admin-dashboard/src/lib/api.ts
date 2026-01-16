@@ -208,5 +208,32 @@ export const fileApi = {
         const response = await api.post<{ summary: string }>(`/files/${fileId}/analyze`);
         return response.data;
     },
+
+    uploadFileWithSignedUrl: async (botId: string, file: File) => {
+        // 1. Get Signed URL
+        const { data: signed } = await api.post<{ upload_url: string; gcs_uri: string; file_id: string }>(
+            `/bots/${botId}/files/signed-url`,
+            { filename: file.name, content_type: file.type || 'application/octet-stream' }
+        );
+
+        // 2. Upload to GCS
+        // distinct axios call to avoid default headers (e.g. Auth) if necessary, 
+        // though standard axios.put is usually fine if Signed URL allows CORS.
+        // We use a clean axios instance to avoid sending Bearer tokens to GCS which triggers CORS errors.
+        await axios.put(signed.upload_url, file, {
+            headers: { 'Content-Type': file.type || 'application/octet-stream' }
+        });
+
+        // 3. Confirm
+        const response = await api.post<BotFile>(`/bots/${botId}/files/confirm`, {
+            file_id: signed.file_id,
+            gcs_uri: signed.gcs_uri,
+            filename: file.name,
+            content_type: file.type || 'application/octet-stream',
+            size_bytes: file.size
+        });
+
+        return response.data;
+    },
 };
 

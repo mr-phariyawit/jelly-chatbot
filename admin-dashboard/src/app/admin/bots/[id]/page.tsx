@@ -214,11 +214,7 @@ export default function BotDetailsPage() {
 
     const uploadMutation = useMutation({
         mutationFn: async (file: File) => {
-            const formData = new FormData();
-            formData.append('file', file);
-            await api.post(`/bots/${botId}/files`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
+            await fileApi.uploadFileWithSignedUrl(botId, file);
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['bot', botId] });

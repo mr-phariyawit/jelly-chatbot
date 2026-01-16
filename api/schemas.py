@@ -145,5 +145,22 @@ class BotLogsListResponse(BaseModel):
     total: int
     page: int
 
+# Signed URL schemas
+class SignedUrlRequest(BaseModel):
+    filename: str
+    content_type: str
+
+class SignedUrlResponse(BaseModel):
+    upload_url: str
+    gcs_uri: str
+    file_id: str
+
+class FileConfirmRequest(BaseModel):
+    file_id: str
+    gcs_uri: str
+    filename: str
+    content_type: str
+    size_bytes: int
+
 class FileUpdate(BaseModel):
     description: Optional[str] = None

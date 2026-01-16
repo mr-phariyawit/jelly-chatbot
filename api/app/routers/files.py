@@ -6,7 +6,7 @@ Endpoints for managing bot knowledge base files
 import os
 import uuid
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File as FastAPIFile, BackgroundTasks
 from sqlalchemy.orm import Session as DBSession, defer
@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 
 from database import get_db, SessionLocal
 from models import Bot, File, BotLog, Feedback
-from schemas import FileResponse, FileUpdate
+from schemas import FileResponse, FileUpdate, SignedUrlRequest, SignedUrlResponse, FileConfirmRequest
 from processor import Processor
 from app.config import settings
 from utils import sanitize_text
@@ -101,6 +101,102 @@ def process_file_background(file_id: str):
         print(f"Background wrapper failed for {file_id}: {e}")
     finally:
         db.close()
+
+
+@router.post("/bots/{bot_id}/files/signed-url", response_model=SignedUrlResponse)
+def generate_signed_url(
+    bot_id: str,
+    request: SignedUrlRequest,
+    db: DBSession = Depends(get_db)
+):
+    """Generate a V4 Signed URL for direct GCS upload"""
+    bot = db.query(Bot).filter(Bot.id == bot_id).first()
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+
+    file_id = str(uuid.uuid4())
+    bucket_name = settings.GCS_BUCKET_NAME
+    blob_name = f"{bot_id}/{file_id}/{request.filename}"
+
+    try:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(blob_name)
+
+        # Generate V4 Signed URL (PUT request, 15 minutes expiration)
+        url = blob.generate_signed_url(
+            version="v4",
+            expiration=timedelta(minutes=15),
+            method="PUT",
+            content_type=request.content_type
+        )
+
+        return SignedUrlResponse(
+            upload_url=url,
+            gcs_uri=f"gs://{bucket_name}/{blob_name}",
+            file_id=file_id
+        )
+
+    except Exception as e:
+        log_bot_event(db, bot_id, "ERROR", "ERROR", f"Failed to generate signed URL: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate signed URL: {str(e)}")
+
+
+@router.post("/bots/{bot_id}/files/confirm", response_model=FileResponse)
+def confirm_upload(
+    bot_id: str,
+    request: FileConfirmRequest,
+    db: DBSession = Depends(get_db),
+    background_tasks: BackgroundTasks = None
+):
+    """Confirm file upload and trigger ingestion"""
+    bot = db.query(Bot).filter(Bot.id == bot_id).first()
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+
+    try:
+        db_file = File(
+            id=request.file_id,
+            bot_id=bot_id,
+            filename=request.filename,
+            content_type=request.content_type,
+            content="[Stored in GCS]",
+            gcs_uri=request.gcs_uri,
+            size_bytes=request.size_bytes,
+            status="pending"
+        )
+        db.add(db_file)
+        db.commit()
+        db.refresh(db_file)
+
+        log_bot_event(db, bot_id, "INFO", "FILE_UPLOADED", f"File '{request.filename}' confirmation received (Signed URL)", {
+            "filename": request.filename,
+            "file_id": request.file_id,
+            "size_bytes": request.size_bytes,
+            "content_type": request.content_type,
+            "gcs_uri": request.gcs_uri,
+            "method": "signed_url"
+        })
+
+        if background_tasks:
+            background_tasks.add_task(process_file_background, db_file.id)
+
+        return FileResponse(
+            id=db_file.id,
+            bot_id=db_file.bot_id,
+            filename=db_file.filename,
+            description=None,
+            content_type=db_file.content_type,
+            size_bytes=db_file.size_bytes,
+            status=db_file.status,
+            uploaded_at=db_file.uploaded_at.isoformat() if db_file.uploaded_at else datetime.utcnow().isoformat()
+        )
+
+    except Exception as e:
+        db.rollback()
+        log_bot_event(db, bot_id, "ERROR", "ERROR", f"Failed to confirm upload: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to confirm upload: {str(e)}")
+
 
 
 @router.post("/bots/{bot_id}/files", response_model=FileResponse)
