@@ -1,6 +1,8 @@
-# Secrets
+# Secrets & Credentials
 .env
-*.env
+.env.*
+!.env.example
+.secrets/
 *.key
 *.pem
 *_secret*.json
@@ -11,15 +13,25 @@ vector_secret.txt
 line_credentials.json
 *_credentials.json
 
-# Data
+# JSON config files (except firebase config)
+jvc_*.json
+!firebase.json
+!firestore.*.json
+!package*.json
+!tsconfig*.json
+
+# Data & Database
 *.db
 *.sqlite
 *.sqlite3
+sessions.db
 
 # System & IDE
 .DS_Store
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # Dependencies & Build
 node_modules/
@@ -27,6 +39,9 @@ dist/
 build/
 __pycache__/
 *.pyc
+.venv/
+venv/
+lib/
 
 # Logs & Temp
 *.log
@@ -35,3 +50,19 @@ yarn-debug.log*
 yarn-error.log*
 tmp/
 User Journey/
+
+# Test artifacts & results
+bot-test.txt
+test_knowledge.txt
+console_home.txt
+test-results/
+playwright-report/
+.claude/
+
+# Images & Media (keep in assets if needed)
+*.png
+!public/*.png
+!assets/*.png
+
+# Production files that shouldn't be in repo
+production_openapi.json
