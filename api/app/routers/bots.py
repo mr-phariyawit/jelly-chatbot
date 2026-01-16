@@ -129,12 +129,34 @@ def list_bots(
     db: DBSession = Depends(get_db),
     x_user_email: Optional[str] = Header(None, alias="X-User-Email")
 ):
-    """List all bots, filtered by owner if email header provided"""
+    """List all bots, filtered by owner or admin role"""
+    from models import AdminUser
+
     query = db.query(Bot)
 
-    # Filter by user unless it's the super admin
-    if x_user_email and x_user_email != settings.SUPER_ADMIN:
-        query = query.filter(Bot.user_id == x_user_email)
+    # Check if user is super admin or has admin role
+    is_admin = False
+    allowed_bot_ids = None
+
+    if x_user_email:
+        if x_user_email == settings.SUPER_ADMIN:
+            is_admin = True
+        else:
+            # Check admin_users table for role
+            admin_user = db.query(AdminUser).filter(AdminUser.email == x_user_email).first()
+            if admin_user and admin_user.role == "admin":
+                is_admin = True
+                allowed_bot_ids = admin_user.allowed_bot_ids
+
+    # Filter bots based on access
+    if not is_admin:
+        # Regular users only see their own bots
+        if x_user_email:
+            query = query.filter(Bot.user_id == x_user_email)
+    elif allowed_bot_ids:
+        # Admin with restricted access
+        query = query.filter(Bot.id.in_(allowed_bot_ids))
+    # else: admin with full access sees all bots
 
     bots = query.order_by(desc(Bot.created_at)).all()
 

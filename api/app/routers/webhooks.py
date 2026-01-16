@@ -26,6 +26,7 @@ from linebot.v3.messaging import (
     QuickReply,
     QuickReplyItem,
     PostbackAction,
+    ShowLoadingAnimationRequest,
 )
 
 from database import get_db, SessionLocal
@@ -84,6 +85,17 @@ def process_webhook_event_background(
                 user_id = event["source"]["userId"]
                 reply_token = event["replyToken"]
                 message_type = event.get("message", {}).get("type")
+
+                # Show typing indicator (loading animation) to user
+                try:
+                    line_bot_api.show_loading_animation(
+                        ShowLoadingAnimationRequest(
+                            chat_id=user_id,
+                            loading_seconds=30  # Show for up to 30 seconds (will stop when reply is sent)
+                        )
+                    )
+                except Exception as e:
+                    print(f"Error showing loading animation: {e}")
 
                 # Retrieve Session
                 session = (

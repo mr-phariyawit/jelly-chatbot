@@ -14,14 +14,15 @@ class Settings:
     """Application settings loaded from environment variables"""
 
     # API Settings
-    API_BASE_URL: str = os.getenv("API_BASE_URL", "https://session-api-687023036300.us-central1.run.app")
+    API_BASE_URL: str = os.getenv("API_BASE_URL", "https://session-api-n7u6wpcbqa-uc.a.run.app")
 
     # Session Settings
     SESSION_TIMEOUT_MINUTES: int = int(os.getenv("SESSION_TIMEOUT_MINUTES", "30"))
 
     # CORS Settings
     CORS_ORIGINS: list = [
-        "https://admin-dashboard-182206907696.us-central1.run.app",
+        "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app",
+        "https://admin-dashboard-687023036300.us-central1.run.app",
         "http://localhost:3000",
     ]
 
