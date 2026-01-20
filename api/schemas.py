@@ -37,6 +37,7 @@ class SessionResponse(BaseModel):
     status: str
     is_escalated: bool
     escalation_reason: Optional[str] = None
+    bot_id: Optional[str] = None
     message_count: int
 
     class Config:
@@ -51,6 +52,7 @@ class AddMessageRequest(BaseModel):
     user_id: str
     role: str
     content: str
+    bot_id: Optional[str] = None
     is_escalated: Optional[bool] = False
     escalation_reason: Optional[str] = None
 

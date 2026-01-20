@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 
 from database import get_db
 from models import AdminUser
+from app.config import settings
 
 router = APIRouter(tags=["Auth"])
 
@@ -36,6 +37,7 @@ class AdminUserResponse(BaseModel):
     name: Optional[str]
     avatar_url: Optional[str]
     role: str
+    is_approved: bool
     allowed_bot_ids: Optional[List[str]]
     created_at: Optional[str]
     last_login: Optional[str]
@@ -45,6 +47,7 @@ class AdminUserUpdate(BaseModel):
     """Request body for updating admin user"""
     name: Optional[str] = None
     role: Optional[str] = None
+    is_approved: Optional[bool] = None
     allowed_bot_ids: Optional[List[str]] = None
 
 
@@ -62,15 +65,25 @@ def google_auth(request: GoogleAuthRequest, db: DBSession = Depends(get_db)):
             user.name = request.name
         if request.avatar_url:
             user.avatar_url = request.avatar_url
+            
+        # Automatically approve and promote if in whitelist
+        if request.email in settings.SUPER_ADMIN_EMAILS:
+            user.is_approved = True
+            user.role = "super-admin"
+            
         db.commit()
         db.refresh(user)
     else:
+        # Check if user is in whitelist
+        is_su = request.email in settings.SUPER_ADMIN_EMAILS
+        
         user = AdminUser(
             id=request.google_id,
             email=request.email,
             name=request.name,
             avatar_url=request.avatar_url,
-            role="admin",
+            role="super-admin" if is_su else "admin",
+            is_approved=True if is_su else False,
             allowed_bot_ids=None,
             created_at=datetime.utcnow(),
             last_login=datetime.utcnow()
@@ -85,6 +98,7 @@ def google_auth(request: GoogleAuthRequest, db: DBSession = Depends(get_db)):
         name=user.name,
         avatar_url=user.avatar_url,
         role=user.role,
+        is_approved=user.is_approved,
         allowed_bot_ids=json.loads(user.allowed_bot_ids) if user.allowed_bot_ids else None,
         created_at=user.created_at.isoformat() if user.created_at else None,
         last_login=user.last_login.isoformat() if user.last_login else None
@@ -108,6 +122,7 @@ def get_current_user(email: str = Query(..., description="User email"), db: DBSe
         name=user.name,
         avatar_url=user.avatar_url,
         role=user.role,
+        is_approved=user.is_approved,
         allowed_bot_ids=json.loads(user.allowed_bot_ids) if user.allowed_bot_ids else None,
         created_at=user.created_at.isoformat() if user.created_at else None,
         last_login=user.last_login.isoformat() if user.last_login else None
@@ -126,6 +141,7 @@ def list_users(db: DBSession = Depends(get_db)):
             name=u.name,
             avatar_url=u.avatar_url,
             role=u.role,
+            is_approved=u.is_approved,
             allowed_bot_ids=json.loads(u.allowed_bot_ids) if u.allowed_bot_ids else None,
             created_at=u.created_at.isoformat() if u.created_at else None,
             last_login=u.last_login.isoformat() if u.last_login else None
@@ -146,6 +162,8 @@ def update_user(user_id: str, update: AdminUserUpdate, db: DBSession = Depends(g
         user.name = update.name
     if update.role is not None:
         user.role = update.role
+    if update.is_approved is not None:
+        user.is_approved = update.is_approved
     if update.allowed_bot_ids is not None:
         user.allowed_bot_ids = json.dumps(update.allowed_bot_ids) if update.allowed_bot_ids else None
 
@@ -158,6 +176,7 @@ def update_user(user_id: str, update: AdminUserUpdate, db: DBSession = Depends(g
         name=user.name,
         avatar_url=user.avatar_url,
         role=user.role,
+        is_approved=user.is_approved,
         allowed_bot_ids=json.loads(user.allowed_bot_ids) if user.allowed_bot_ids else None,
         created_at=user.created_at.isoformat() if user.created_at else None,
         last_login=user.last_login.isoformat() if user.last_login else None

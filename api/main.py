@@ -16,6 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 
 from database import init_db
+from app.migrations import run_migrations
 from app.config import settings
 
 # Import routers
@@ -25,13 +26,13 @@ from app.routers import health, sessions, bots, webhooks, files, auth, analytics
 app = FastAPI(
     title="Session Logging API",
     description="API for tracking LINE bot chat sessions",
-    version="1.2.0",
+    version="1.2.2",
 )
 
-# CORS middleware
+# CORS middleware - Robust dynamic origin validation
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origin_regex=r"https://.*\.run\.app|http://localhost:.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -43,8 +44,9 @@ app.add_middleware(GZipMiddleware, minimum_size=500)
 
 @app.on_event("startup")
 def startup():
-    """Initialize database on startup."""
+    """Initialize database and run migrations on startup."""
     init_db()
+    run_migrations()
 
 
 # Include routers

@@ -21,19 +21,21 @@ class Settings:
 
     # CORS Settings
     CORS_ORIGINS: list = [
-        "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app",
-        "https://admin-dashboard-687023036300.us-central1.run.app",
         "http://localhost:3000",
+        "http://localhost:3001",
+        "https://admin-dashboard-687023036300.us-central1.run.app",
+        "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app"
     ]
 
     # GCS Settings
     GCS_BUCKET_NAME: str = os.getenv("GCS_BUCKET_NAME", "ai-kms-platform-uploads")
+    SERVICE_ACCOUNT_EMAIL: str = os.getenv("SERVICE_ACCOUNT_EMAIL", "687023036300-compute@developer.gserviceaccount.com")
 
     # AI Settings
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
 
     # Admin Settings
-    SUPER_ADMIN: str = os.getenv("SUPER_ADMIN", "")
+    SUPER_ADMIN_EMAILS: list = [e.strip() for e in os.getenv("SUPER_ADMIN_EMAILS", "").split(",") if e.strip()]
 
 
 @lru_cache

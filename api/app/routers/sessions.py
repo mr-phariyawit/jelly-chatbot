@@ -69,6 +69,7 @@ def add_message(request: AddMessageRequest, db: DBSession = Depends(get_db)):
         session = Session(
             id=str(uuid.uuid4()),
             user_id=user_id,
+            bot_id=request.bot_id,
             started_at=now,
             status="active",
         )
@@ -104,6 +105,7 @@ def add_message(request: AddMessageRequest, db: DBSession = Depends(get_db)):
 @router.get("", response_model=List[SessionResponse])
 def list_sessions(
     user_id: Optional[str] = Query(None, description="Filter by user ID"),
+    bot_id: Optional[str] = Query(None, description="Filter by bot ID"),
     status: Optional[str] = Query(None, description="Filter by status"),
     is_escalated: Optional[bool] = Query(None, description="Filter by escalation"),
     limit: int = Query(50, le=100, description="Max results"),
@@ -114,6 +116,8 @@ def list_sessions(
 
     if user_id:
         query = query.filter(Session.user_id == user_id)
+    if bot_id:
+        query = query.filter(Session.bot_id == bot_id)
     if status:
         query = query.filter(Session.status == status)
     if is_escalated is not None:
@@ -130,6 +134,7 @@ def list_sessions(
             status=s.status,
             is_escalated=s.is_escalated,
             escalation_reason=s.escalation_reason,
+            bot_id=s.bot_id,
             message_count=len(s.messages),
         )
         for s in sessions

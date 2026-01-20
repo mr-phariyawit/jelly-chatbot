@@ -117,6 +117,14 @@ def migrate_db():
             except Exception as e:
                 print(f"Migration warning (messages.size_bytes column): {e}")
 
+            # 5. Add indexing_progress column to files table
+            try:
+                conn.execute(text("ALTER TABLE files ADD COLUMN IF NOT EXISTS indexing_progress INTEGER DEFAULT 0;"))
+                conn.commit()
+                print("Migration: Added indexing_progress column to files table")
+            except Exception as e:
+                print(f"Migration warning (files.indexing_progress column): {e}")
+
             # 3. Create bot_logs table if not exists (Manual fallback for create_all)
             try:
                 conn.execute(text("""

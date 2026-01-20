@@ -503,23 +503,39 @@ class Processor:
         # Extract text based on content type
         if content_type and 'pdf' in content_type.lower():
             # PDF: Extract first 3 pages only
+            text = ""
             try:
                 from pypdf import PdfReader
                 pdf_file = io.BytesIO(content_bytes)
                 reader = PdfReader(pdf_file)
                 
-                text_parts = []
                 max_pages = min(3, len(reader.pages))
                 for i in range(max_pages):
-                    page_text = reader.pages[i].extract_text()
-                    text_parts.append(f"--- Page {i+1} ---\n{page_text}")
-                
-                extracted_text = "\n\n".join(text_parts)
-                logger.info(f"Extracted {len(extracted_text)} chars from first {max_pages} PDF pages")
-                return extracted_text[:15000]  # Limit to 15k chars
+                    extracted = reader.pages[i].extract_text()
+                    if extracted:
+                        text += f"--- Page {i+1} ---\n{extracted}\n"
             except Exception as e:
                 logger.error(f"PDF extraction failed: {e}")
-                raise
+                # Fallback to OCR
+            
+            # OCR Fallback
+            if len(text) < 100:
+                 logger.info("PDF text empty/short, using Gemini OCR...")
+                 try:
+                     import google.generativeai as genai
+                     # Use the same key as initialized in Processor
+                     if self.gemini and self.gemini.api_key:
+                         genai.configure(api_key=self.gemini.api_key)
+                         model = genai.GenerativeModel("gemini-2.0-flash")
+                         response = model.generate_content([
+                            {'mime_type': 'application/pdf', 'data': content_bytes},
+                            "Extract text from this document for summarization."
+                         ])
+                         return response.text[:15000]
+                 except Exception as e:
+                     logger.error(f"OCR failed in processor: {e}")
+                     
+            return text[:15000]
         else:
             # Text files: decode directly
             try:

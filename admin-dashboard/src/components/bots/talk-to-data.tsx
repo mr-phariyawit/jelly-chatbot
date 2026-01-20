@@ -12,6 +12,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { ChatMessage } from './chat/chat-message';
+import { TypingIndicator } from './chat/typing-indicator';
 
 interface ChatSource {
     filename: string;
@@ -142,102 +144,34 @@ export function TalkToData({ botId, botName, systemPromptPreview, fileCount }: T
                 </div>
             </CardHeader>
             
-            <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
+            <CardContent className="flex-1 overflow-y-auto p-4 space-y-6">
                 {messages.length === 0 && (
-                    <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
-                        <Bot className="h-12 w-12 mb-4 opacity-50" />
-                        <p className="text-sm">Start a conversation to test your bot</p>
+                    <div className="flex flex-col items-center justify-center h-full text-muted-foreground opacity-50">
+                        <Bot className="h-16 w-16 mb-4 stroke-[1.5]" />
+                        <p className="text-sm font-medium">Start a conversation to test your bot</p>
                         <p className="text-xs mt-1">Messages use the same RAG pipeline as LINE webhook</p>
                     </div>
                 )}
                 
                 {messages.map((message, index) => (
-                    <div 
-                        key={index} 
-                        className={`flex gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                    >
-                        {message.role === 'assistant' && (
-                            <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
-                                <Bot className="h-4 w-4 text-purple-400" />
-                            </div>
-                        )}
-                        
-                        <div className={`max-w-[80%] ${message.role === 'user' ? 'order-first' : ''}`}>
-                            <div className={`rounded-lg px-4 py-2 ${
-                                message.role === 'user' 
-                                    ? 'bg-primary text-primary-foreground' 
-                                    : 'bg-muted'
-                            }`}>
-                                {message.role === 'assistant' ? (
-                                    <div className="text-sm prose prose-invert prose-sm max-w-none prose-p:my-1 prose-headings:text-purple-400 prose-strong:text-purple-300 prose-li:marker:text-purple-400">
-                                        <ReactMarkdown>{message.content}</ReactMarkdown>
-                                    </div>
-                                ) : (
-                                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                                )}
-                            </div>
-                            
-                            {/* Sources */}
-                            {message.sources && message.sources.length > 0 && (
-                                <div className="mt-2 space-y-1">
-                                    <button 
-                                        className="text-xs text-muted-foreground flex items-center gap-1 hover:text-foreground"
-                                        onClick={() => setExpandedMessage(expandedMessage === index ? null : index)}
-                                    >
-                                        <FileText className="h-3 w-3" />
-                                        {message.sources.length} source(s)
-                                        {expandedMessage === index ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-                                    </button>
-                                    
-                                    {expandedMessage === index && (
-                                        <div className="text-xs bg-muted/50 rounded p-2 space-y-2">
-                                            {message.sources.map((source, i) => (
-                                                <div key={i} className="border-l-2 border-purple-500/50 pl-2">
-                                                    <div className="font-medium text-purple-400">{source.filename}</div>
-                                                    <div className="text-muted-foreground truncate">{source.chunk_preview}</div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                            
-                            {/* Debug Info */}
-                            {message.debug_info && debugMode && (
-                                <div className="mt-2 text-xs bg-yellow-500/10 border border-yellow-500/30 rounded p-2">
-                                    <div className="font-medium text-yellow-500 mb-1">🔍 Debug Info</div>
-                                    <div className="space-y-1 text-muted-foreground">
-                                        <div>Model: {message.debug_info.model}</div>
-                                        <div>Latency: {message.debug_info.latency_ms}ms</div>
-                                        <div>Chunks: {message.debug_info.chunks_retrieved?.length || 0}</div>
-                                    </div>
-                                </div>
-                            )}
-                            
-                            {/* Token Usage */}
-                            {message.token_usage && (
-                                <div className="mt-1 text-xs text-muted-foreground">
-                                    Tokens: {message.token_usage.total_tokens} (P: {message.token_usage.prompt_tokens}, C: {message.token_usage.completion_tokens})
-                                </div>
-                            )}
-                        </div>
-                        
-                        {message.role === 'user' && (
-                            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                                <User className="h-4 w-4 text-primary" />
-                            </div>
-                        )}
-                    </div>
+                    <ChatMessage 
+                        key={index}
+                        role={message.role}
+                        content={message.content}
+                        sources={message.sources}
+                        debug_info={message.debug_info}
+                        token_usage={message.token_usage}
+                        isLatest={index === messages.length - 1}
+                    />
                 ))}
                 
                 {chatMutation.isPending && (
-                    <div className="flex gap-3">
-                        <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
-                            <Bot className="h-4 w-4 text-purple-400" />
+                    <div className="flex gap-4 w-full justify-start">
+                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shrink-0 shadow-lg mt-1">
+                            <Bot className="h-4 w-4 text-white" />
                         </div>
-                        <div className="bg-muted rounded-lg px-4 py-2 flex items-center gap-2">
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            <span className="text-sm text-muted-foreground">Thinking...</span>
+                        <div className="bg-background border border-border/50 rounded-2xl rounded-tl-none px-5 py-3 shadow-sm">
+                            <TypingIndicator />
                         </div>
                     </div>
                 )}

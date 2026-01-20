@@ -52,19 +52,53 @@ class IngestionService:
         return chunks
 
     def _parse_pdf(self, content: bytes) -> str:
-        """Extract text from PDF bytes."""
+        """Extract text from PDF bytes. Fallback to Gemini OCR if text is sparse."""
         import io
         from pypdf import PdfReader
         
+        text = ""
         try:
             reader = PdfReader(io.BytesIO(content))
-            text = ""
             for page in reader.pages:
-                text += page.extract_text() + "\n"
-            return text
+                extracted = page.extract_text()
+                if extracted:
+                    text += extracted + "\n"
         except Exception as e:
-            logger.error(f"Error parsing PDF: {e}")
-            raise
+            logger.error(f"Error parsing PDF with pypdf: {e}")
+            # Don't raise, try OCR fallback
+        
+        # Heuristic: If text is too short (< 200 chars), assume it's an image scan -> Use OCR
+        if len(text.strip()) < 200:
+            logger.info(f"PDF text too short ({len(text)} chars), attempting OCR with Gemini...")
+            try:
+                return self._ocr_pdf_with_gemini(content)
+            except Exception as e:
+                logger.error(f"OCR failed: {e}")
+                # Return whatever we got from pypdf (even if empty) or error message
+                return text if text else "[Error: Scanned PDF could not be read]"
+        
+        return text
+
+    def _ocr_pdf_with_gemini(self, content: bytes) -> str:
+        """Use Gemini Vision to extract text from PDF (Scanned docs)"""
+        import base64
+        
+        model = genai.GenerativeModel("gemini-2.0-flash")
+        
+        # Safety check: Gemini has file size limits (20MB). Resume is small.
+        # But user mentioned 20MB files.
+        # If file is huge, we might need to split? 
+        # For now, let's assume valid size or handle error.
+        
+        prompt = "Extract all text from this document verbatim. Preserve structure where possible."
+        
+        # GenAI SDK supports 'parts' with mime_type
+        response = model.generate_content([
+            {'mime_type': 'application/pdf', 'data': content},
+            prompt
+        ])
+        
+        return response.text
 
     def _parse_csv(self, content: bytes) -> str:
         """Convert CSV to descriptive text."""
@@ -130,11 +164,22 @@ class IngestionService:
         # Determine content
         raw_text = content_override if content_override else file.content
         
-        # GCS Support: If no content but we have a GCS URI, download it
-        if not raw_text and file.gcs_uri:
+        # GCS Support: If no content (or placeholder) but we have a GCS URI, download it
+        if (not raw_text or raw_text == "[Stored in GCS]") and file.gcs_uri:
             logger.info(f"Downloading file {file.filename} from GCS: {file.gcs_uri}")
+            
+            # Update Progress: Downloading
+            file.status = "processing"
+            file.indexing_progress = 5
+            db.commit()
+            
             try:
                 content_bytes = self.download_from_gcs(file.gcs_uri)
+                
+                # Update Progress: Extracting
+                file.indexing_progress = 10
+                db.commit()
+                
                 # Use the helper extraction method (we need to be sure we are adding it below)
                 # Ensure we have the helper or add it now.
                 # Assuming extract_text is added to class.
@@ -170,19 +215,33 @@ class IngestionService:
         
         # Retaining original logic for process_file but adding extraction helper below.
         
-        if not raw_text:
-             logger.warning(f"File {file.filename} has no content")
+        if not raw_text or not raw_text.strip():
+             logger.error(f"File {file.filename} has no content after extraction")
+             file.status = "failed"
+             file.description = "Extraction Failed: Document is empty or could not be read."
+             file.indexing_progress = 0
+             db.commit()
              return
+
+        # Update Progress: Parsing Done
+        file.status = "processing"
+        file.indexing_progress = 20
+        db.commit()
 
         # 1. Chunking
         text_chunks = self.chunk_text(raw_text)
         logger.info(f"Split file {file.filename} into {len(text_chunks)} chunks")
+        
+        # Update Progress: Chunking Done
+        file.indexing_progress = 30
+        db.commit()
 
         # 2. Embedding & Saving
         try:
             # Delete existing chunks
             db.query(FileChunk).filter(FileChunk.file_id == file_id).delete()
             
+            total_chunks = len(text_chunks)
             for index, chunk_text in enumerate(text_chunks):
                 if not chunk_text.strip():
                     continue
@@ -205,7 +264,22 @@ class IngestionService:
                     embedding=embedding_vector
                 )
                 db.add(new_chunk)
+                
+                # Update Progress: 30% -> 90%
+                if total_chunks > 0:
+                    # Calculate progress
+                    # Base 30, Max 90 (range 60)
+                    progress = 30 + int(((index + 1) / total_chunks) * 60)
+                    
+                    # Update DB every 10% or if it's the last one to reduce DB load
+                    # or if chunks are small, maybe every 5?
+                    # Let's do every 5 chunks or if progress changed significantly
+                    if index % 5 == 0 or index == total_chunks - 1:
+                        file.indexing_progress = progress
+                        db.commit()
             
+            # Finalize
+            file.indexing_progress = 100
             db.commit()
             logger.info(f"Successfully ingested file {file.filename}")
 

@@ -35,6 +35,7 @@ class Session(Base):
             "status": self.status,
             "is_escalated": self.is_escalated,
             "escalation_reason": self.escalation_reason,
+            "bot_id": self.bot_id,
             "message_count": len(self.messages) if self.messages else 0,
         }
 
@@ -124,6 +125,7 @@ class File(Base):
     file_url = Column(String, nullable=True)
     size_bytes = Column(Integer, nullable=True)
     status = Column(String, default="pending")  # pending, extracted, indexed, completed, failed
+    indexing_progress = Column(Integer, default=0) # 0-100%
     uploaded_at = Column(DateTime, default=utcnow)
     
     bot = relationship("Bot", back_populates="files")
@@ -137,7 +139,9 @@ class File(Base):
             "description": self.description,
             "content_type": self.content_type,
             "size_bytes": self.size_bytes,
+            "size_bytes": self.size_bytes,
             "status": self.status,
+            "indexing_progress": self.indexing_progress,
             "uploaded_at": self.uploaded_at.isoformat() if self.uploaded_at else None,
         }
 
@@ -180,6 +184,7 @@ class AdminUser(Base):
     avatar_url = Column(String, nullable=True)
     role = Column(String, default="admin")  # admin, viewer
     allowed_bot_ids = Column(Text, nullable=True)  # JSON array for data governance, null = all access
+    is_approved = Column(Boolean, default=False)
     created_at = Column(DateTime, default=utcnow)
     last_login = Column(DateTime, nullable=True)
 
@@ -191,6 +196,7 @@ class AdminUser(Base):
             "name": self.name,
             "avatar_url": self.avatar_url,
             "role": self.role,
+            "is_approved": self.is_approved,
             "allowed_bot_ids": json.loads(self.allowed_bot_ids) if self.allowed_bot_ids else None,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "last_login": self.last_login.isoformat() if self.last_login else None,

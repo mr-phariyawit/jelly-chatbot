@@ -27,6 +27,8 @@ Select.displayName = "Select"
 interface SelectContextValue {
   value: string;
   onValueChange: (value: string) => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 const SelectContext = React.createContext<SelectContextValue | undefined>(undefined);
@@ -38,8 +40,10 @@ interface SelectRootProps {
 }
 
 function SelectRoot({ value, onValueChange, children }: SelectRootProps) {
+  const [open, setOpen] = React.useState(false);
+  
   return (
-    <SelectContext.Provider value={{ value, onValueChange }}>
+    <SelectContext.Provider value={{ value, onValueChange, open, onOpenChange: setOpen }}>
       {children}
     </SelectContext.Provider>
   );
@@ -51,8 +55,10 @@ interface SelectTriggerProps extends React.HTMLAttributes<HTMLButtonElement> {
 
 const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
   ({ className, children, ...props }, ref) => {
-    const [isOpen, setIsOpen] = React.useState(false);
     const context = React.useContext(SelectContext);
+    
+    // Handle click outside to close could be added here or in a hook, 
+    // but for now basic toggle is the fix.
 
     return (
       <div className="relative">
@@ -63,7 +69,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
             "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => context?.onOpenChange(!context.open)}
           {...props}
         >
           {children}
@@ -89,6 +95,10 @@ interface SelectContentProps {
 }
 
 function SelectContent({ children }: SelectContentProps) {
+  const context = React.useContext(SelectContext);
+  
+  if (!context?.open) return null;
+
   return (
     <div className="absolute z-50 mt-1 max-h-60 min-w-[8rem] overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
       {children}
@@ -111,7 +121,10 @@ function SelectItem({ value, children, className, ...props }: SelectItemProps) {
         context?.value === value && "bg-accent",
         className
       )}
-      onClick={() => context?.onValueChange(value)}
+      onClick={() => {
+        context?.onValueChange(value);
+        context?.onOpenChange(false);
+      }}
       {...props}
     >
       {children}

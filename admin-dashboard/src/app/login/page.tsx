@@ -5,30 +5,55 @@ import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   return (
-    <div className="login-bg min-h-screen flex items-center justify-center p-4">
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-[var(--purple)]/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-[var(--gold)]/10 rounded-full blur-3xl" />
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--bg-primary)] font-sans">
+      
+      {/* --- 1. The Aurora Blobs (Background Animation) --- */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        
+        {/* Blob 1: Violet */}
+        <div 
+          className="absolute -top-[10%] -left-[10%] w-[500px] h-[500px] rounded-full bg-[#7c3aed] blur-[80px] opacity-70 animate-fluid-1 mix-blend-screen"
+        />
 
-      {/* Login Card */}
-      <div className="glass relative z-10 w-full max-w-md rounded-2xl shadow-2xl p-8">
+        {/* Blob 2: Pink/Magenta */}
+        <div 
+          className="absolute -bottom-[10%] -right-[10%] w-[400px] h-[400px] rounded-full bg-[#db2777] blur-[80px] opacity-70 animate-fluid-2 mix-blend-screen"
+          style={{ animationDelay: '-5s' }}
+        />
+
+        {/* Blob 3: Blue */}
+        <div 
+          className="absolute bottom-[20%] left-[20%] w-[300px] h-[300px] rounded-full bg-[#2563eb] blur-[80px] opacity-50 animate-fluid-3 mix-blend-screen"
+          style={{ animationDelay: '-10s' }}
+        />
+      </div>
+
+      {/* --- 2. Login Card (Original Theme) --- */}
+      <div className="relative z-10 w-full max-w-md p-8 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border-color)] shadow-2xl">
+        
         {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 mb-6">
-            <img src="/profile-papa.png" alt="PaPa ChatBot Logo" className="object-contain w-full h-full rounded-full" />
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-24 h-24 mb-6 bg-[var(--gold-light)]/10 rounded-full border border-[var(--gold)]/20 p-4">
+            <img 
+              src="/profile-papa.png" 
+              alt="PaPa ChatBot Logo" 
+              className="object-contain w-full h-full rounded-full" 
+            />
           </div>
-          <h1 className="text-3xl font-bold gradient-text mb-2">
+          <h1 className="text-3xl font-bold text-[var(--gold)] mb-3">
             PaPa ChatBot
           </h1>
-          <p className="text-[var(--text-secondary)]">Sign in to manage PaPa ChatBot</p>
+          <p className="text-[var(--text-secondary)]">
+            Sign in to manage PaPa ChatBot
+          </p>
         </div>
 
-        {/* Google Sign In Button */}
+        {/* Google Sign In Button (Original Theme) */}
         <Button
           onClick={() => signIn("google", { callbackUrl: "/admin/bots" })}
-          className="w-full h-12 bg-white hover:bg-gray-50 text-[var(--bg-primary)] font-medium rounded-lg flex items-center justify-center gap-3 transition-all duration-200 hover:shadow-lg border border-[var(--border-color)]"
+          className="w-full h-14 btn-gold-gradient font-semibold text-lg rounded-xl flex items-center justify-center gap-3"
         >
-          <svg className="w-5 h-5" viewBox="0 0 24 24">
+          <svg className="w-6 h-6" viewBox="0 0 24 24">
             <path
               fill="currentColor"
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -50,14 +75,10 @@ export default function LoginPage() {
         </Button>
 
         {/* Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-8">
+        <p className="text-center text-sm text-[var(--text-secondary)] mt-8 opacity-60">
           Only authorized personnel can access this dashboard
         </p>
       </div>
-
-      {/* Floating glass elements for depth */}
-      <div className="absolute top-1/4 right-1/4 w-20 h-20 glass rounded-2xl opacity-50 rotate-12" />
-      <div className="absolute bottom-1/3 left-1/3 w-16 h-16 glass rounded-xl opacity-40 -rotate-6" />
     </div>
   );
 }

@@ -5,28 +5,28 @@
   /* Map Shadcn variables to Tailwind Utilities */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  
+
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  
+
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -41,58 +41,63 @@
 @layer base {
   :root {
     /* Brand Colors (Thai Astrology: Purple & Gold) */
-    --purple: #7B2D8E;
-    --purple-dark: #5B1D6E;
-    --gold: #D4A634;
-    --gold-light: #E4B644;
+    --purple: #7b2d8e;
+    --purple-dark: #5b1d6e;
+    --gold: #d4a634;
+    --gold-light: #e4b644;
 
     /* Neutrals */
-    --bg-primary: #0D0A12;
-    --bg-secondary: #1A1625;
-    --bg-tertiary: #241F30;
-    --text-primary: #F0EDF5;
-    --text-secondary: #A09AAD;
-    --border-color: #2A243A;
+    --bg-primary: #0d0a12;
+    --bg-secondary: #1a1625;
+    --bg-tertiary: #241f30;
+    --text-primary: #f0edf5;
+    --text-secondary: #a09aad;
+    --border-color: #2a243a;
 
     /* Gradients */
-    --gradient-purple: linear-gradient(135deg, #7B2D8E 0%, #5B1D6E 100%);
-    --gradient-gold: linear-gradient(135deg, #D4A634 0%, #E4B644 100%);
-    --gradient-hero: linear-gradient(135deg, #7B2D8E 0%, #D4A634 50%, #7B2D8E 100%);
+    --gradient-purple: linear-gradient(135deg, #7b2d8e 0%, #5b1d6e 100%);
+    --gradient-gold: linear-gradient(135deg, #d4a634 0%, #e4b644 100%);
+    --gradient-hero: linear-gradient(
+      135deg,
+      #7b2d8e 0%,
+      #d4a634 50%,
+      #7b2d8e 100%
+    );
 
     /* Shadcn/UI Mappings */
-    --background: #0D0A12;
-    --foreground: #F0EDF5;
+    --background: #0d0a12;
+    --foreground: #f0edf5;
 
-    --card: #1A1625;
-    --card-foreground: #F0EDF5;
+    --card: #1a1625;
+    --card-foreground: #f0edf5;
 
-    --popover: #1A1625;
-    --popover-foreground: #F0EDF5;
+    --popover: #1a1625;
+    --popover-foreground: #f0edf5;
 
-    --primary: #D4A634; /* Gold */
-    --primary-foreground: #0D0A12; /* Dark Text on Gold */
+    --primary: #d4a634; /* Gold */
+    --primary-foreground: #0d0a12; /* Dark Text on Gold */
 
-    --secondary: #241F30;
-    --secondary-foreground: #F0EDF5;
+    --secondary: #241f30;
+    --secondary-foreground: #f0edf5;
 
-    --muted: #241F30;
-    --muted-foreground: #A09AAD;
+    --muted: #241f30;
+    --muted-foreground: #a09aad;
 
-    --accent: #241F30;
-    --accent-foreground: #D4A634;
+    --accent: #241f30;
+    --accent-foreground: #d4a634;
 
-    --destructive: #EF4444;
-    --destructive-foreground: #F8FAFC;
+    --destructive: #ef4444;
+    --destructive-foreground: #f8fafc;
 
-    --border: #2A243A;
-    --input: #2A243A;
-    --ring: #D4A634;
+    --border: #2a243a;
+    --input: #2a243a;
+    --ring: #d4a634;
 
     --radius: 0.75rem;
-    
+
     /* Font Variables */
-    --font-prompt: 'Prompt', sans-serif;
-    --font-ibm-plex: 'IBM Plex Sans', sans-serif;
+    --font-prompt: "Prompt", sans-serif;
+    --font-ibm-plex: "IBM Plex Sans", sans-serif;
   }
 }
 
@@ -117,9 +122,15 @@
 }
 
 @keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Glass/Dark Card override */
@@ -138,11 +149,49 @@
 /* Button Gradient Helper */
 .btn-gold-gradient {
   background: var(--gradient-gold);
-  color: #1A1625;
+  color: #1a1625;
   box-shadow: 0 4px 12px rgba(212, 166, 52, 0.3);
   transition: all 0.3s ease;
 }
 .btn-gold-gradient:hover {
   box-shadow: 0 8px 24px rgba(212, 166, 52, 0.5);
   transform: translateY(-1px);
+}
+
+/* Aurora Animation - Zero Gravity Fluid */
+@keyframes fluid-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(30vw, -20vh) scale(1.1); }
+  40% { transform: translate(-10vw, 30vh) scale(0.9); }
+  60% { transform: translate(25vw, 10vh) scale(1.05); }
+  80% { transform: translate(-20vw, -15vh) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes fluid-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-25vw, 30vh) scale(1.2); }
+  50% { transform: translate(20vw, -10vh) scale(0.8); }
+  75% { transform: translate(10vw, 25vh) scale(1.1); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes fluid-3 {
+  0% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(20vw, -30vh) scale(0.9); }
+  60% { transform: translate(-25vw, 15vh) scale(1.1); }
+  90% { transform: translate(15vw, -10vh) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.animate-fluid-1 {
+  animation: fluid-1 30s infinite ease-in-out alternate;
+}
+
+.animate-fluid-2 {
+  animation: fluid-2 35s infinite ease-in-out alternate;
+}
+
+.animate-fluid-3 {
+  animation: fluid-3 32s infinite ease-in-out alternate;
 }

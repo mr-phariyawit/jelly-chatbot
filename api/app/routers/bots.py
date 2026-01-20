@@ -135,28 +135,41 @@ def list_bots(
     query = db.query(Bot)
 
     # Check if user is super admin or has admin role
-    is_admin = False
+    is_super_admin = False
     allowed_bot_ids = None
 
     if x_user_email:
-        if x_user_email == settings.SUPER_ADMIN:
-            is_admin = True
+        # Check if user is SUPER admin (has global access)
+        if x_user_email in settings.SUPER_ADMIN_EMAILS:
+            is_super_admin = True
         else:
-            # Check admin_users table for role
+            # Check admin_users table for standard admin role (restricted access)
             admin_user = db.query(AdminUser).filter(AdminUser.email == x_user_email).first()
             if admin_user and admin_user.role == "admin":
-                is_admin = True
                 allowed_bot_ids = admin_user.allowed_bot_ids
 
     # Filter bots based on access
-    if not is_admin:
-        # Regular users only see their own bots
+    if is_super_admin:
+        # Super admin sees all bots
+        pass
+    elif allowed_bot_ids:
+        # Standard admin sees their own bots OR explicitly allowed bots
+        # We assume they should also see bots they created (user_id match)
+        import json
+        allowed_list = []
+        try:
+             allowed_list = json.loads(allowed_bot_ids)
+        except:
+             pass
+        
+        # Combine: Own bots OR Allowed ID list
+        query = query.filter(
+            (Bot.user_id == x_user_email) | (Bot.id.in_(allowed_list))
+        )
+    else:
+        # Regular user (or admin with no extra permissions) only sees their own bots
         if x_user_email:
             query = query.filter(Bot.user_id == x_user_email)
-    elif allowed_bot_ids:
-        # Admin with restricted access
-        query = query.filter(Bot.id.in_(allowed_bot_ids))
-    # else: admin with full access sees all bots
 
     bots = query.order_by(desc(Bot.created_at)).all()
 

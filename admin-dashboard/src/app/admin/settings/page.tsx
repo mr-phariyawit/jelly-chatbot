@@ -188,6 +188,117 @@ export default function SettingsPage() {
                     </p>
                 </div>
             </div>
+
+            {/* User Management Section */}
+            <div className="pt-10 border-t border-border/50">
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 rounded-lg bg-yellow-500/20">
+                        <Settings className="h-6 w-6 text-yellow-400" />
+                    </div>
+                    <div>
+                        <h2 className="text-3xl font-bold tracking-tight">User Management</h2>
+                        <p className="text-muted-foreground">
+                            Approve new users and manage access roles.
+                        </p>
+                    </div>
+                </div>
+
+                <UserList />
+            </div>
         </div>
+    );
+}
+
+function UserList() {
+    const [users, setUsers] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
+    const fetchUsers = async () => {
+        try {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-687023036300.us-central1.run.app';
+            const res = await fetch(`${apiUrl}/users`);
+            if (res.ok) {
+                const data = await res.json();
+                setUsers(data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch users:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const toggleApproval = async (userId: string, currentStatus: boolean) => {
+        try {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-687023036300.us-central1.run.app';
+            const res = await fetch(`${apiUrl}/users/${userId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ is_approved: !currentStatus })
+            });
+            if (res.ok) {
+                setUsers(users.map(u => u.id === userId ? { ...u, is_approved: !currentStatus } : u));
+            }
+        } catch (error) {
+            console.error('Failed to update user approval:', error);
+        }
+    };
+
+    if (isLoading) {
+        return <div className="p-8 text-center text-muted-foreground italic">Loading users...</div>;
+    }
+
+    return (
+        <Card className="border-yellow-500/20">
+            <CardHeader>
+                <CardTitle>Registered Admins</CardTitle>
+                <CardDescription>Only approved users can access the dashboard.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-4">
+                    {users.length === 0 ? (
+                        <p className="text-center py-4 text-muted-foreground">No users found.</p>
+                    ) : (
+                        users.map((user) => (
+                            <div key={user.id} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 border border-border/50">
+                                <div className="flex items-center gap-4">
+                                    <div className="h-10 w-10 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 font-bold border border-yellow-500/20">
+                                        {user.name?.[0]?.toUpperCase() || user.email[0].toUpperCase()}
+                                    </div>
+                                    <div>
+                                        <div className="font-medium text-white">{user.name || 'Unknown'}</div>
+                                        <div className="text-xs text-muted-foreground">{user.email}</div>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-8">
+                                    <div className="text-right">
+                                        <div className={`text-xs px-2 py-0.5 rounded-full inline-block ${
+                                            user.role === 'super-admin' 
+                                                ? 'bg-purple-500/10 text-purple-400 border border-purple-500/30' 
+                                                : user.is_approved 
+                                                    ? 'bg-green-500/10 text-green-400 border border-green-500/30' 
+                                                    : 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/30'
+                                        }`}>
+                                            {user.role === 'super-admin' ? 'Super Admin' : user.is_approved ? 'Active' : 'Pending'}
+                                        </div>
+                                        <div className="text-[10px] text-muted-foreground mt-1">Role: {user.role}</div>
+                                    </div>
+                                    <Switch
+                                        checked={user.is_approved}
+                                        disabled={user.role === 'super-admin'}
+                                        onCheckedChange={() => toggleApproval(user.id, user.is_approved)}
+                                    />
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+            </CardContent>
+        </Card>
     );
 }

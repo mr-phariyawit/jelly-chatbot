@@ -7,7 +7,8 @@ import { ArrowLeft, Upload, File as FileIcon, Trash, Settings, ScrollText, Penci
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 
-import { api, BotDetail, BotFile, botApi, fileApi } from '@/lib/api';
+import { api, BotDetail, BotFile, botApi, fileApi, uploadFileWithProgress, UploadProgress as UploadProgressType, UploadController } from '@/lib/api';
+import { UploadProgress } from '@/components/UploadProgress';
 import { useFormattedDate } from '@/hooks/use-formatted-date';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -108,8 +109,24 @@ function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string
                             <X className="h-3 w-3 mr-1" /> Failed
                         </div>
                     ) : (
-                        <div className="flex items-center text-blue-500 text-xs font-medium animate-pulse">
-                            <Loader2 className="h-3 w-3 mr-1 animate-spin" /> {file.status}
+                        <div className="flex flex-col gap-1 min-w-[120px]">
+                            <div className="flex items-center text-blue-500 text-xs font-medium animate-pulse">
+                                <Loader2 className="h-3 w-3 mr-1 animate-spin" /> 
+                                <span className="capitalize">
+                                    {file.status === 'indexing' && file.indexing_progress ? 
+                                    `Indexing ${file.indexing_progress}%` : 
+                                    (file.status || 'Processing...')}
+                                </span>
+                            </div>
+                            {/* Mini Progress Bar */}
+                            {(file.status === 'indexing' || file.status === 'processing') && (
+                                <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+                                     <div 
+                                        className="h-full bg-blue-500 transition-all duration-500 ease-in-out" 
+                                        style={{ width: `${Math.max(file.indexing_progress || 5, 5)}%` }}
+                                     />
+                                </div>
+                            )}
                         </div>
                     )}
                 </TableCell>
@@ -179,6 +196,8 @@ export default function BotDetailsPage() {
     const botId = params.id as string;
     const queryClient = useQueryClient();
     const [uploading, setUploading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState<UploadProgressType | null>(null);
+    const [uploadController, setUploadController] = useState<UploadController | null>(null);
     const [activeTab, setActiveTab] = useState<TabType>('overview');
     const [fileToDelete, setFileToDelete] = useState<string | null>(null);
     
@@ -208,22 +227,36 @@ export default function BotDetailsPage() {
             const hasPending = data.files.some((f: BotFile) => 
                 f.status && !['completed', 'indexed', 'failed'].includes(f.status)
             );
-            return hasPending ? 3000 : false;
+            return hasPending ? 1000 : false;
         }
     });
 
     const uploadMutation = useMutation({
         mutationFn: async (file: File) => {
-            await fileApi.uploadFileWithSignedUrl(botId, file);
+            const result = await uploadFileWithProgress(botId, file, (progress) => {
+                setUploadProgress(progress);
+            });
+            setUploadController(result.controller);
+            return result.data;
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['bot', botId] });
             toast.success('File uploaded successfully');
             setUploading(false);
+            setUploadProgress(null);
+            setUploadController(null);
         },
-        onError: () => {
-            toast.error('Failed to upload file');
+        onError: (error: Error) => {
+            if (error.message?.includes('cancelled')) {
+                toast.info('Upload cancelled');
+            } else if (error.message?.includes('CORS')) {
+                toast.error(error.message);
+            } else {
+                toast.error('Failed to upload file. Please try again.');
+            }
             setUploading(false);
+            setUploadProgress(null);
+            setUploadController(null);
         },
     });
 
@@ -310,7 +343,20 @@ export default function BotDetailsPage() {
     }
 
     return (
-        <div className="space-y-6">
+        <>
+            {/* Upload Progress Modal */}
+            {uploadProgress && (
+                <UploadProgress
+                    filename={uploadProgress.filename}
+                    total={uploadProgress.total}
+                    loaded={uploadProgress.loaded}
+                    percent={uploadProgress.percent}
+                    speed={uploadProgress.speed}
+                    eta={uploadProgress.eta}
+                    onCancel={() => uploadController?.abort()}
+                />
+            )}
+            <div className="space-y-6">
             <div className="flex items-center gap-4">
                 <Button variant="ghost" size="icon" onClick={() => router.back()}>
                     <ArrowLeft className="h-4 w-4" />
@@ -677,5 +723,6 @@ export default function BotDetailsPage() {
                 </AlertDialogContent>
             </AlertDialog>
         </div>
+        </>
     );
 }

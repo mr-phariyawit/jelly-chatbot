@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 // Default to production, can be overridden by env var
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-n7u6wpcbqa-uc.a.run.app';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://session-api-687023036300.us-central1.run.app";
 
 export const api = axios.create({
-    baseURL: BASE_URL,
+    baseURL: API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -38,6 +38,7 @@ export interface BotFile {
     uploaded_at: string;
     description?: string;
     status?: 'pending' | 'processing' | 'extracted' | 'indexing' | 'indexed' | 'completed' | 'failed';
+    indexing_progress?: number;
 }
 
 export interface Session {
@@ -70,6 +71,7 @@ export interface AdminUser {
     name?: string;
     avatar_url?: string;
     role: string;
+    is_approved: boolean;
     allowed_bot_ids?: string[];
     created_at?: string;
     last_login?: string;
@@ -210,21 +212,53 @@ export const fileApi = {
     },
 
     uploadFileWithSignedUrl: async (botId: string, file: File) => {
-        // 1. Get Signed URL
+        // 1. Get Session URI (Resumable Upload URL)
         const { data: signed } = await api.post<{ upload_url: string; gcs_uri: string; file_id: string }>(
             `/bots/${botId}/files/signed-url`,
             { filename: file.name, content_type: file.type || 'application/octet-stream' }
         );
 
-        // 2. Upload to GCS
-        // distinct axios call to avoid default headers (e.g. Auth) if necessary, 
-        // though standard axios.put is usually fine if Signed URL allows CORS.
-        // We use a clean axios instance to avoid sending Bearer tokens to GCS which triggers CORS errors.
-        await axios.put(signed.upload_url, file, {
-            headers: { 'Content-Type': file.type || 'application/octet-stream' }
-        });
+        // 2. Upload to GCS with retry logic using native fetch (bypasses any axios defaults)
+        const MAX_RETRIES = 3;
+        let lastError: Error | null = null;
 
-        // 3. Confirm
+        for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+            try {
+                // Use native fetch to ensure no extra headers are added
+                const uploadResponse = await fetch(signed.upload_url, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': file.type || 'application/octet-stream' },
+                    body: file,
+                });
+
+                if (!uploadResponse.ok) {
+                    throw new Error(`Upload failed with status ${uploadResponse.status}`);
+                }
+
+                lastError = null;
+                break; // Success, exit retry loop
+            } catch (error) {
+                lastError = error as Error;
+                console.error(`[Upload] Error on attempt ${attempt}/${MAX_RETRIES}:`, error);
+
+                if (attempt === MAX_RETRIES) {
+                    // Check if it's likely a CORS error (TypeError: Failed to fetch)
+                    if (error instanceof TypeError && (error as TypeError).message.includes('fetch')) {
+                        throw new Error('Upload blocked by browser security (CORS). Please contact support.');
+                    }
+                    throw error;
+                }
+
+                // Wait before retry (exponential backoff: 1s, 2s, 4s)
+                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt - 1)));
+            }
+        }
+
+        if (lastError) {
+            throw lastError;
+        }
+
+        // 3. Confirm upload
         const response = await api.post<BotFile>(`/bots/${botId}/files/confirm`, {
             file_id: signed.file_id,
             gcs_uri: signed.gcs_uri,
@@ -237,3 +271,99 @@ export const fileApi = {
     },
 };
 
+// Upload Progress Types
+export interface UploadProgress {
+    loaded: number;      // bytes uploaded
+    total: number;       // total file size
+    percent: number;     // 0-100
+    speed: number;       // bytes/sec
+    eta: number;         // seconds remaining
+    filename: string;
+}
+
+export interface UploadController {
+    abort: () => void;
+}
+
+/**
+ * Upload file with real-time progress tracking
+ * Uses XMLHttpRequest for progress events (fetch doesn't support upload progress)
+ */
+export const uploadFileWithProgress = async (
+    botId: string,
+    file: File,
+    onProgress: (progress: UploadProgress) => void,
+): Promise<{ data: BotFile; controller: UploadController }> => {
+    // 1. Get Session URI (Resumable Upload URL)
+    const { data: signed } = await api.post<{ upload_url: string; gcs_uri: string; file_id: string }>(
+        `/bots/${botId}/files/signed-url`,
+        { filename: file.name, content_type: file.type || 'application/octet-stream' }
+    );
+
+    // 2. Upload to GCS with XMLHttpRequest for progress tracking
+    const xhr = new XMLHttpRequest();
+    const startTime = Date.now();
+    let aborted = false;
+
+    const controller: UploadController = {
+        abort: () => {
+            aborted = true;
+            xhr.abort();
+        }
+    };
+
+    await new Promise<void>((resolve, reject) => {
+        xhr.upload.onprogress = (e) => {
+            if (e.lengthComputable) {
+                const percent = Math.round((e.loaded / e.total) * 100);
+                const elapsed = (Date.now() - startTime) / 1000;
+                const speed = elapsed > 0 ? e.loaded / elapsed : 0;
+                const eta = speed > 0 ? (e.total - e.loaded) / speed : 0;
+
+                onProgress({
+                    loaded: e.loaded,
+                    total: e.total,
+                    percent,
+                    speed,
+                    eta,
+                    filename: file.name,
+                });
+            }
+        };
+
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                resolve();
+            } else {
+                reject(new Error(`Upload failed with status ${xhr.status}`));
+            }
+        };
+
+        xhr.onerror = () => {
+            if (aborted) {
+                reject(new Error('Upload cancelled'));
+            } else {
+                reject(new Error('Upload blocked by browser security (CORS). Please contact support.'));
+            }
+        };
+
+        xhr.onabort = () => {
+            reject(new Error('Upload cancelled'));
+        };
+
+        xhr.open('PUT', signed.upload_url);
+        xhr.setRequestHeader('Content-Type', file.type || 'application/octet-stream');
+        xhr.send(file);
+    });
+
+    // 3. Confirm upload
+    const response = await api.post<BotFile>(`/bots/${botId}/files/confirm`, {
+        file_id: signed.file_id,
+        gcs_uri: signed.gcs_uri,
+        filename: file.name,
+        content_type: file.type || 'application/octet-stream',
+        size_bytes: file.size
+    });
+
+    return { data: response.data, controller };
+};

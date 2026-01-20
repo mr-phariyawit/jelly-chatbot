@@ -8,6 +8,7 @@ import { LayoutDashboard, MessageSquare, Bot, LogOut, ChevronDown, Settings, Pan
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ApiStatusIndicator } from '@/components/api-status-indicator';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -145,6 +146,11 @@ export function AdminSidebar() {
               </Tooltip>
             ))}
           </nav>
+          
+          {/* API Connectivity Status - Guardrail */}
+          <div className={cn("mt-auto px-4 py-4", isCollapsed && "px-2 flex justify-center")}>
+             <ApiStatusIndicator isCollapsed={isCollapsed} />
+          </div>
         </div>
 
         {/* User Section */}
