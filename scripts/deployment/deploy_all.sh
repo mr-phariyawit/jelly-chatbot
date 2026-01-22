@@ -5,7 +5,7 @@ set -e
 PROJECT_ID="ai-kms-platform"
 REGION="us-central1"
 API_SERVICE="session-api"
-DASHBOARD_SERVICE="admin-dashboard-service" # Adjust if named differently
+DASHBOARD_SERVICE="admin-dashboard" # Adjust if named differently
 
 echo "🚀 Starting Full Stack Deployment..."
 

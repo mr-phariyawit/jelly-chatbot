@@ -23,7 +23,6 @@ class Settings:
     CORS_ORIGINS: list = [
         "http://localhost:3000",
         "http://localhost:3001",
-        "https://admin-dashboard-687023036300.us-central1.run.app",
         "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app"
     ]
 
