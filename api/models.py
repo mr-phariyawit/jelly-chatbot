@@ -89,6 +89,7 @@ class Bot(Base):
     # Advanced Configuration
     system_prompt = Column(Text, nullable=True)  # Custom system prompt override
     model_config = Column(Text, nullable=True)   # JSON: {"model": "gemini-2.0-flash", "temperature": 0.7}
+    trigger_names = Column(Text, nullable=True)  # JSON array: ["@papa", "papa"] - Names that trigger bot in group chats
     
     # Relationships
     files = relationship("File", back_populates="bot", cascade="all, delete-orphan")
@@ -96,6 +97,7 @@ class Bot(Base):
     logs = relationship("BotLog", back_populates="bot", cascade="all, delete-orphan")
     
     def to_dict(self):
+        import json
         return {
             "id": self.id,
             "name": self.name,
@@ -108,6 +110,7 @@ class Bot(Base):
             "session_count": len(self.sessions) if self.sessions else 0,
             "system_prompt": self.system_prompt,
             "model_config": self.model_config,
+            "trigger_names": json.loads(self.trigger_names) if self.trigger_names else None,
         }
 
 

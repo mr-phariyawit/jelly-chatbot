@@ -82,9 +82,61 @@ def process_webhook_event_background(
             line_bot_api = MessagingApi(api_client)
 
             if event.get("type") == "message":
+                source_type = event["source"]["type"]  # "user", "group", or "room"
                 user_id = event["source"]["userId"]
                 reply_token = event["replyToken"]
                 message_type = event.get("message", {}).get("type")
+
+                # For group/room chats, use groupId/roomId for session tracking
+                chat_id = user_id
+                if source_type == "group":
+                    chat_id = event["source"].get("groupId", user_id)
+                elif source_type == "room":
+                    chat_id = event["source"].get("roomId", user_id)
+
+                # ===== GROUP CHAT DETECTION =====
+                print(f"DEBUG: Processing event type={source_type}, userId={user_id}, chatId={chat_id}", flush=True)
+                
+                # Fallback: Check for groupId/roomId even if type says 'user' (paranoid check)
+                is_group_msg = source_type in ["group", "room"] or "groupId" in event["source"] or "roomId" in event["source"]
+                
+                log_bot_event(db, bot_id, "INFO", "DEBUG_GROUP", f"Type: {source_type}, IsGroup: {is_group_msg}", event["source"])
+
+                # In group/room chats, only respond if bot is mentioned by trigger name
+                if is_group_msg and message_type == "text":
+                    text_content = event["message"]["text"]
+                    print(f"DEBUG: Group message content: '{text_content}'", flush=True)
+                    
+                    # Get bot's trigger names from database
+                    bot = db.query(Bot).filter(Bot.id == bot_id).first()
+                    trigger_names = []
+                    if bot and bot.trigger_names:
+                        try:
+                            trigger_names = json.loads(bot.trigger_names)
+                        except:
+                            pass
+                    
+                    # If no trigger names configured, default to bot name
+                    if not trigger_names and bot:
+                        trigger_names = [bot.name, f"@{bot.name}"]
+                    
+                    # Check if any trigger name is mentioned
+                    text_lower = text_content.lower()
+                    is_mentioned = any(trigger.lower() in text_lower for trigger in trigger_names)
+                    
+                    log_bot_event(db, bot_id, "INFO", "MENTION_CHECK", f"Mentioned: {is_mentioned}", {"triggers": trigger_names, "text": text_content})
+                    
+                    if not is_mentioned:
+                        # Not mentioned - don't respond (silent ignore)
+                        print(f"[GROUP CHAT] Bot not mentioned in group {chat_id}, ignoring message", flush=True)
+                        return
+                    
+                    # Remove trigger name from message before processing
+                    for trigger in trigger_names:
+                        text_content = text_content.replace(trigger, "").strip()
+                    # Update the event message text for later processing
+                    event["message"]["text"] = text_content
+                    print(f"[GROUP CHAT] Bot mentioned in group {chat_id}, processing: '{text_content}'", flush=True)
 
                 # Show typing indicator (loading animation) to user
                 try:
@@ -95,13 +147,16 @@ def process_webhook_event_background(
                         )
                     )
                 except Exception as e:
-                    print(f"Error showing loading animation: {e}")
+                    print(f"Error showing loading animation: {e}", flush=True)
 
-                # Retrieve Session
+
+
+                # Retrieve Session (use chat_id for group/room sessions)
+                session_user_id = chat_id if source_type in ["group", "room"] else user_id
                 session = (
                     db.query(Session)
                     .filter(Session.bot_id == bot_id)
-                    .filter(Session.user_id == user_id)
+                    .filter(Session.user_id == session_user_id)
                     .filter(Session.status == "active")
                     .order_by(desc(Session.started_at))
                     .first()
@@ -126,7 +181,7 @@ def process_webhook_event_background(
                     session = Session(
                         id=str(uuid.uuid4()),
                         bot_id=bot_id,
-                        user_id=user_id,
+                        user_id=session_user_id,
                         started_at=datetime.utcnow(),
                         status="active"
                     )
@@ -339,3 +394,15 @@ async def active_webhook(
 
     # 4. Return 200 immediately - LINE is happy!
     return {"status": "ok"}
+
+@router.get("/debug/logs/{bot_id}")
+def get_debug_logs(bot_id: str, limit: int = 20, db: DBSession = Depends(get_db)):
+    """Get recent bot logs for debugging"""
+    logs = (
+        db.query(BotLog)
+        .filter(BotLog.bot_id == bot_id)
+        .order_by(desc(BotLog.created_at))
+        .limit(limit)
+        .all()
+    )
+    return logs

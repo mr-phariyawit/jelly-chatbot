@@ -83,6 +83,7 @@ def create_bot(
         user_id=x_user_email or bot.user_id,
         webhook_path=webhook_path,
         system_prompt=bot.system_prompt,
+        trigger_names=json.dumps(bot.trigger_names) if bot.trigger_names else None,
     )
 
     db.add(new_bot)
@@ -105,6 +106,7 @@ def create_bot(
         file_count=0,
         session_count=0,
         created_at=new_bot.created_at,
+        trigger_names=bot.trigger_names,
     )
 
 
@@ -185,6 +187,7 @@ def list_bots(
             file_count=len(b.files) if b.files else 0,
             session_count=len(b.sessions) if b.sessions else 0,
             created_at=b.created_at,
+            trigger_names=json.loads(b.trigger_names) if b.trigger_names else None,
         )
         for b in bots
     ]
@@ -211,6 +214,7 @@ def get_bot(bot_id: str, db: DBSession = Depends(get_db)):
         created_at=bot.created_at,
         system_prompt=bot.system_prompt,
         model_config_json=bot.model_config,
+        trigger_names=json.loads(bot.trigger_names) if bot.trigger_names else None,
         files=[
             FileResponse(
                 id=f.id,
@@ -250,6 +254,8 @@ def update_bot(bot_id: str, update: BotUpdate, db: DBSession = Depends(get_db)):
         bot.system_prompt = update.system_prompt
     if update.model_config_json is not None:
         bot.model_config = update.model_config_json
+    if update.trigger_names is not None:
+        bot.trigger_names = json.dumps(update.trigger_names)
 
     bot.updated_at = datetime.utcnow()
     db.commit()
@@ -268,6 +274,7 @@ def update_bot(bot_id: str, update: BotUpdate, db: DBSession = Depends(get_db)):
         created_at=bot.created_at,
         system_prompt=bot.system_prompt,
         model_config_json=bot.model_config,
+        trigger_names=json.loads(bot.trigger_names) if bot.trigger_names else None,
     )
 
 

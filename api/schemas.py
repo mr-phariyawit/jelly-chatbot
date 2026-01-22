@@ -72,6 +72,7 @@ class BotCreate(BaseModel):
     user_id: Optional[str] = None
     system_prompt: Optional[str] = None
     model_config_json: Optional[str] = None  # JSON string
+    trigger_names: Optional[List[str]] = None  # Names that trigger bot in group chats
 
 
 class BotUpdate(BaseModel):
@@ -83,6 +84,7 @@ class BotUpdate(BaseModel):
     system_prompt: Optional[str] = None
     model_config_json: Optional[str] = None  # JSON string
     user_id: Optional[str] = None
+    trigger_names: Optional[List[str]] = None
 
 
 class BotResponse(BaseModel):
@@ -98,6 +100,7 @@ class BotResponse(BaseModel):
     created_at: datetime
     system_prompt: Optional[str] = None
     model_config_json: Optional[str] = None
+    trigger_names: Optional[List[str]] = None
 
     class Config:
         from_attributes = True

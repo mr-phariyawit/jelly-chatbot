@@ -32,3 +32,16 @@ def run_migrations():
                 print("Migration skipped: 'indexing_progress' column already exists.")
         except Exception as e:
             print(f"Migration error (indexing_progress): {e}")
+
+        try:
+            # Check if trigger_names exists
+            result = conn.execute(text("SELECT column_name FROM information_schema.columns WHERE table_name='bots' AND column_name='trigger_names';"))
+            if not result.fetchone():
+                print("Adding 'trigger_names' column to 'bots' table...")
+                conn.execute(text("ALTER TABLE bots ADD COLUMN trigger_names TEXT;"))
+                conn.commit()
+                print("Migration successful: Added 'trigger_names' column.")
+            else:
+                print("Migration skipped: 'trigger_names' column already exists.")
+        except Exception as e:
+            print(f"Migration error (trigger_names): {e}")
