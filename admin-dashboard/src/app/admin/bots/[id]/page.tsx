@@ -212,6 +212,7 @@ export default function BotDetailsPage() {
         description: '',
         channel_secret: '',
         channel_access_token: '',
+        trigger_names: '',
     });
 
     const { data: bot, isLoading } = useQuery<BotDetail>({
@@ -280,6 +281,7 @@ export default function BotDetailsPage() {
             channel_secret?: string;
             channel_access_token?: string;
             system_prompt?: string | null;
+            trigger_names?: string[] | null;
         }) => {
             await api.patch(`/bots/${botId}`, data);
         },
@@ -428,6 +430,7 @@ export default function BotDetailsPage() {
                                         description: bot.description || '',
                                         channel_secret: '',
                                         channel_access_token: '',
+                                        trigger_names: bot.trigger_names?.join(', ') || '',
                                     });
                                     setIsEditingConfig(true);
                                 }}>
@@ -439,11 +442,16 @@ export default function BotDetailsPage() {
                                         <X className="h-4 w-4" />
                                     </Button>
                                     <Button variant="ghost" size="icon" onClick={() => {
+                                        const trigger_names_array = configValues.trigger_names 
+                                            ? configValues.trigger_names.split(',').map(s => s.trim()).filter(s => s.length > 0)
+                                            : null;
+
                                         updateBotMutation.mutate({
                                             name: configValues.name || undefined,
                                             description: configValues.description || undefined,
                                             channel_secret: configValues.channel_secret || undefined,
                                             channel_access_token: configValues.channel_access_token || undefined,
+                                            trigger_names: trigger_names_array,
                                         });
                                         setIsEditingConfig(false);
                                     }} disabled={updateBotMutation.isPending}>
@@ -472,6 +480,16 @@ export default function BotDetailsPage() {
                                             placeholder="Bot description..."
                                             className="mt-1 min-h-[60px]"
                                         />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-medium text-muted-foreground">Trigger Names (Group Chat)</label>
+                                        <Input
+                                            value={configValues.trigger_names}
+                                            onChange={(e) => setConfigValues(prev => ({ ...prev, trigger_names: e.target.value }))}
+                                            placeholder="@papa, papa"
+                                            className="mt-1"
+                                        />
+                                        <p className="text-[10px] text-muted-foreground mt-1">Comma-separated names that trigger the bot in group chats</p>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4 text-sm border-t pt-4">
                                         <div className="font-medium text-muted-foreground">Bot ID</div>
@@ -517,6 +535,21 @@ export default function BotDetailsPage() {
                                     <div className="font-medium text-muted-foreground">Description</div>
                                     <div className="col-span-2 text-muted-foreground">{bot.description || 'No description'}</div>
                                     
+                                    <div className="font-medium text-muted-foreground">Trigger Names</div>
+                                    <div className="col-span-2">
+                                        {bot.trigger_names && bot.trigger_names.length > 0 ? (
+                                            <div className="flex flex-wrap gap-1">
+                                                {bot.trigger_names.map((name, i) => (
+                                                    <span key={i} className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary text-secondary-foreground">
+                                                        {name}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <span className="text-muted-foreground italic">None (responds to all messages)</span>
+                                        )}
+                                    </div>
+
                                     <div className="font-medium text-muted-foreground">Bot ID</div>
                                     <div className="col-span-2 font-mono text-xs">{bot.id}</div>
                                     

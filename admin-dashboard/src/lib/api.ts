@@ -23,6 +23,7 @@ export interface Bot {
     created_at: string;
     system_prompt?: string;
     model_config_json?: string;
+    trigger_names?: string[] | null;
 }
 
 export interface BotDetail extends Bot {
@@ -189,6 +190,7 @@ export const botApi = {
         is_active?: boolean;
         system_prompt?: string;
         model_config_json?: string;
+        trigger_names?: string[] | null;
     }) => {
         const response = await api.patch<Bot>(`/bots/${botId}`, data);
         return response.data;

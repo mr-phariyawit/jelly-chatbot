@@ -135,6 +135,14 @@ export default function BotsPage() {
                                     <span className="text-muted-foreground">Files:</span>
                                     <span>{bot.file_count}</span>
                                 </div>
+                                <div className="flex justify-between">
+                                    <span className="text-muted-foreground">Triggers:</span>
+                                    <span className="truncate max-w-[120px] text-right" title={bot.trigger_names?.join(', ') || 'Default (Bot Name)'}>
+                                        {bot.trigger_names && bot.trigger_names.length > 0 
+                                            ? bot.trigger_names.join(', ') 
+                                            : <span className="text-muted-foreground italic">Default</span>}
+                                    </span>
+                                </div>
                                 <div className="mt-2 text-xs text-muted-foreground truncate" title={bot.webhook_url}>
                                     Webhook: ...{bot.webhook_path}
                                 </div>

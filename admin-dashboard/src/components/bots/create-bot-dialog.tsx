@@ -27,6 +27,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label'; // Ensure Label is imported or use FormLabel
 import { api } from '@/lib/api';
 
 interface CreateBotForm {
@@ -37,6 +38,7 @@ interface CreateBotForm {
     channel_access_token: string;
     user_id?: string;
     system_prompt?: string;
+    trigger_names_input?: string; // Comma separated string
 }
 
 export function CreateBotDialog() {
@@ -53,6 +55,7 @@ export function CreateBotDialog() {
             channel_access_token: '',
             user_id: '',
             system_prompt: '',
+            trigger_names_input: '',
         },
     });
 
@@ -61,7 +64,20 @@ export function CreateBotDialog() {
             const config = session?.user?.email 
                 ? { headers: { 'X-User-Email': session.user.email } } 
                 : {};
-            const response = await api.post('/bots', data, config);
+            
+            // Transform trigger_names_input to array
+            const trigger_names = data.trigger_names_input 
+                ? data.trigger_names_input.split(',').map(s => s.trim()).filter(s => s.length > 0)
+                : undefined;
+
+            const payload = {
+                ...data,
+                trigger_names
+            };
+            // Remove the temporary input field
+            delete (payload as any).trigger_names_input;
+
+            const response = await api.post('/bots', payload, config);
             return response.data;
         },
         onSuccess: () => {
@@ -137,6 +153,22 @@ export function CreateBotDialog() {
                                         <FormControl>
                                             <Input placeholder="1234567890" {...field} />
                                         </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                             <FormField
+                                control={form.control}
+                                name="trigger_names_input"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Trigger Names (Optional)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="@papa, papa" {...field} />
+                                        </FormControl>
+                                        <FormDescription>
+                                            Comma-separated names that trigger the bot in group chats
+                                        </FormDescription>
                                         <FormMessage />
                                     </FormItem>
                                 )}
