@@ -62,7 +62,7 @@ playwright-report/
 # Images & Media (keep in assets if needed)
 *.png
 !public/*.png
-!assets/*.png
+!assets/jelly.png
 
 # Production files that shouldn't be in repo
 production_openapi.json
