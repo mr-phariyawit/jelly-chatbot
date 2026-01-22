@@ -86,10 +86,10 @@ export function AdminSidebar() {
         <div className="flex h-14 items-center border-b px-3 justify-between">
           <Link href="/admin/bots" className={cn("flex items-center gap-2 font-semibold", isCollapsed && "justify-center")}>
             <div className="h-8 w-8 relative flex-shrink-0">
-              <img src="/profile-papa.png" alt="PaPa ChatBot Logo" className="object-contain h-full w-full rounded-full" />
+              <img src="/profile-jelly.png" alt="Jelly ChatBot Logo" className="object-contain h-full w-full rounded-full" />
             </div>
             {!isCollapsed && (
-              <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--gold)] to-[var(--gold-light)]">PaPa ChatBot</span>
+              <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--pink)] to-[var(--pink-light)]">Jelly ChatBot</span>
             )}
           </Link>
           {!isCollapsed && (
@@ -130,7 +130,7 @@ export function AdminSidebar() {
                       className={cn(
                         "w-full gap-2 transition-all",
                         isCollapsed ? "justify-center px-2" : "justify-start",
-                        pathname.startsWith(link.href) && "text-[var(--gold)] font-bold border border-[var(--border-color)]"
+                        pathname.startsWith(link.href) && "text-[var(--pink)] font-bold border border-[var(--border-color)]"
                       )}
                     >
                       <link.icon className="h-4 w-4 flex-shrink-0" />
@@ -167,7 +167,7 @@ export function AdminSidebar() {
                 >
                   <Avatar className="h-8 w-8 flex-shrink-0">
                     <AvatarImage src={session.user.image || undefined} alt={session.user.name || ''} />
-                    <AvatarFallback className="bg-[var(--purple)] text-white text-xs">
+                    <AvatarFallback className="bg-[var(--lavender)] text-white text-xs">
                       {getInitials(session.user.name)}
                     </AvatarFallback>
                   </Avatar>

@@ -24,8 +24,8 @@ from app.routers import health, sessions, bots, webhooks, files, auth, analytics
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="Session Logging API",
-    description="API for tracking LINE bot chat sessions",
+    title="Jelly ChatBot API",
+    description="API for Jelly ChatBot multi-tenant LINE bot platform",
     version="1.2.2",
 )
 

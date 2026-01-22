@@ -23,12 +23,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PaPa ChatBot",
-  description: "Admin dashboard for PaPa ChatBot",
+  title: "Jelly ChatBot",
+  description: "Admin dashboard for Jelly ChatBot",
   icons: {
-    icon: '/profile-papa.png',
-    shortcut: '/profile-papa.png',
-    apple: '/profile-papa.png',
+    icon: '/profile-jelly.png',
+    shortcut: '/profile-jelly.png',
+    apple: '/profile-jelly.png',
   },
 };
 

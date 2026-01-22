@@ -10,20 +10,20 @@ export default function LoginPage() {
       {/* --- 1. The Aurora Blobs (Background Animation) --- */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         
-        {/* Blob 1: Violet */}
-        <div 
-          className="absolute -top-[10%] -left-[10%] w-[500px] h-[500px] rounded-full bg-[#7c3aed] blur-[80px] opacity-70 animate-fluid-1 mix-blend-screen"
+        {/* Blob 1: Pink */}
+        <div
+          className="absolute -top-[10%] -left-[10%] w-[500px] h-[500px] rounded-full bg-[#FF8FAB] blur-[80px] opacity-70 animate-fluid-1 mix-blend-screen"
         />
 
-        {/* Blob 2: Pink/Magenta */}
-        <div 
-          className="absolute -bottom-[10%] -right-[10%] w-[400px] h-[400px] rounded-full bg-[#db2777] blur-[80px] opacity-70 animate-fluid-2 mix-blend-screen"
+        {/* Blob 2: Lavender */}
+        <div
+          className="absolute -bottom-[10%] -right-[10%] w-[400px] h-[400px] rounded-full bg-[#C8B3E0] blur-[80px] opacity-70 animate-fluid-2 mix-blend-screen"
           style={{ animationDelay: '-5s' }}
         />
 
-        {/* Blob 3: Blue */}
-        <div 
-          className="absolute bottom-[20%] left-[20%] w-[300px] h-[300px] rounded-full bg-[#2563eb] blur-[80px] opacity-50 animate-fluid-3 mix-blend-screen"
+        {/* Blob 3: Deep Lavender */}
+        <div
+          className="absolute bottom-[20%] left-[20%] w-[300px] h-[300px] rounded-full bg-[#B09BD9] blur-[80px] opacity-50 animate-fluid-3 mix-blend-screen"
           style={{ animationDelay: '-10s' }}
         />
       </div>
@@ -33,25 +33,25 @@ export default function LoginPage() {
         
         {/* Logo */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-24 h-24 mb-6 bg-[var(--gold-light)]/10 rounded-full border border-[var(--gold)]/20 p-4">
-            <img 
-              src="/profile-papa.png" 
-              alt="PaPa ChatBot Logo" 
-              className="object-contain w-full h-full rounded-full" 
+          <div className="inline-flex items-center justify-center w-24 h-24 mb-6 bg-[var(--pink-light)]/10 rounded-full border border-[var(--pink)]/20 p-4">
+            <img
+              src="/profile-jelly.png"
+              alt="Jelly ChatBot Logo"
+              className="object-contain w-full h-full rounded-full"
             />
           </div>
-          <h1 className="text-3xl font-bold text-[var(--gold)] mb-3">
-            PaPa ChatBot
+          <h1 className="text-3xl font-bold text-[var(--pink)] mb-3">
+            Jelly ChatBot
           </h1>
           <p className="text-[var(--text-secondary)]">
-            Sign in to manage PaPa ChatBot
+            Sign in to manage Jelly ChatBot
           </p>
         </div>
 
-        {/* Google Sign In Button (Original Theme) */}
+        {/* Google Sign In Button (Jelly Theme) */}
         <Button
           onClick={() => signIn("google", { callbackUrl: "/admin/bots" })}
-          className="w-full h-14 btn-gold-gradient font-semibold text-lg rounded-xl flex items-center justify-center gap-3"
+          className="w-full h-14 btn-pink-gradient font-semibold text-lg rounded-xl flex items-center justify-center gap-3"
         >
           <svg className="w-6 h-6" viewBox="0 0 24 24">
             <path

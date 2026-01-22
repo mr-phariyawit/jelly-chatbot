@@ -1,4 +1,4 @@
-# PaPa ChatBot - AI Support Platform
+# Jelly ChatBot - AI Support Platform
 
 AI-powered multi-tenant chatbot platform for LINE Official Accounts with Knowledge Base (RAG), Admin Dashboard, and JIRA integration.
 
@@ -171,4 +171,4 @@ gcloud run deploy admin-dashboard \
 
 ## License
 
-Private - JVC AI Support Platform
+Private - Jelly ChatBot Platform

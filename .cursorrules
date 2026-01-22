@@ -23,7 +23,7 @@ adhere to safety and architectural guidelines defined in the
 - **`agent/memory/`**: Long-term lessons learned
 
 ## 🔧 Project Context
-- **Name**: PaPa ChatBot (AI Support Platform)
+- **Name**: Jelly ChatBot (AI Support Platform)
 - **Type**: Web Application
 - **Stack**: Python (FastAPI), TypeScript (Next.js), Google Cloud
 # Development Guidelines

@@ -32,66 +32,69 @@
   --color-ring: var(--ring);
 
   /* Custom Design System Tokens */
-  --color-gold: var(--gold);
-  --color-gold-light: var(--gold-light);
-  --color-purple: var(--purple);
-  --color-purple-dark: var(--purple-dark);
+  --color-pink: var(--pink);
+  --color-pink-light: var(--pink-light);
+  --color-lavender: var(--lavender);
+  --color-lavender-dark: var(--lavender-dark);
 }
 
 @layer base {
   :root {
-    /* Brand Colors (Thai Astrology: Purple & Gold) */
-    --purple: #7b2d8e;
-    --purple-dark: #5b1d6e;
-    --gold: #d4a634;
-    --gold-light: #e4b644;
+    /* Brand Colors (Jelly Theme: Pink & Lavender) */
+    --pink: #FF8FAB;
+    --pink-light: #FFA3C7;
+    --pink-soft: #FFE5EF;
+    --lavender: #C8B3E0;
+    --lavender-dark: #B09BD9;
+    --lavender-light: #E8D5F2;
+    --purple-deep: #8B5BA8;
 
     /* Neutrals */
-    --bg-primary: #0d0a12;
-    --bg-secondary: #1a1625;
-    --bg-tertiary: #241f30;
-    --text-primary: #f0edf5;
-    --text-secondary: #a09aad;
-    --border-color: #2a243a;
+    --bg-primary: #1A0E1F;
+    --bg-secondary: #2B1B35;
+    --bg-tertiary: #3D2B4D;
+    --text-primary: #FFF5F7;
+    --text-secondary: #D4B8E0;
+    --border-color: #4A355C;
 
     /* Gradients */
-    --gradient-purple: linear-gradient(135deg, #7b2d8e 0%, #5b1d6e 100%);
-    --gradient-gold: linear-gradient(135deg, #d4a634 0%, #e4b644 100%);
+    --gradient-pink: linear-gradient(135deg, #FF8FAB 0%, #FFA3C7 100%);
+    --gradient-lavender: linear-gradient(135deg, #C8B3E0 0%, #E8D5F2 100%);
     --gradient-hero: linear-gradient(
       135deg,
-      #7b2d8e 0%,
-      #d4a634 50%,
-      #7b2d8e 100%
+      #FF8FAB 0%,
+      #C8B3E0 50%,
+      #FF8FAB 100%
     );
 
     /* Shadcn/UI Mappings */
-    --background: #0d0a12;
-    --foreground: #f0edf5;
+    --background: #1A0E1F;
+    --foreground: #FFF5F7;
 
-    --card: #1a1625;
-    --card-foreground: #f0edf5;
+    --card: #2B1B35;
+    --card-foreground: #FFF5F7;
 
-    --popover: #1a1625;
-    --popover-foreground: #f0edf5;
+    --popover: #2B1B35;
+    --popover-foreground: #FFF5F7;
 
-    --primary: #d4a634; /* Gold */
-    --primary-foreground: #0d0a12; /* Dark Text on Gold */
+    --primary: #FF8FAB; /* Pink */
+    --primary-foreground: #1A0E1F; /* Dark Text on Pink */
 
-    --secondary: #241f30;
-    --secondary-foreground: #f0edf5;
+    --secondary: #3D2B4D;
+    --secondary-foreground: #FFF5F7;
 
-    --muted: #241f30;
-    --muted-foreground: #a09aad;
+    --muted: #3D2B4D;
+    --muted-foreground: #D4B8E0;
 
-    --accent: #241f30;
-    --accent-foreground: #d4a634;
+    --accent: #C8B3E0;
+    --accent-foreground: #1A0E1F;
 
     --destructive: #ef4444;
     --destructive-foreground: #f8fafc;
 
-    --border: #2a243a;
-    --input: #2a243a;
-    --ring: #d4a634;
+    --border: #4A355C;
+    --input: #4A355C;
+    --ring: #FF8FAB;
 
     --radius: 0.75rem;
 
@@ -142,19 +145,31 @@
 
 .card-shine:hover {
   transform: translateY(-2px);
-  border-color: var(--purple);
-  box-shadow: 0 8px 32px rgba(123, 45, 142, 0.15);
+  border-color: var(--pink);
+  box-shadow: 0 8px 32px rgba(255, 143, 171, 0.15);
 }
 
 /* Button Gradient Helper */
+.btn-pink-gradient {
+  background: var(--gradient-pink);
+  color: #1A0E1F;
+  box-shadow: 0 4px 12px rgba(255, 143, 171, 0.3);
+  transition: all 0.3s ease;
+}
+.btn-pink-gradient:hover {
+  box-shadow: 0 8px 24px rgba(255, 143, 171, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Legacy support for old class name */
 .btn-gold-gradient {
-  background: var(--gradient-gold);
-  color: #1a1625;
-  box-shadow: 0 4px 12px rgba(212, 166, 52, 0.3);
+  background: var(--gradient-pink);
+  color: #1A0E1F;
+  box-shadow: 0 4px 12px rgba(255, 143, 171, 0.3);
   transition: all 0.3s ease;
 }
 .btn-gold-gradient:hover {
-  box-shadow: 0 8px 24px rgba(212, 166, 52, 0.5);
+  box-shadow: 0 8px 24px rgba(255, 143, 171, 0.5);
   transform: translateY(-1px);
 }
 

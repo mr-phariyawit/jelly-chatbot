@@ -25,7 +25,7 @@ router = APIRouter(tags=["Health & Debug"])
 def root():
     """Root endpoint to avoid 404."""
     return {
-        "service": "JVC AI Session API",
+        "service": "Jelly ChatBot API",
         "status": "running",
         "docs_url": "/docs",
         "health_check": "/health"
