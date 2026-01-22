@@ -1,15 +1,17 @@
 
 import sqlalchemy
-from sqlalchemy import text
+from sqlalchemy import text, inspect
 from database import engine
 
 def run_migrations():
     """Run database migrations on startup."""
+    inspector = inspect(engine)
+    
     with engine.connect() as conn:
+        # 1. Check admin_users.is_approved
         try:
-            # Check if is_approved exists
-            result = conn.execute(text("SELECT column_name FROM information_schema.columns WHERE table_name='admin_users' AND column_name='is_approved';"))
-            if not result.fetchone():
+            columns = [col['name'] for col in inspector.get_columns('admin_users')]
+            if 'is_approved' not in columns:
                 print("Adding 'is_approved' column to 'admin_users' table...")
                 conn.execute(text("ALTER TABLE admin_users ADD COLUMN is_approved BOOLEAN DEFAULT FALSE;"))
                 conn.execute(text("UPDATE admin_users SET is_approved = TRUE;"))
@@ -20,10 +22,10 @@ def run_migrations():
         except Exception as e:
             print(f"Migration error (is_approved): {e}")
 
+        # 2. Check files.indexing_progress
         try:
-            # Check if indexing_progress exists
-            result = conn.execute(text("SELECT column_name FROM information_schema.columns WHERE table_name='files' AND column_name='indexing_progress';"))
-            if not result.fetchone():
+            columns = [col['name'] for col in inspector.get_columns('files')]
+            if 'indexing_progress' not in columns:
                 print("Adding 'indexing_progress' column to 'files' table...")
                 conn.execute(text("ALTER TABLE files ADD COLUMN indexing_progress INTEGER DEFAULT 0;"))
                 conn.commit()
@@ -33,10 +35,10 @@ def run_migrations():
         except Exception as e:
             print(f"Migration error (indexing_progress): {e}")
 
+        # 3. Check bots.trigger_names
         try:
-            # Check if trigger_names exists
-            result = conn.execute(text("SELECT column_name FROM information_schema.columns WHERE table_name='bots' AND column_name='trigger_names';"))
-            if not result.fetchone():
+            columns = [col['name'] for col in inspector.get_columns('bots')]
+            if 'trigger_names' not in columns:
                 print("Adding 'trigger_names' column to 'bots' table...")
                 conn.execute(text("ALTER TABLE bots ADD COLUMN trigger_names TEXT;"))
                 conn.commit()
