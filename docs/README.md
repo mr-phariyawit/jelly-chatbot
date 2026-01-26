@@ -20,6 +20,7 @@ AI-powered multi-tenant chatbot platform for LINE Official Accounts with Knowled
 ## Features
 
 - **Multi-tenant Bots** - Manage multiple LINE OA bots from single platform
+- **Trigger Names** - Configure custom names for bots to respond in group chats (e.g., "@bot", "bot")
 - **AI Chat** - Gemini 2.0 Flash for natural language understanding
 - **Knowledge Base (RAG)** - Vector search with pgvector embeddings
 - **File Upload** - PDF, TXT, XLSX support with GCS storage

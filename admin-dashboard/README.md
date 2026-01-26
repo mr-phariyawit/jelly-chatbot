@@ -32,3 +32,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## Deploy
 
         Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Production
+
+You can access the production environment at: [https://admin-dashboard-1088865818405.us-central1.run.app/](https://admin-dashboard-1088865818405.us-central1.run.app/)

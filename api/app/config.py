@@ -23,7 +23,8 @@ class Settings:
     CORS_ORIGINS: list = [
         "http://localhost:3000",
         "http://localhost:3001",
-        "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app"
+        "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app",
+        "https://admin-dashboard-1088865818405.us-central1.run.app"
     ]
 
     # GCS Settings
