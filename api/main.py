@@ -32,7 +32,11 @@ app = FastAPI(
 # CORS middleware - Robust dynamic origin validation
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"https://.*\.run\.app|http://localhost:.*",
+    allow_origins=[
+        "http://localhost:3000",
+        "https://admin-dashboard-1088865818405.us-central1.run.app",
+        "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -40,6 +44,14 @@ app.add_middleware(
 
 # GZip compression for faster response delivery
 app.add_middleware(GZipMiddleware, minimum_size=500)
+
+@app.get("/debug/cors")
+def debug_cors():
+    return {"allowed_origins": [
+        "http://localhost:3000",
+        "https://admin-dashboard-1088865818405.us-central1.run.app",
+        "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app"
+    ]}
 
 
 @app.on_event("startup")

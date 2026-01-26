@@ -20,7 +20,8 @@ export function ApiStatusIndicator({ isCollapsed }: ApiStatusIndicatorProps) {
 
   useEffect(() => {
     const checkApi = async () => {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://session-api-687023036300.us-central1.run.app";
+      const apiUrl = "https://session-api-1088865818405.us-central1.run.app";
+      // const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://session-api-687023036300.us-central1.run.app";
       try {
         const start = Date.now();
         const res = await fetch(`${apiUrl}/health`, { 

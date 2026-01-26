@@ -219,7 +219,7 @@ function UserList() {
 
     const fetchUsers = async () => {
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-687023036300.us-central1.run.app';
+            const apiUrl = 'https://session-api-1088865818405.us-central1.run.app';
             const res = await fetch(`${apiUrl}/users`);
             if (res.ok) {
                 const data = await res.json();
@@ -234,7 +234,7 @@ function UserList() {
 
     const toggleApproval = async (userId: string, currentStatus: boolean) => {
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://session-api-687023036300.us-central1.run.app';
+            const apiUrl = 'https://session-api-1088865818405.us-central1.run.app';
             const res = await fetch(`${apiUrl}/users/${userId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
