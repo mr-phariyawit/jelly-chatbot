@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Upload, File as FileIcon, Trash, Settings, ScrollText, Pencil, Check, X, Wand2, Loader2, Bot } from 'lucide-react';
@@ -52,9 +52,9 @@ function FileTableRow({ file, onDelete }: { file: BotFile, onDelete: (id: string
     const [isModalOpen, setIsModalOpen] = useState(false);
     
     // Sync local state when file prop updates (e.g. after invalidation)
-    useState(() => {
+    useEffect(() => {
         setDescription(file.description || '');
-    });
+    }, [file.description]);
 
     const queryClient = useQueryClient();
 

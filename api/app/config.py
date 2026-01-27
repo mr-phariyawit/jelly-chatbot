@@ -28,7 +28,7 @@ class Settings:
     ]
 
     # GCS Settings
-    GCS_BUCKET_NAME: str = os.getenv("GCS_BUCKET_NAME", "ai-kms-platform-uploads")
+    GCS_BUCKET_NAME: str = os.getenv("GCS_BUCKET_NAME", "jelly-chatbot-uploads")
     SERVICE_ACCOUNT_EMAIL: str = os.getenv("SERVICE_ACCOUNT_EMAIL", "1088865818405-compute@developer.gserviceaccount.com")
 
     # AI Settings
