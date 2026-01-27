@@ -43,8 +43,8 @@ AI-powered multi-tenant chatbot platform for LINE Official Accounts with Knowled
 
 ## Production URLs
 
-- **API**: https://session-api-687023036300.us-central1.run.app
-- **Dashboard**: https://admin-dashboard-687023036300.us-central1.run.app
+- **API**: <https://session-api-1088865818405.us-central1.run.app>
+- **Dashboard**: <https://admin-dashboard-1088865818405.us-central1.run.app>
 
 ## Quick Start
 
@@ -59,6 +59,7 @@ AI-powered multi-tenant chatbot platform for LINE Official Accounts with Knowled
 ### Local Development
 
 1. **Clone & Setup API**
+
    ```bash
    cd api
    cp .env.example .env
@@ -68,6 +69,7 @@ AI-powered multi-tenant chatbot platform for LINE Official Accounts with Knowled
    ```
 
 2. **Setup Admin Dashboard**
+
    ```bash
    cd admin-dashboard
    cp .env.example .env.local
@@ -84,6 +86,7 @@ AI-powered multi-tenant chatbot platform for LINE Official Accounts with Knowled
 ### Environment Variables
 
 #### API (.env)
+
 ```bash
 GEMINI_API_KEY=your_gemini_api_key
 GCS_BUCKET_NAME=your_bucket_name
@@ -91,6 +94,7 @@ SUPER_ADMIN_EMAILS=admin@example.com
 ```
 
 #### Dashboard (.env.local)
+
 ```bash
 GOOGLE_CLIENT_ID=your_client_id
 GOOGLE_CLIENT_SECRET=your_client_secret
@@ -132,6 +136,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8001
 ## Deployment
 
 ### Deploy API
+
 ```bash
 cd api
 gcloud builds submit --tag gcr.io/PROJECT_ID/session-api
@@ -142,6 +147,7 @@ gcloud run deploy session-api \
 ```
 
 ### Deploy Dashboard
+
 ```bash
 cd admin-dashboard
 gcloud builds submit --config cloudbuild.yaml

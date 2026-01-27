@@ -34,7 +34,6 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://admin-dashboard-1088865818405.us-central1.run.app",
-        "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -49,7 +48,6 @@ def debug_cors():
     return {"allowed_origins": [
         "http://localhost:3000",
         "https://admin-dashboard-1088865818405.us-central1.run.app",
-        "https://admin-dashboard-n7u6wpcbqa-uc.a.run.app"
     ]}
 
 

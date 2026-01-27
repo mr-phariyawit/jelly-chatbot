@@ -17,7 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider === "google" && user.email) {
         try {
           // Register/update user in backend
-          const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://session-api-687023036300.us-central1.run.app";
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://session-api-1088865818405.us-central1.run.app";
           await fetch(`${apiUrl}/auth/google`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -43,7 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account || trigger === "signIn" || trigger === "update") {
         try {
           const email = token.email;
-          const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://session-api-687023036300.us-central1.run.app";
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://session-api-1088865818405.us-central1.run.app";
           const res = await fetch(`${apiUrl}/auth/me?email=${email}`);
           if (res.ok) {
             const userData = await res.json();

@@ -4,7 +4,7 @@
  * Calls the Session Logging API to track chat sessions
  */
 
-const SESSION_API_URL = 'https://session-api-687023036300.us-central1.run.app';
+const SESSION_API_URL = 'https://session-api-1088865818405.us-central1.run.app';
 
 export interface AddMessageResult {
     session_id: string;

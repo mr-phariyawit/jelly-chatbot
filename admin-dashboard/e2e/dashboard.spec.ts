@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const TARGET_URL = 'https://admin-dashboard-687023036300.us-central1.run.app';
+const TARGET_URL = 'https://admin-dashboard-1088865818405.us-central1.run.app';
 
 test.describe('Admin Dashboard', () => {
     test.beforeEach(async ({ page }) => {

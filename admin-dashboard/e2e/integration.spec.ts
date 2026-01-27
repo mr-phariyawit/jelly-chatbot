@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const TARGET_URL = process.env.TARGET_URL || 'https://admin-dashboard-687023036300.us-central1.run.app';
+const TARGET_URL = process.env.TARGET_URL || 'https://admin-dashboard-1088865818405.us-central1.run.app';
 
 test.describe('Bot Integration Flow', () => {
     test('should create bot, receive webhook, and log session', async ({ page }) => {
@@ -32,7 +32,7 @@ test.describe('Bot Integration Flow', () => {
         console.log(`Created Bot ID: ${botId}`);
 
         // 3. Construct Webhook URL
-        const apiBaseUrl = 'https://session-api-687023036300.us-central1.run.app';
+        const apiBaseUrl = 'https://session-api-1088865818405.us-central1.run.app';
         const webhookUrl = `${apiBaseUrl}/webhook/${botId.substring(0, 8)}`;
         console.log(`Testing Webhook URL: ${webhookUrl}`);
 
