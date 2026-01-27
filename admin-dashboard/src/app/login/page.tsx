@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
@@ -34,9 +35,11 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-24 h-24 mb-6 bg-[var(--pink-light)]/10 rounded-full border border-[var(--pink)]/20 p-4">
-            <img
+            <Image
               src="/profile-jelly.png"
               alt="Jelly ChatBot Logo"
+              width={80}
+              height={80}
               className="object-contain w-full h-full rounded-full"
             />
           </div>

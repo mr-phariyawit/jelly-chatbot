@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
-import { LogOut, Loader2, Hourglass } from "lucide-react";
+import { LogOut, Hourglass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -12,7 +12,7 @@ export default function PendingApprovalPage() {
   const initials = user?.name
     ? user.name
         .split(" ")
-        .map((n) => n[0])
+        .map((n: string) => n[0])
         .join("")
         .toUpperCase()
     : user?.email?.[0].toUpperCase() || "U";

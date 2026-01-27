@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import path from 'path';
 
 test('Create Bot from bot-test.txt credentials and verify Analysis', async ({ page }) => {
   // 1. Navigate to Bots Page (Bypass auth if possible, or assume public for now as per config)

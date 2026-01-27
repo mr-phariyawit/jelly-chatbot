@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, String, DateTime, Boolean, Text, ForeignKey, Integer, create_engine
+from sqlalchemy import Column, String, DateTime, Boolean, Text, ForeignKey, Integer
 from sqlalchemy.orm import relationship, declarative_base
 
 Base = declarative_base()
@@ -141,7 +141,6 @@ class File(Base):
             "filename": self.filename,
             "description": self.description,
             "content_type": self.content_type,
-            "size_bytes": self.size_bytes,
             "size_bytes": self.size_bytes,
             "status": self.status,
             "indexing_progress": self.indexing_progress,

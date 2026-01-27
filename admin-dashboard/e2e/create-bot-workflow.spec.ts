@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import fs from 'fs';
-import path from 'path';
 
 // Target Production Backend API
 const API_URL = 'https://session-api-m55puks34q-as.a.run.app';

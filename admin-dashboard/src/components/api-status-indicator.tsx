@@ -23,7 +23,6 @@ export function ApiStatusIndicator({ isCollapsed }: ApiStatusIndicatorProps) {
       const apiUrl = "https://session-api-1088865818405.us-central1.run.app";
       // const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://session-api-687023036300.us-central1.run.app";
       try {
-        const start = Date.now();
         const res = await fetch(`${apiUrl}/health`, { 
           method: 'GET',
           mode: 'cors',
@@ -37,9 +36,10 @@ export function ApiStatusIndicator({ isCollapsed }: ApiStatusIndicatorProps) {
         } else {
           setStatus('offline');
         }
-      } catch (e: any) {
+      } catch (e: unknown) {
         console.error('API Check Failed:', e);
-        if (e.message.includes('Failed to fetch') || e.message.includes('CORS')) {
+        const errorMessage = e instanceof Error ? e.message : String(e);
+        if (errorMessage.includes('Failed to fetch') || errorMessage.includes('CORS')) {
           setStatus('cors_error');
         } else {
           setStatus('offline');

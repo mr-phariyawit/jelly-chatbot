@@ -5,7 +5,6 @@ import {
     MessageSquare, 
     Users, 
     FileText, 
-    Bot, 
     Coins, 
     TrendingUp,
     AlertTriangle,

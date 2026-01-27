@@ -9,12 +9,24 @@ interface ChatSource {
     chunk_preview: string;
 }
 
+interface DebugInfo {
+    model?: string;
+    latency_ms?: number;
+    system_prompt_preview?: string;
+}
+
+interface TokenUsage {
+    prompt_tokens?: number;
+    completion_tokens?: number;
+    total_tokens?: number;
+}
+
 interface ChatMessageProps {
     role: 'user' | 'assistant';
     content: string;
     sources?: ChatSource[];
-    debug_info?: any;
-    token_usage?: any;
+    debug_info?: DebugInfo;
+    token_usage?: TokenUsage;
     isLatest?: boolean; // To trigger typewriter only on new messages
 }
 

@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { MoreHorizontal, Trash, FileText, MessageSquare, ExternalLink } from 'lucide-react';
-import { format } from 'date-fns';
+import { MoreHorizontal, Trash, FileText } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { api, Bot } from '@/lib/api';

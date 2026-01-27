@@ -22,7 +22,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -38,7 +37,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { api } from '@/lib/api';
@@ -83,12 +82,12 @@ export function CreateBotDialog() {
                 ? data.trigger_names_input.split(',').map(s => s.trim()).filter(s => s.length > 0)
                 : undefined;
 
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Destructuring to omit trigger_names_input from payload
+            const { trigger_names_input: _unused, ...restData } = data;
             const payload = {
-                ...data,
+                ...restData,
                 trigger_names
             };
-            // Remove the temporary input field
-            delete (payload as any).trigger_names_input;
 
             const response = await api.post('/bots', payload, config);
             return response.data;

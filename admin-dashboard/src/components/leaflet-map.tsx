@@ -81,6 +81,7 @@ export default function LeafletMap({ cities, selectedTimezone, onTimezoneChange 
             mapRef.current = null;
             markersRef.current = [];
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Intentionally run once on mount. Cities, onTimezoneChange, and selectedTimezone are used but shouldn't trigger re-initialization.
     }, []);
 
     // Update marker styles when selection changes

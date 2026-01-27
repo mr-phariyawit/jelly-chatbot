@@ -17,7 +17,6 @@ from starlette.middleware.gzip import GZipMiddleware
 
 from database import init_db
 from app.migrations import run_migrations
-from app.config import settings
 
 # Import routers
 from app.routers import health, sessions, bots, webhooks, files, auth, analytics, chat
@@ -76,8 +75,7 @@ app.include_router(chat.router)
 @app.post("/debug/migrate-files-to-gcs")
 def migrate_files_to_gcs():
     """Migrate legacy files with content in DB to GCS"""
-    from sqlalchemy.orm import Session as DBSession
-    from database import get_db, SessionLocal
+    from database import SessionLocal
     from migration_service import MigrationService
 
     db = SessionLocal()

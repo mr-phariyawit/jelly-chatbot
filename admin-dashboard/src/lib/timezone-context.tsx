@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 
 export interface TimezoneSettings {
     timezone: string;
@@ -38,29 +38,34 @@ export const TIMEZONE_OPTIONS = [
 ];
 
 export function TimezoneProvider({ children }: { children: ReactNode }) {
-    const [settings, setSettings] = useState<TimezoneSettings>(defaultSettings);
-    const [isHydrated, setIsHydrated] = useState(false);
-
-    // Load from localStorage on mount
-    useEffect(() => {
+    // Load from localStorage on mount using lazy initial state
+    const [settings, setSettings] = useState<TimezoneSettings>(() => {
+        if (typeof window === 'undefined') return defaultSettings;
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
             try {
                 const parsed = JSON.parse(stored);
-                setSettings({ ...defaultSettings, ...parsed });
+                return { ...defaultSettings, ...parsed };
             } catch (e) {
                 console.error('Failed to parse timezone settings:', e);
             }
         }
-        setIsHydrated(true);
+        return defaultSettings;
+    });
+    // Use ref instead of state for hydration tracking to avoid setState in effect
+    const isHydrated = useRef(false);
+
+    // Set hydrated flag after mount and sync to localStorage
+    useEffect(() => {
+        isHydrated.current = true;
     }, []);
 
     // Save to localStorage on change
     useEffect(() => {
-        if (isHydrated) {
+        if (isHydrated.current) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
         }
-    }, [settings, isHydrated]);
+    }, [settings]);
 
     const setTimezone = (tz: string) => {
         setSettings(prev => ({ ...prev, timezone: tz }));

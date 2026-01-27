@@ -1,5 +1,4 @@
 
-import os
 import logging
 from database import SessionLocal
 from models import Bot, File

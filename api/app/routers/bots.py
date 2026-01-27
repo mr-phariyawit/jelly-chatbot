@@ -7,11 +7,10 @@ import os
 import uuid
 import json
 from datetime import datetime
-from typing import List, Optional, Dict, Any
+from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query, Header
 from sqlalchemy.orm import Session as DBSession
 from sqlalchemy import desc
-from pydantic import BaseModel
 
 import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -157,11 +156,10 @@ def list_bots(
     elif allowed_bot_ids:
         # Standard admin sees their own bots OR explicitly allowed bots
         # We assume they should also see bots they created (user_id match)
-        import json
         allowed_list = []
         try:
              allowed_list = json.loads(allowed_bot_ids)
-        except:
+        except json.JSONDecodeError:
              pass
         
         # Combine: Own bots OR Allowed ID list

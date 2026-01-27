@@ -1,5 +1,4 @@
 
-import sqlalchemy
 from sqlalchemy import text, inspect
 from database import engine
 

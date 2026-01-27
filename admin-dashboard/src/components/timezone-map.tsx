@@ -1,7 +1,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useTimezone, TIMEZONE_OPTIONS } from '@/lib/timezone-context';
 
 // Lazy load Leaflet map to avoid SSR issues
 const LeafletMap = dynamic(() => import('@/components/leaflet-map'), { 

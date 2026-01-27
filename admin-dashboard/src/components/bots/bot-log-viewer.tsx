@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { RefreshCw, Trash2, AlertCircle, Info, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { botLogsApi, BotLog, BotLogStats } from '@/lib/api';
+import { botLogsApi } from '@/lib/api';
 import { useFormattedDate } from '@/hooks/use-formatted-date';
 import { Button } from '@/components/ui/button';
 import {

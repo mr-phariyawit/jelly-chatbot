@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -26,12 +26,8 @@ export function FileContextModal({
     onReAnalyze,
     isSaving = false
 }: FileContextModalProps) {
+    // State initialized from props - parent should use key prop to force remount
     const [description, setDescription] = useState(initialDescription);
-
-    // Sync state when props change
-    useEffect(() => {
-        setDescription(initialDescription);
-    }, [initialDescription, isOpen]);
 
     const handleSave = () => {
         onSave(description);

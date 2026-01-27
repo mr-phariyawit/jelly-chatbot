@@ -1,6 +1,5 @@
 
 import requests
-import json
 
 API_URL = "https://session-api-182206907696.us-central1.run.app"
 USER_ID = "U4bc18b6ecbdc3f7984b2e249d16c854f"

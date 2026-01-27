@@ -113,7 +113,7 @@ def process_webhook_event_background(
                     if bot and bot.trigger_names:
                         try:
                             trigger_names = json.loads(bot.trigger_names)
-                        except:
+                        except json.JSONDecodeError:
                             pass
                     
                     # If no trigger names configured, default to bot name

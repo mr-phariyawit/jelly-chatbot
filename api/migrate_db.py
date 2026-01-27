@@ -1,6 +1,5 @@
 
 import os
-import sqlalchemy
 from sqlalchemy import create_engine, text
 
 # Get DB URL from env or use default (same as main.py)

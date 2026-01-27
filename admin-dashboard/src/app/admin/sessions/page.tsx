@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { MessageSquare, Users, AlertCircle } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 
 import { api, Session, Bot } from '@/lib/api';
 import { useFormattedDate } from '@/hooks/use-formatted-date';
@@ -42,10 +42,10 @@ export default function SessionsPage() {
     });
 
     // Fetch Sessions with filters
-    const { data: sessions, isLoading, refetch } = useQuery<Session[]>({
+    const { data: sessions, isLoading } = useQuery<Session[]>({
         queryKey: ['sessions', selectedBotId, selectedStatus],
         queryFn: async () => {
-            const params: any = {};
+            const params: Record<string, string> = {};
             if (selectedBotId) params.bot_id = selectedBotId;
             if (selectedStatus) params.status = selectedStatus;
             

@@ -7,7 +7,7 @@ import os
 import uuid
 import json
 from datetime import datetime, timedelta
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File as FastAPIFile, BackgroundTasks, Request
 from sqlalchemy.orm import Session as DBSession, defer
 from sqlalchemy import desc
@@ -15,7 +15,6 @@ from google.cloud import storage
 import google.auth
 from google.auth.transport import requests as google_requests
 from google.cloud import iam_credentials_v1
-from pydantic import BaseModel
 
 import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -364,12 +363,6 @@ def generate_signed_url(
             file_id=file_id
         )
 
-        return SignedUrlResponse(
-            upload_url=url,
-            gcs_uri=f"gs://{bucket_name}/{blob_name}",
-            file_id=file_id
-        )
-
     except Exception as e:
         log_bot_event(db, bot_id, "ERROR", "ERROR", f"Failed to generate signed URL: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to generate signed URL: {str(e)}")
@@ -463,7 +456,7 @@ def upload_file(
         try:
             file.file.seek(0, 2)
             size_bytes = file.file.tell()
-        except:
+        except (OSError, IOError):
             size_bytes = 0
 
         db_file = File(

@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback } from 'react';
-import { format as dateFnsFormat } from 'date-fns';
 import { toZonedTime, format as formatTz } from 'date-fns-tz';
 import { useTimezone } from '@/lib/timezone-context';
 

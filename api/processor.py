@@ -11,7 +11,6 @@ import requests
 from typing import Dict, Any, Optional, List
 
 # from jira import JIRA -> Moved to jira_service
-from linebot.v3.messaging import MessagingApi, ReplyMessageRequest, TextMessage
 from jira_service import JiraService
 
 # Configure logging
@@ -164,7 +163,6 @@ class Processor:
         """Search knowledge base using Vector Similarity (if available) or full-text fallback"""
         try:
             from models import FileChunk, File
-            from pgvector.sqlalchemy import Vector
             
             # 1. Check if we have chunks for this bot
             has_chunks = db.query(FileChunk).join(File).filter(File.bot_id == bot_id).first()

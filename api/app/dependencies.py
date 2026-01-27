@@ -4,15 +4,13 @@ Shared dependencies for FastAPI routes
 """
 
 from functools import lru_cache
-from typing import Generator
 
-from sqlalchemy.orm import Session as DBSession
 
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from database import SessionLocal, get_db
+from database import get_db
 from processor import Processor
 
 

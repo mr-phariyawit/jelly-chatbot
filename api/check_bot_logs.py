@@ -3,15 +3,14 @@ Script to check bot logs and configuration in DB
 """
 import sys
 import os
-import json
 from datetime import datetime, timedelta
 from sqlalchemy import text # Import text explicitly
 
 # Add api directory to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from database import engine, SessionLocal
-from models import Bot, BotLog
+from database import SessionLocal
+from models import Bot
 
 def check_bot_data():
     session = SessionLocal()

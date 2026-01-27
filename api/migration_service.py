@@ -1,7 +1,6 @@
 
 import logging
 import os
-import uuid
 from google.cloud import storage
 from sqlalchemy.orm import Session
 from models import File
@@ -26,7 +25,7 @@ class MigrationService:
         Find files where gcs_uri is NULL and content is NOT NULL.
         Upload content to GCS and update gcs_uri.
         """
-        files = self.db.query(File).filter(File.gcs_uri == None).all()
+        files = self.db.query(File).filter(File.gcs_uri.is_(None)).all()
         migrated_count = 0
         skipped_count = 0
         error_count = 0

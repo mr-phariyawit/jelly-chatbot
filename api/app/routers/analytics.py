@@ -82,7 +82,7 @@ def get_analytics_overview(
                 metadata = json.loads(log.log_metadata)
                 if "token_usage" in metadata and metadata["token_usage"]:
                     total_tokens += metadata["token_usage"].get("total_tokens", 0)
-            except:
+            except json.JSONDecodeError:
                 pass
 
     # Estimated cost (Gemini 2.0 Flash pricing: ~$0.075/1M tokens average)
@@ -131,7 +131,7 @@ def get_token_usage(
                 if "token_usage" in metadata and metadata["token_usage"]:
                     prompt_tokens += metadata["token_usage"].get("prompt_tokens", 0)
                     completion_tokens += metadata["token_usage"].get("completion_tokens", 0)
-            except:
+            except json.JSONDecodeError:
                 pass
 
     total = prompt_tokens + completion_tokens

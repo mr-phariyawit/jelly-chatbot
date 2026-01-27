@@ -305,7 +305,7 @@ export default function BotDetailsPage() {
              setIsEditingPrompt(true);
              toast.success('System Prompt generated from Knowledge Base!');
         },
-        onError: (error: any) => {
+        onError: (error: Error & { response?: { data?: { detail?: string }; status?: number } }) => {
             console.error("AI Analysis Failed Detailed Error:", error);
             if (error.response) {
                 console.error("Server Response:", error.response.data);
@@ -725,8 +725,6 @@ export default function BotDetailsPage() {
             {activeTab === 'chat' && (
                 <TalkToData 
                     botId={botId} 
-                    botName={bot.name}
-                    systemPromptPreview={bot.system_prompt?.slice(0, 100)}
                     fileCount={bot.file_count}
                 />
             )}

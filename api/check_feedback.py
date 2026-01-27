@@ -1,9 +1,4 @@
 
-import requests
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from models import Feedback
 
 # DB Connect
 # We need to connect to Cloud SQL from local? 

@@ -12,7 +12,7 @@ import TimezoneMap from '@/components/timezone-map';
 
 export default function SettingsPage() {
     const { settings, setTimezone, setUse24Hour, autoDetectTimezone } = useTimezone();
-    const { formatDate, formatTimeOnly, getTimezoneAbbr } = useFormattedDate();
+    const { formatTimeOnly } = useFormattedDate();
     const [currentTime, setCurrentTime] = useState(new Date());
 
     // Update current time every second for live preview
@@ -209,8 +209,16 @@ export default function SettingsPage() {
     );
 }
 
+interface User {
+    id: string;
+    email: string;
+    name?: string;
+    role: string;
+    is_approved: boolean;
+}
+
 function UserList() {
-    const [users, setUsers] = useState<any[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

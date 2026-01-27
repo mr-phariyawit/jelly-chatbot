@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { LayoutDashboard, MessageSquare, Bot, LogOut, ChevronDown, Settings, PanelLeftClose, PanelLeft } from 'lucide-react';
@@ -26,15 +27,12 @@ import {
 export function AdminSidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  // Load collapsed state from localStorage
-  useEffect(() => {
+  // Load collapsed state from localStorage using lazy initial state
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    if (typeof window === 'undefined') return false;
     const saved = localStorage.getItem('sidebar-collapsed');
-    if (saved !== null) {
-      setIsCollapsed(JSON.parse(saved));
-    }
-  }, []);
+    return saved !== null ? JSON.parse(saved) : false;
+  });
 
   // Save collapsed state to localStorage
   const toggleCollapsed = () => {
@@ -86,7 +84,7 @@ export function AdminSidebar() {
         <div className="flex h-14 items-center border-b px-3 justify-between">
           <Link href="/admin/bots" className={cn("flex items-center gap-2 font-semibold", isCollapsed && "justify-center")}>
             <div className="h-8 w-8 relative flex-shrink-0">
-              <img src="/profile-jelly.png" alt="Jelly ChatBot Logo" className="object-contain h-full w-full rounded-full" />
+              <Image src="/profile-jelly.png" alt="Jelly ChatBot Logo" width={32} height={32} className="object-contain h-full w-full rounded-full" />
             </div>
             {!isCollapsed && (
               <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--pink)] to-[var(--pink-light)]">Jelly ChatBot</span>

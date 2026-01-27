@@ -1,6 +1,6 @@
 
 from database import SessionLocal
-from models import File, Bot
+from models import File
 
 db = SessionLocal()
 files = db.query(File).filter(File.filename == "wifi_config.txt").all()

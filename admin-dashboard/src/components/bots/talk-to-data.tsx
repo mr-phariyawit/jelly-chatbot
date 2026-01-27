@@ -2,9 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { Send, Loader2, Bug, FileText, Bot, User, ChevronDown, ChevronUp } from 'lucide-react';
+import { Send, Loader2, Bug, FileText, Bot } from 'lucide-react';
 import { toast } from 'sonner';
-import ReactMarkdown from 'react-markdown';
 
 import { api } from '@/lib/api';
 import { Button } from '@/components/ui/button';
@@ -21,42 +20,49 @@ interface ChatSource {
     similarity_score?: number;
 }
 
+interface ChunkInfo {
+    content: string;
+    similarity: number;
+    filename?: string;
+}
+
+interface DebugInfo {
+    system_prompt_preview: string;
+    chunks_retrieved: ChunkInfo[];
+    latency_ms: number;
+    model: string;
+}
+
+interface TokenUsage {
+    prompt_tokens: number;
+    completion_tokens: number;
+    total_tokens: number;
+}
+
 interface ChatResponse {
     message: string;
     sources: ChatSource[];
-    debug_info?: {
-        system_prompt_preview: string;
-        chunks_retrieved: any[];
-        latency_ms: number;
-        model: string;
-    };
-    token_usage?: {
-        prompt_tokens: number;
-        completion_tokens: number;
-        total_tokens: number;
-    };
+    debug_info?: DebugInfo;
+    token_usage?: TokenUsage;
 }
 
 interface Message {
     role: 'user' | 'assistant';
     content: string;
     sources?: ChatSource[];
-    debug_info?: any;
-    token_usage?: any;
+    debug_info?: DebugInfo;
+    token_usage?: TokenUsage;
 }
 
 interface TalkToDataProps {
     botId: string;
-    botName?: string;
-    systemPromptPreview?: string;
     fileCount?: number;
 }
 
-export function TalkToData({ botId, botName, systemPromptPreview, fileCount }: TalkToDataProps) {
+export function TalkToData({ botId, fileCount }: TalkToDataProps) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
     const [debugMode, setDebugMode] = useState(false);
-    const [expandedMessage, setExpandedMessage] = useState<number | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
@@ -84,7 +90,7 @@ export function TalkToData({ botId, botName, systemPromptPreview, fileCount }: T
                 token_usage: data.token_usage
             }]);
         },
-        onError: (error: any) => {
+        onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
             toast.error(error.response?.data?.detail || 'Chat failed');
             setMessages(prev => [...prev, {
                 role: 'assistant',
@@ -119,7 +125,7 @@ export function TalkToData({ botId, botName, systemPromptPreview, fileCount }: T
                             Talk to Data
                         </CardTitle>
                         <CardDescription>
-                            Test your bot's responses with the RAG pipeline
+                            Test your bot&apos;s responses with the RAG pipeline
                         </CardDescription>
                     </div>
                     <div className="flex items-center gap-4">

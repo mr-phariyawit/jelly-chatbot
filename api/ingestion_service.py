@@ -81,7 +81,6 @@ class IngestionService:
 
     def _ocr_pdf_with_gemini(self, content: bytes) -> str:
         """Use Gemini Vision to extract text from PDF (Scanned docs)"""
-        import base64
         
         model = genai.GenerativeModel("gemini-2.0-flash")
         

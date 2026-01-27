@@ -1,8 +1,6 @@
-from datetime import datetime, timedelta
-import os
+from datetime import timedelta
 from google.cloud import storage
 import google.auth
-from google.auth.transport import requests
 
 def generate_signed_url_test():
     bucket_name = "ai-kms-platform-uploads"

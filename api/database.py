@@ -15,7 +15,7 @@ connect_args = {}
 if "postgresql" in DATABASE_URL:
     # Replace pg8000 with psycopg2 if present
     DATABASE_URL = DATABASE_URL.replace("postgresql+pg8000://", "postgresql://")
-    print(f"Using PostgreSQL connection")
+    print("Using PostgreSQL connection")
 elif os.getenv("K_SERVICE"):
     # CRITICAL: Prevent data loss in Cloud Run
     raise RuntimeError(
