@@ -13,15 +13,34 @@ logger = logging.getLogger(__name__)
 
 # Constants
 CHUNK_SIZE = 1000
-EMBEDDING_MODEL = 'models/text-embedding-004'
+# Note: text-embedding-004 was deprecated/shutdown on Jan 14, 2026
+EMBEDDING_MODEL = 'models/gemini-embedding-001'
 
 class IngestionService:
     def __init__(self):
-        gemini_key = os.getenv("GEMINI_API_KEY")
-        if gemini_key:
-            genai.configure(api_key=gemini_key)
+        self.gemini_key = os.getenv("GEMINI_API_KEY")
+        if self.gemini_key:
+            genai.configure(api_key=self.gemini_key)
         else:
             logger.warning("GEMINI_API_KEY not set for IngestionService")
+
+    def _generate_embedding_rest(self, text: str) -> List[float]:
+        """Generate embeddings using REST API for reliable outputDimensionality support."""
+        import requests
+        
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key={self.gemini_key}"
+        payload = {
+            "content": {"parts": [{"text": text}]},
+            "outputDimensionality": 768  # Match Vector(768) in database
+        }
+        
+        response = requests.post(url, json=payload, timeout=30)
+        
+        if response.status_code == 200:
+            data = response.json()
+            return data.get("embedding", {}).get("values", [])
+        else:
+            raise Exception(f"Embedding API error: {response.status_code} - {response.text[:200]}")
 
     def chunk_text(self, text: str, chunk_size: int = CHUNK_SIZE) -> List[str]:
         """Split text into chunks of approximately chunk_size characters."""
@@ -245,13 +264,9 @@ class IngestionService:
                 if not chunk_text.strip():
                     continue
 
-                # Generate Embedding
-                embedding_result = genai.embed_content(
-                    model=EMBEDDING_MODEL,
-                    content=chunk_text,
-                    task_type="retrieval_document"
-                )
-                embedding_vector = embedding_result['embedding']
+                # Generate Embedding using REST API for reliable outputDimensionality support
+                # gemini-embedding-001 defaults to 3072 dims, specify 768 to match DB Vector(768)
+                embedding_vector = self._generate_embedding_rest(chunk_text)
 
                 # Create Chunk Record
                 import uuid

@@ -52,10 +52,13 @@ class GeminiRESTClient:
             raise Exception(f"Gemini API error: {response.status_code} - {response.text[:200]}")
 
     def embed_content(self, text: str, task_type: str = "RETRIEVAL_QUERY") -> list:
-        """Generate embeddings using REST API."""
-        url = f"{self.base_url}/models/text-embedding-004:embedContent?key={self.api_key}"
+        """Generate embeddings using REST API (using gemini-embedding-001 - stable model)."""
+        # Note: text-embedding-004 was deprecated on Jan 14, 2026. Using gemini-embedding-001.
+        # gemini-embedding-001 defaults to 3072 dims, but our DB has Vector(768), so we specify 768.
+        url = f"{self.base_url}/models/gemini-embedding-001:embedContent?key={self.api_key}"
         payload = {
-            "content": {"parts": [{"text": text}]}
+            "content": {"parts": [{"text": text}]},
+            "outputDimensionality": 768  # Match existing Vector(768) in database
         }
 
         response = requests.post(url, json=payload, timeout=30)
