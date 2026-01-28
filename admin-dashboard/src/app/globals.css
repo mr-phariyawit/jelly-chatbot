@@ -41,60 +41,60 @@
 @layer base {
   :root {
     /* Brand Colors (Jelly Theme: Pink & Lavender) */
-    --pink: #FF8FAB;
-    --pink-light: #FFA3C7;
-    --pink-soft: #FFE5EF;
-    --lavender: #C8B3E0;
-    --lavender-dark: #B09BD9;
-    --lavender-light: #E8D5F2;
-    --purple-deep: #8B5BA8;
+    --pink: #ff8fab;
+    --pink-light: #ffa3c7;
+    --pink-soft: #ffe5ef;
+    --lavender: #c8b3e0;
+    --lavender-dark: #b09bd9;
+    --lavender-light: #e8d5f2;
+    --purple-deep: #8b5ba8;
 
     /* Neutrals */
-    --bg-primary: #1A0E1F;
-    --bg-secondary: #2B1B35;
-    --bg-tertiary: #3D2B4D;
-    --text-primary: #FFF5F7;
-    --text-secondary: #D4B8E0;
-    --border-color: #4A355C;
+    --bg-primary: #1a0e1f;
+    --bg-secondary: #2b1b35;
+    --bg-tertiary: #3d2b4d;
+    --text-primary: #fff5f7;
+    --text-secondary: #EDD9F5; /* Updated for better contrast */
+    --border-color: #4a355c;
 
     /* Gradients */
-    --gradient-pink: linear-gradient(135deg, #FF8FAB 0%, #FFA3C7 100%);
-    --gradient-lavender: linear-gradient(135deg, #C8B3E0 0%, #E8D5F2 100%);
+    --gradient-pink: linear-gradient(135deg, #ff8fab 0%, #ffa3c7 100%);
+    --gradient-lavender: linear-gradient(135deg, #c8b3e0 0%, #e8d5f2 100%);
     --gradient-hero: linear-gradient(
       135deg,
-      #FF8FAB 0%,
-      #C8B3E0 50%,
-      #FF8FAB 100%
+      #ff8fab 0%,
+      #c8b3e0 50%,
+      #ff8fab 100%
     );
 
     /* Shadcn/UI Mappings */
-    --background: #1A0E1F;
-    --foreground: #FFF5F7;
+    --background: #1a0e1f;
+    --foreground: #fff5f7;
 
-    --card: #2B1B35;
-    --card-foreground: #FFF5F7;
+    --card: #2b1b35;
+    --card-foreground: #fff5f7;
 
-    --popover: #2B1B35;
-    --popover-foreground: #FFF5F7;
+    --popover: #2b1b35;
+    --popover-foreground: #fff5f7;
 
-    --primary: #FF8FAB; /* Pink */
-    --primary-foreground: #1A0E1F; /* Dark Text on Pink */
+    --primary: #ff8fab; /* Pink */
+    --primary-foreground: #1a0e1f; /* Dark Text on Pink */
 
-    --secondary: #3D2B4D;
-    --secondary-foreground: #FFF5F7;
+    --secondary: #3d2b4d;
+    --secondary-foreground: #fff5f7;
 
-    --muted: #3D2B4D;
-    --muted-foreground: #D4B8E0;
+    --muted: #3d2b4d;
+    --muted-foreground: #edd9f5; /* Lighter lavender for better contrast (was #D4B8E0) */
 
-    --accent: #C8B3E0;
-    --accent-foreground: #1A0E1F;
+    --accent: #c8b3e0;
+    --accent-foreground: #1a0e1f;
 
     --destructive: #ef4444;
     --destructive-foreground: #f8fafc;
 
-    --border: #4A355C;
-    --input: #4A355C;
-    --ring: #FF8FAB;
+    --border: #4a355c;
+    --input: #4a355c;
+    --ring: #ff8fab;
 
     --radius: 0.75rem;
 
@@ -152,7 +152,7 @@
 /* Button Gradient Helper */
 .btn-pink-gradient {
   background: var(--gradient-pink);
-  color: #1A0E1F;
+  color: #1a0e1f;
   box-shadow: 0 4px 12px rgba(255, 143, 171, 0.3);
   transition: all 0.3s ease;
 }
@@ -164,7 +164,7 @@
 /* Legacy support for old class name */
 .btn-gold-gradient {
   background: var(--gradient-pink);
-  color: #1A0E1F;
+  color: #1a0e1f;
   box-shadow: 0 4px 12px rgba(255, 143, 171, 0.3);
   transition: all 0.3s ease;
 }
@@ -175,28 +175,60 @@
 
 /* Aurora Animation - Zero Gravity Fluid */
 @keyframes fluid-1 {
-  0% { transform: translate(0, 0) scale(1); }
-  20% { transform: translate(30vw, -20vh) scale(1.1); }
-  40% { transform: translate(-10vw, 30vh) scale(0.9); }
-  60% { transform: translate(25vw, 10vh) scale(1.05); }
-  80% { transform: translate(-20vw, -15vh) scale(0.95); }
-  100% { transform: translate(0, 0) scale(1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    transform: translate(30vw, -20vh) scale(1.1);
+  }
+  40% {
+    transform: translate(-10vw, 30vh) scale(0.9);
+  }
+  60% {
+    transform: translate(25vw, 10vh) scale(1.05);
+  }
+  80% {
+    transform: translate(-20vw, -15vh) scale(0.95);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
 }
 
 @keyframes fluid-2 {
-  0% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(-25vw, 30vh) scale(1.2); }
-  50% { transform: translate(20vw, -10vh) scale(0.8); }
-  75% { transform: translate(10vw, 25vh) scale(1.1); }
-  100% { transform: translate(0, 0) scale(1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-25vw, 30vh) scale(1.2);
+  }
+  50% {
+    transform: translate(20vw, -10vh) scale(0.8);
+  }
+  75% {
+    transform: translate(10vw, 25vh) scale(1.1);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
 }
 
 @keyframes fluid-3 {
-  0% { transform: translate(0, 0) scale(1); }
-  30% { transform: translate(20vw, -30vh) scale(0.9); }
-  60% { transform: translate(-25vw, 15vh) scale(1.1); }
-  90% { transform: translate(15vw, -10vh) scale(0.95); }
-  100% { transform: translate(0, 0) scale(1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  30% {
+    transform: translate(20vw, -30vh) scale(0.9);
+  }
+  60% {
+    transform: translate(-25vw, 15vh) scale(1.1);
+  }
+  90% {
+    transform: translate(15vw, -10vh) scale(0.95);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
 }
 
 .animate-fluid-1 {
