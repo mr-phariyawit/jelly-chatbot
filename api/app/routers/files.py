@@ -24,6 +24,7 @@ from models import Bot, File, BotLog, Feedback
 from schemas import FileResponse, FileUpdate, SignedUrlRequest, SignedUrlResponse, FileConfirmRequest
 from processor import Processor
 from app.config import settings
+from app.rate_limiter import limiter, RATE_LIMITS
 from utils import sanitize_text
 
 router = APIRouter(tags=["Files"])
@@ -279,10 +280,11 @@ def process_file_background(file_id: str):
 
 
 @router.post("/bots/{bot_id}/files/signed-url", response_model=SignedUrlResponse)
+@limiter.limit(RATE_LIMITS["upload"])
 def generate_signed_url(
     bot_id: str,
-    request: SignedUrlRequest,
-    fastapi_request: Request,
+    request: Request,
+    body: SignedUrlRequest = Depends(),
     db: DBSession = Depends(get_db)
 ):
     """Generate a V4 Signed URL for direct GCS upload"""
@@ -292,7 +294,7 @@ def generate_signed_url(
 
     file_id = str(uuid.uuid4())
     bucket_name = settings.GCS_BUCKET_NAME
-    blob_name = f"{bot_id}/{file_id}/{request.filename}"
+    blob_name = f"{bot_id}/{file_id}/{body.filename}"
 
     try:
         storage_client = storage.Client()
@@ -324,21 +326,21 @@ def generate_signed_url(
         
         headers = {
             "Authorization": f"Bearer {auth_token}",
-            "X-Upload-Content-Type": request.content_type,
+            "X-Upload-Content-Type": body.content_type,
             "Content-Type": "application/json"
         }
         
         # CRITICAL: Forward the browser's Origin header to GCS.
         # GCS uses the Origin from the session initiation request to set CORS headers
         # for all subsequent requests to the session URI.
-        origin = fastapi_request.headers.get("origin")
+        origin = request.headers.get("origin")
         if origin:
             headers["Origin"] = origin
         
         # Optional metadata
         metadata = {
             "name": blob_name,
-            "contentType": request.content_type
+            "contentType": body.content_type
         }
         
         # Make the request to GCS to start the session
@@ -427,8 +429,10 @@ def confirm_upload(
 
 
 @router.post("/bots/{bot_id}/files", response_model=FileResponse)
+@limiter.limit(RATE_LIMITS["upload"])
 def upload_file(
     bot_id: str,
+    request: Request,
     file: UploadFile = FastAPIFile(...),
     db: DBSession = Depends(get_db),
     background_tasks: BackgroundTasks = None

@@ -11,12 +11,19 @@ import os
 # Add api directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from fastapi import FastAPI
+# Initialize structured logging before anything else
+from app.logging_config import setup_logging
+setup_logging()
+
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from starlette.middleware.gzip import GZipMiddleware
+from slowapi.errors import RateLimitExceeded
 
 from database import init_db
 from app.migrations import run_migrations
+from app.rate_limiter import limiter
 
 # Import routers
 from app.routers import health, sessions, bots, webhooks, files, auth, analytics, chat
@@ -25,8 +32,19 @@ from app.routers import health, sessions, bots, webhooks, files, auth, analytics
 app = FastAPI(
     title="Jelly ChatBot API",
     description="API for Jelly ChatBot multi-tenant LINE bot platform",
-    version="1.2.2",
+    version="1.3.0",
 )
+
+# Rate limiting
+app.state.limiter = limiter
+
+
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return JSONResponse(
+        status_code=429,
+        content={"detail": "Rate limit exceeded. Please try again later."},
+    )
 
 # CORS middleware - Robust dynamic origin validation
 app.add_middleware(
@@ -51,11 +69,17 @@ def debug_cors():
     ]}
 
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 @app.on_event("startup")
 def startup():
     """Initialize database and run migrations on startup."""
+    logger.info("Starting Jelly ChatBot API v1.3.0")
     init_db()
     run_migrations()
+    logger.info("Startup complete")
 
 
 # Include routers

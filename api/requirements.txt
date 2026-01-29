@@ -8,13 +8,16 @@ line-bot-sdk>=3.0.0
 google-generativeai>=0.3.0
 google-cloud-storage>=2.14.0
 google-cloud-iam>=2.0.0
+google-cloud-secret-manager>=2.18.0
 jira>=3.5.0
 python-dotenv>=1.0.0
+slowapi>=0.1.9
 pgvector>=0.2.0
 pypdf>=3.0.0
 pandas
 openpyxl
 Pillow>=10.0.0
+redis>=5.0.0  # Optional: for production caching (falls back to in-memory)
 
 # Testing & Type Safety
 pytest>=7.0.0

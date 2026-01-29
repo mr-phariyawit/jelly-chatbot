@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 
 from database import get_db
 from models import Bot, BotLog
+from app.cache import invalidate_bot_config
 from schemas import (
     BotCreate,
     BotUpdate,
@@ -259,6 +260,8 @@ def update_bot(bot_id: str, update: BotUpdate, db: DBSession = Depends(get_db)):
     db.commit()
     db.refresh(bot)
 
+    invalidate_bot_config(bot_id)
+
     return BotResponse(
         id=bot.id,
         name=bot.name,
@@ -292,6 +295,8 @@ def delete_bot(bot_id: str, db: DBSession = Depends(get_db)):
 
     db.delete(bot)
     db.commit()
+
+    invalidate_bot_config(bot_id)
 
     return {"message": f"Bot {bot_id} deleted successfully"}
 

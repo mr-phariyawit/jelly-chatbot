@@ -33,6 +33,7 @@ from database import get_db, SessionLocal
 from models import Bot, Session, Message, Feedback, BotLog
 from processor import Processor
 from app.config import settings
+from app.rate_limiter import limiter, RATE_LIMITS
 from utils import sanitize_text
 
 router = APIRouter(tags=["Webhooks"])
@@ -215,7 +216,8 @@ def process_webhook_event_background(
                         content=text_content,
                         history=history_context,
                         db=db,
-                        bot_id=bot_id
+                        bot_id=bot_id,
+                        session_id=session.id,
                     )
                     reply_text = ai_result["message"]
                     should_escalate = ai_result["should_escalate"]
@@ -341,6 +343,7 @@ def process_webhook_event_background(
 
 
 @router.post("/webhook/{bot_id_prefix}")
+@limiter.limit(RATE_LIMITS["webhook"])
 async def active_webhook(
     bot_id_prefix: str,
     request: Request,

@@ -7,7 +7,7 @@ import os
 import json
 from datetime import datetime
 from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy.orm import Session as DBSession
 from sqlalchemy import desc
 from pydantic import BaseModel
@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 from database import get_db
 from models import AdminUser
 from app.config import settings
+from app.rate_limiter import limiter, RATE_LIMITS
 
 router = APIRouter(tags=["Auth"])
 
@@ -52,36 +53,37 @@ class AdminUserUpdate(BaseModel):
 
 
 @router.post("/auth/google", response_model=AdminUserResponse)
-def google_auth(request: GoogleAuthRequest, db: DBSession = Depends(get_db)):
+@limiter.limit(RATE_LIMITS["auth"])
+def google_auth(request: Request, body: GoogleAuthRequest = Depends(), db: DBSession = Depends(get_db)):
     """
     Authenticate via Google OAuth.
     Creates user if doesn't exist, updates last_login if exists.
     """
-    user = db.query(AdminUser).filter(AdminUser.email == request.email).first()
+    user = db.query(AdminUser).filter(AdminUser.email == body.email).first()
 
     if user:
         user.last_login = datetime.utcnow()
-        if request.name:
-            user.name = request.name
-        if request.avatar_url:
-            user.avatar_url = request.avatar_url
-            
+        if body.name:
+            user.name = body.name
+        if body.avatar_url:
+            user.avatar_url = body.avatar_url
+
         # Automatically approve and promote if in whitelist
-        if request.email in settings.SUPER_ADMIN_EMAILS:
+        if body.email in settings.SUPER_ADMIN_EMAILS:
             user.is_approved = True
             user.role = "super-admin"
-            
+
         db.commit()
         db.refresh(user)
     else:
         # Check if user is in whitelist
-        is_su = request.email in settings.SUPER_ADMIN_EMAILS
-        
+        is_su = body.email in settings.SUPER_ADMIN_EMAILS
+
         user = AdminUser(
-            id=request.google_id,
-            email=request.email,
-            name=request.name,
-            avatar_url=request.avatar_url,
+            id=body.google_id,
+            email=body.email,
+            name=body.name,
+            avatar_url=body.avatar_url,
             role="super-admin" if is_su else "admin",
             is_approved=True if is_su else False,
             allowed_bot_ids=None,

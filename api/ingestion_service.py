@@ -13,8 +13,10 @@ logger = logging.getLogger(__name__)
 
 # Constants
 CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 200  # Characters of overlap between chunks for context continuity
 # Note: text-embedding-004 was deprecated/shutdown on Jan 14, 2026
 EMBEDDING_MODEL = 'models/gemini-embedding-001'
+EMBEDDING_BATCH_SIZE = 100  # Max texts per batch embedding request
 
 class IngestionService:
     def __init__(self):
@@ -27,48 +29,134 @@ class IngestionService:
     def _generate_embedding_rest(self, text: str) -> List[float]:
         """Generate embeddings using REST API for reliable outputDimensionality support."""
         import requests
-        
+
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key={self.gemini_key}"
         payload = {
             "content": {"parts": [{"text": text}]},
             "outputDimensionality": 768  # Match Vector(768) in database
         }
-        
+
         response = requests.post(url, json=payload, timeout=30)
-        
+
         if response.status_code == 200:
             data = response.json()
             return data.get("embedding", {}).get("values", [])
         else:
             raise Exception(f"Embedding API error: {response.status_code} - {response.text[:200]}")
 
-    def chunk_text(self, text: str, chunk_size: int = CHUNK_SIZE) -> List[str]:
-        """Split text into chunks of approximately chunk_size characters."""
-        # Simple splitting by double newline to preserve paragraphs, then length
+    def _generate_embeddings_batch(self, texts: List[str]) -> List[List[float]]:
+        """Generate embeddings for multiple texts in a single API call using batchEmbedContents."""
+        import requests
+
+        if not texts:
+            return []
+
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents?key={self.gemini_key}"
+
+        requests_payload = []
+        for text in texts:
+            requests_payload.append({
+                "model": "models/gemini-embedding-001",
+                "content": {"parts": [{"text": text}]},
+                "outputDimensionality": 768
+            })
+
+        payload = {"requests": requests_payload}
+
+        response = requests.post(url, json=payload, timeout=120)
+
+        if response.status_code == 200:
+            data = response.json()
+            embeddings = []
+            for emb in data.get("embeddings", []):
+                embeddings.append(emb.get("values", []))
+            return embeddings
+        else:
+            raise Exception(f"Batch Embedding API error: {response.status_code} - {response.text[:200]}")
+
+    def _split_into_sentences(self, text: str) -> List[str]:
+        """Split text into sentences using regex, preserving Thai and English."""
+        import re
+        # Split on sentence-ending punctuation followed by space or newline
+        # Handles: Thai (no period but uses space/newline), English (.!?), numbered lists
+        sentences = re.split(r'(?<=[.!?\n])\s+|(?<=\n)', text)
+        return [s.strip() for s in sentences if s.strip()]
+
+    def chunk_text(self, text: str, chunk_size: int = CHUNK_SIZE, overlap: int = CHUNK_OVERLAP) -> List[str]:
+        """
+        Semantic chunking: split by paragraphs and sentences with overlap.
+
+        Strategy:
+        1. Split by double-newline (paragraphs) first
+        2. If a paragraph exceeds chunk_size, split by sentences
+        3. Add overlap between chunks for context continuity
+        """
         chunks = []
+
+        # Phase 1: Split into paragraphs
         paragraphs = text.split('\n\n')
-        
+
+        # Phase 2: Build chunks from paragraphs with sentence-level granularity
         current_chunk = ""
-        
+
         for para in paragraphs:
-            if len(current_chunk) + len(para) < chunk_size:
-                current_chunk += para + "\n\n"
+            para = para.strip()
+            if not para:
+                continue
+
+            # If adding this paragraph fits within chunk_size
+            if len(current_chunk) + len(para) + 2 <= chunk_size:
+                current_chunk += ("\n\n" if current_chunk else "") + para
             else:
+                # Save current chunk if it has content
                 if current_chunk:
                     chunks.append(current_chunk.strip())
-                current_chunk = para + "\n\n"
-                
-                # Handle single huge paragraphs
-                if len(current_chunk) > chunk_size:
-                    # Hard split
-                    while len(current_chunk) > chunk_size:
-                        chunks.append(current_chunk[:chunk_size])
-                        current_chunk = current_chunk[chunk_size:]
-        
-        if current_chunk:
+
+                # If paragraph itself is larger than chunk_size, split by sentences
+                if len(para) > chunk_size:
+                    sentences = self._split_into_sentences(para)
+                    current_chunk = ""
+                    for sentence in sentences:
+                        if len(current_chunk) + len(sentence) + 1 <= chunk_size:
+                            current_chunk += (" " if current_chunk else "") + sentence
+                        else:
+                            if current_chunk:
+                                chunks.append(current_chunk.strip())
+                            # Handle single sentence longer than chunk_size
+                            if len(sentence) > chunk_size:
+                                # Hard split at word boundaries
+                                words = sentence.split()
+                                current_chunk = ""
+                                for word in words:
+                                    if len(current_chunk) + len(word) + 1 <= chunk_size:
+                                        current_chunk += (" " if current_chunk else "") + word
+                                    else:
+                                        if current_chunk:
+                                            chunks.append(current_chunk.strip())
+                                        current_chunk = word
+                            else:
+                                current_chunk = sentence
+                else:
+                    current_chunk = para
+
+        if current_chunk and current_chunk.strip():
             chunks.append(current_chunk.strip())
-            
-        return chunks
+
+        # Phase 3: Apply overlap between chunks
+        if overlap > 0 and len(chunks) > 1:
+            overlapped_chunks = [chunks[0]]
+            for i in range(1, len(chunks)):
+                prev_chunk = chunks[i - 1]
+                # Take the last `overlap` characters from previous chunk as prefix
+                overlap_text = prev_chunk[-overlap:] if len(prev_chunk) > overlap else prev_chunk
+                # Find a clean break point (space or newline)
+                clean_start = overlap_text.find(' ')
+                if clean_start > 0:
+                    overlap_text = overlap_text[clean_start + 1:]
+                overlapped_chunks.append(f"{overlap_text}\n\n{chunks[i]}")
+            chunks = overlapped_chunks
+
+        return [c for c in chunks if c.strip()]
 
     def _parse_pdf(self, content: bytes) -> str:
         """Extract text from PDF bytes. Fallback to Gemini OCR if text is sparse."""
@@ -254,48 +342,65 @@ class IngestionService:
         file.indexing_progress = 30
         db.commit()
 
-        # 2. Embedding & Saving
+        # 2. Embedding & Saving (Batch mode for performance)
         try:
+            import uuid
+
             # Delete existing chunks
             db.query(FileChunk).filter(FileChunk.file_id == file_id).delete()
-            
+
+            # Filter empty chunks
+            text_chunks = [c for c in text_chunks if c.strip()]
             total_chunks = len(text_chunks)
-            for index, chunk_text in enumerate(text_chunks):
-                if not chunk_text.strip():
-                    continue
 
-                # Generate Embedding using REST API for reliable outputDimensionality support
-                # gemini-embedding-001 defaults to 3072 dims, specify 768 to match DB Vector(768)
-                embedding_vector = self._generate_embedding_rest(chunk_text)
+            if total_chunks == 0:
+                file.status = "failed"
+                file.description = "No valid text chunks after splitting."
+                file.indexing_progress = 0
+                db.commit()
+                return
 
-                # Create Chunk Record
-                import uuid
-                new_chunk = FileChunk(
-                    id=str(uuid.uuid4()),
-                    file_id=file_id,
-                    chunk_index=index,
-                    content=chunk_text,
-                    embedding=embedding_vector
-                )
-                db.add(new_chunk)
-                
+            # Process in batches for efficient embedding
+            batch_size = EMBEDDING_BATCH_SIZE
+            all_chunk_records = []
+
+            for batch_start in range(0, total_chunks, batch_size):
+                batch_end = min(batch_start + batch_size, total_chunks)
+                batch_texts = text_chunks[batch_start:batch_end]
+
+                # Batch embed
+                try:
+                    batch_embeddings = self._generate_embeddings_batch(batch_texts)
+                except Exception as e:
+                    logger.warning(f"Batch embedding failed, falling back to sequential: {e}")
+                    # Fallback to sequential embedding
+                    batch_embeddings = []
+                    for text in batch_texts:
+                        batch_embeddings.append(self._generate_embedding_rest(text))
+
+                # Create chunk records
+                for i, (chunk_content, embedding_vector) in enumerate(zip(batch_texts, batch_embeddings)):
+                    chunk_index = batch_start + i
+                    new_chunk = FileChunk(
+                        id=str(uuid.uuid4()),
+                        file_id=file_id,
+                        chunk_index=chunk_index,
+                        content=chunk_content,
+                        embedding=embedding_vector
+                    )
+                    db.add(new_chunk)
+                    all_chunk_records.append(new_chunk)
+
                 # Update Progress: 30% -> 90%
-                if total_chunks > 0:
-                    # Calculate progress
-                    # Base 30, Max 90 (range 60)
-                    progress = 30 + int(((index + 1) / total_chunks) * 60)
-                    
-                    # Update DB every 10% or if it's the last one to reduce DB load
-                    # or if chunks are small, maybe every 5?
-                    # Let's do every 5 chunks or if progress changed significantly
-                    if index % 5 == 0 or index == total_chunks - 1:
-                        file.indexing_progress = progress
-                        db.commit()
-            
+                progress = 30 + int((batch_end / total_chunks) * 60)
+                file.indexing_progress = progress
+                db.commit()
+                logger.info(f"Embedded batch {batch_start}-{batch_end}/{total_chunks} for {file.filename}")
+
             # Finalize
             file.indexing_progress = 100
             db.commit()
-            logger.info(f"Successfully ingested file {file.filename}")
+            logger.info(f"Successfully ingested file {file.filename} ({total_chunks} chunks)")
 
         except Exception as e:
             logger.error(f"Failed to ingest file {file.filename}: {e}")

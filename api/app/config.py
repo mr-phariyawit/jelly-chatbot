@@ -1,6 +1,7 @@
 """
 Application Configuration
 Centralized configuration management using environment variables
+with GCP Secret Manager support for sensitive credentials in production.
 """
 
 import os
@@ -9,9 +10,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from app.secret_manager import get_secret
+
 
 class Settings:
-    """Application settings loaded from environment variables"""
+    """Application settings loaded from environment variables and Secret Manager"""
 
     # API Settings
     API_BASE_URL: str = os.getenv("API_BASE_URL", "https://session-api-1088865818405.us-central1.run.app")
@@ -31,8 +34,10 @@ class Settings:
     GCS_BUCKET_NAME: str = os.getenv("GCS_BUCKET_NAME", "jelly-chatbot-uploads")
     SERVICE_ACCOUNT_EMAIL: str = os.getenv("SERVICE_ACCOUNT_EMAIL", "1088865818405-compute@developer.gserviceaccount.com")
 
-    # AI Settings
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
+    # Sensitive credentials — loaded from Secret Manager in production, env vars locally
+    GEMINI_API_KEY: str = get_secret("GEMINI_API_KEY")
+    JIRA_API_TOKEN: str = get_secret("JIRA_API_TOKEN")
+    JIRA_EMAIL: str = get_secret("JIRA_EMAIL")
 
     # Admin Settings
     SUPER_ADMIN_EMAILS: list = [e.strip() for e in os.getenv("SUPER_ADMIN_EMAILS", "").split(",") if e.strip()]
