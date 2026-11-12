@@ -21,13 +21,13 @@ test('Create Bot from bot-test.txt credentials and verify Analysis', async ({ pa
 
   // 3. Fill Form
   await page.fill('input[name="name"]', 'LINE Integration Test Bot');
-  await page.fill('textarea[name="description"]', 'Bot created via Playwright using bot-test.txt credentials. Basic ID: @073upziw');
+  await page.fill('textarea[name="description"]', 'Bot created via Playwright using bot-test.txt credentials.');
   
-  await page.fill('input[name="channel_id"]', '2008690282');
-  await page.fill('input[name="channel_secret"]', 'd0bcaa5333ac29f1b65b0a204268fe8a');
-  await page.fill('input[name="user_id"]', 'U4bc18b6ecbdc3f7984b2e249d16c854f');
+  await page.fill('input[name="channel_id"]', process.env.E2E_LINE_CHANNEL_ID ?? 'test_channel_id');
+  await page.fill('input[name="channel_secret"]', process.env.E2E_LINE_CHANNEL_SECRET ?? 'test_secret');
+  await page.fill('input[name="user_id"]', process.env.E2E_LINE_USER_ID ?? 'U_TEST_USER');
   
-  const token = '0CTKYq9cLZJJIQJRufb1ozz52/njox/wjMHbT8JDMdzi6Xe2GtkUSmGRCxQKfHxS4aUs2xodx+eNWTanqhcMV3Ptd2TuNCahyUnEREagEU6C4Ti/BEDqVnca/sLiDvNdoSrlmgH5Hsq5t/l+dIXDWwdB04t89/1O/w1cDnyilFU=';
+  const token = process.env.E2E_LINE_CHANNEL_ACCESS_TOKEN ?? 'test_token';
   await page.fill('textarea[name="channel_access_token"]', token);
 
   // 4. Submit

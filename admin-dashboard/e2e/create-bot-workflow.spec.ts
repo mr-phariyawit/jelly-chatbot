@@ -16,11 +16,11 @@ test.describe('Bot Creation & Analysis Workflow', () => {
         // 1. Create Bot via API
         const botPayload = {
             name: 'LINE Integration Test Bot',
-            description: 'Bot created via Playwright using bot-test.txt credentials. Basic ID: @073upziw',
-            channel_id: '2008690282',
-            channel_secret: 'd0bcaa5333ac29f1b65b0a204268fe8a',
-            user_id: 'U4bc18b6ecbdc3f7984b2e249d16c854f',
-            channel_access_token: '0CTKYq9cLZJJIQJRufb1ozz52/njox/wjMHbT8JDMdzi6Xe2GtkUSmGRCxQKfHxS4aUs2xodx+eNWTanqhcMV3Ptd2TuNCahyUnEREagEU6C4Ti/BEDqVnca/sLiDvNdoSrlmgH5Hsq5t/l+dIXDWwdB04t89/1O/w1cDnyilFU=',
+            description: 'Bot created via Playwright using bot-test.txt credentials.',
+            channel_id: process.env.E2E_LINE_CHANNEL_ID ?? 'test_channel_id',
+            channel_secret: process.env.E2E_LINE_CHANNEL_SECRET ?? 'test_secret',
+            user_id: process.env.E2E_LINE_USER_ID ?? 'U_TEST_USER',
+            channel_access_token: process.env.E2E_LINE_CHANNEL_ACCESS_TOKEN ?? 'test_token',
             system_prompt: 'You are a test bot.'
         };
 
